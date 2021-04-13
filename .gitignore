@@ -1,5 +1,5 @@
 node_modules/
-modules/index.js
-serverBack.js
-serverFront.js
+#modules/index.js
+#serverBack.js
+#serverFront.js
 info.txt
