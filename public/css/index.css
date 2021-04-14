@@ -6,3 +6,36 @@
 .butao{
     margin: 5px;
 }
+
+#logo {
+    width: 100%;
+    max-width: 500px;
+}
+
+.input_senha {
+    position: relative;
+    width: 200px;
+    align-self: center;
+    right: auto;
+}
+
+input[type=password], input[type=text], input[type=email] {
+    width: 200px !important;
+}
+
+#toggle {
+    position: absolute;
+    /* top: 50%; */
+    right: 5px;
+    transform: translateY(-120%);
+    width: 20px;
+    height: 20px;
+    background: url('/img/show.png');
+    background-size: cover;
+    cursor: pointer;
+}
+
+#toggle.hide {
+    background: url('/img/hide.png');
+    background-size: cover;
+}

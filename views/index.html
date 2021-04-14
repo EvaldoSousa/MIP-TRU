@@ -20,20 +20,20 @@
 <body>
     <div class="container">
         <div class="col mx-auto text-center">
-            <img class="img-responsive col-xl-12" src="/img/logo.png" alt="">
+            <img class="img-responsive" id="logo" src="/img/logo.png" alt="">
 
             <div class="row align-items-center">
                 <div class="caixa col-md-6 mx-auto">
                     <h1 style="color: green;">MIP / TRU - Pesquisa Contas</h1>
                     <div class="campo">
                         <form action="">
-
                             <div class="entrada text-center">
                                 <div class="row-12">
                                     <input type="email" name="" id="" placeholder="E-mail">
                                 </div><br>
-                                <div class="row-12">
-                                    <input type="password" name="" id="" placeholder="Senha">
+                                <div class="row-12 mx-auto input_senha">
+                                    <input type="password" name="" id="password" placeholder="Senha">
+                                    <div id="toggle" onclick="showHide();"></div>
                                 </div>
                             </div>
                             <div class="form-group form-check">
@@ -69,6 +69,8 @@
 
     <!--Bootstrap-->
     <script src="/js/bootstrap.min.js"></script>
+
+    <script src="/js/index.js"></script>
 </body>
 
 </html>
