@@ -25,7 +25,6 @@ app.use(function(req, res, next){
     res.status(404).sendFile(path.join(__dirname + '/views/error404.html'));
 });
 
-
 http.createServer(app).listen(3001, () => {
     console.log("Servidor front-end na porta 3001🦽");}
 );
