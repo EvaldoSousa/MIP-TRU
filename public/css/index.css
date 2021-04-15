@@ -1,41 +1,50 @@
-.caixa{
-    background-color: rgb(220,220,220);
-    padding: 20px;
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+
+body{
+    margin: 0;
+    font-size: .9rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #212529;
+    text-align: left;
+    background-color: #f5f8fa;
 }
 
-.butao{
-    margin: 5px;
+.navbar-laravel
+{
+    box-shadow: 0 2px 4px rgba(0,0,0,.04);
 }
 
-#logo {
-    width: 100%;
-    max-width: 500px;
+.navbar-brand , .nav-link, .my-form, .login-form
+{
+    font-family: Raleway, sans-serif;
 }
 
-.input_senha {
-    position: relative;
-    width: 200px;
-    align-self: center;
-    right: auto;
+.my-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
-input[type=password], input[type=text], input[type=email] {
-    width: 200px !important;
+.my-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
 }
 
-#toggle {
-    position: absolute;
-    /* top: 50%; */
-    right: 5px;
-    transform: translateY(-120%);
-    width: 20px;
-    height: 20px;
-    background: url('/img/show.png');
-    background-size: cover;
-    cursor: pointer;
+.login-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
-#toggle.hide {
-    background: url('/img/hide.png');
-    background-size: cover;
+.login-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.rodape{
+    margin-left: 45%;
 }

@@ -43,20 +43,27 @@
     </nav>
   </header>
 
-
+  <!-- Cria uma lista com os erros do cadastro anterior -->
+<ul>
+  <% if(typeof errors != 'undefined') {%>
+    <% errors.forEach(error =>{ %>
+      <li><%= error.message %></li>
+    <% }) %>
+  <% } %>
+</ul>
   <div class="container">
     <main class="my-form">
-        <div class="cotainer">
+        <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">Cadastro</div>
                         <div class="card-body">
-                            <form name="my-form" onsubmit="return validform()"  method="">
+                            <form name="my-form" action="/cadastro" onsubmit="return validform()"  method="POST">
                                 <div class="form-group row">
                                     <label for="full_name" class="col-md-4 col-form-label text-md-right">Nome Completo</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="full_name" class="form-control" name="full-name">
+                                        <input type="text" id="full_name" class="form-control" name="nome" required>
                                     </div>
                                 </div>
 
@@ -64,40 +71,40 @@
                                     <label for="email_address" class="col-md-4 col-form-label text-md-right">Endereço de E-mail</label>
                                     <div class="col-md-6">
                                         <input type="email" id="email_address" class="form-control"
-                                            name="email-address">
+                                            name="email" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="user_name" class="col-md-4 col-form-label text-md-right">Nome de Usuário</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="user_name" class="form-control" name="username">
+                                        <input type="text" id="user_name" class="form-control" name="usuario" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="phone_number" class="col-md-4 col-form-label text-md-right">Número de telefone</label>
                                     <div class="col-md-6">
-                                        <input type="tel" name="phone_number" id="phone_number" class="form-control" placeholder="(xx) xxxxx xxxx">
+                                        <input type="tel" name="telefone" id="phone_number" class="form-control" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="Senha" class="col-md-4 col-form-label text-md-right">Senha</label>
                                     <div class="col-md-6">
-                                        <input type="password" id="Senha" class="form-control" name="senha">
-                                        <small id="passwordHelpBlock" class="form-text text-muted">
-                                          Para maior segurança a senha deve ter entre 8 e 20 caracteres, os quais devem conter letras e números.
-                                        </small>
+                                        <input type="password" id="Senha" class="form-control" name="senha" required>
                                     </div>
                                 </div>
 
-                                <!-- <div class="form-group row">
-                                    <label for="Senha" class="col-md-4 col-form-label text-md-right">Senha</label>
-                                    <div class="col-md-6">
-                                        <input type="password" class="form-control" name="senhaII">
-                                    </div>
-                                </div> -->
+                                <div class="form-group row">
+                                  <label for="Senha" class="col-md-4 col-form-label text-md-right">Confirme a Senha</label>
+                                  <div class="col-md-6">
+                                      <input type="password" id="Senha2" class="form-control" name="senha2" required>
+                                      <small id="passwordHelpBlock" class="form-text text-muted">
+                                        Para maior segurança a senha deve ter entre 8 e 20 caracteres, os quais devem conter letras e números.
+                                      </small>
+                                  </div>
+                              </div>
 
 
                                 <div class="col-md-6 offset-md-4">
@@ -119,7 +126,7 @@
 
   <footer>
     <div class="col-xg">
-      <nav class="navbar fixed-bottom navbar-light bg-sucess">
+      <nav class="navbar navbar-light bg-sucess">
         <div class="rodape"><a class="navbar-brand" href="#">@Unifesspa</a></div>
       </nav>
     </div> 

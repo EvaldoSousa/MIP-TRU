@@ -2,10 +2,11 @@
 
 CREATE TABLE usuarios
 (
-	nomecompleto VARCHAR(100) NOT NULL,
-	email VARCHAR(50) NOT NULL,
+	id BIGSERIAL PRIMARY KEY NOT NULL,
+	nome VARCHAR(100) NOT NULL,
+	email VARCHAR(100) NOT NULL,
 	nomeusuario VARCHAR(50) NOT NULL,
 	telefone VARCHAR(12) NOT NULL,
-	senha VARCHAR(100) NOT NULL,
-	PRIMARY KEY(email, nomeusuario)
+	senha VARCHAR(200) NOT NULL,
+	UNIQUE (email, nomeusuario)
 );
