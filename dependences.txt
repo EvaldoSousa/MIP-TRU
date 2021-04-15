@@ -1,9 +1,9 @@
-npm i ejs
+npm i --save ejs
 
-npm i dotenv
+npm i --save dotenv
 
-npm i bcrypt
+npm i --save bcrypt
 
-npm i express-session express-flash
+npm i --save express-session express-flash
 
-npm i passport passport-local
+npm i --save passport passport-local

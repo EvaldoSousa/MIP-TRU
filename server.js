@@ -50,7 +50,14 @@ app.get('/logout', (req, res) => {
     req.logOut();
     req.flash('success_msg', "Você se desconectou");
     res.redirect('/login');
-})
+});
+
+
+app.get('/editar', (req, res) => {
+    res.render("editarPerfil");
+});
+
+
 
 app.post("/cadastro", async (req, res) => {
     let { nome, email, usuario, telefone, senha, senha2 } = req.body;
