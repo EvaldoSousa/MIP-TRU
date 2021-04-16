@@ -6,8 +6,25 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const flash = require('express-flash');
 const passport = require('passport');
+const { Pool, Client } = require("pg");
+const cors = require('cors');
+app.use(cors());
+const db = require('./database');
 
-const initializePassport = require('./modules/passportConfig');
+// parse JSON (application/json content-type)
+app.use(express.json());
+
+// END-POINT mostrar entrada
+app.get('/entrada', (req, res, next) => {
+    db.query("SELECT * FROM entradas ;", [], (err, res2) => {
+        if (err) {
+            return next(err)
+        }
+        res.json(res2.rows);
+    })
+});
+
+const initializePassport = require('./database/passportConfig');
 
 initializePassport(passport);
 
@@ -61,14 +78,6 @@ app.get('/editar', (req, res) => {
 
 app.post("/cadastro", async (req, res) => {
     let { nome, email, usuario, telefone, senha, senha2 } = req.body;
-    console.log({
-        nome,
-        email,
-        usuario,
-        telefone,
-        senha,
-        senha2
-    });
 
     // cria um vetor de erros
     let errors = [];
@@ -90,7 +99,6 @@ app.post("/cadastro", async (req, res) => {
     } else {
         //Formulário foi validado
         var hashedPassword = await bcrypt.hash(senha, 10);
-        console.log(hashedPassword);
     }
 
     pool.query(
@@ -100,7 +108,6 @@ app.post("/cadastro", async (req, res) => {
                 throw err
             }
 
-            console.log(results.rows);
             // verifica se há algum usuario no banco de dados com o e-mail cadastrado
             if(results.rows.length > 0) {
                 errors.push({message: "E-mail já cadastrado"});
@@ -113,7 +120,6 @@ app.post("/cadastro", async (req, res) => {
                             throw err;
                         }
 
-                        console.log(results.rows);
                         if(results.rows.length > 0) {
                             errors.push({message: "Nome de Usuário já cadastrado"});
                             res.render('cadastro', { errors });
@@ -127,7 +133,6 @@ app.post("/cadastro", async (req, res) => {
                                         throw err
                                     }
             
-                                    console.log(results.rows);
                                     req.flash("success_msg", "Você agora está registrado. Por favor, faça login");
                                     res.redirect('/login');
                                 }
@@ -172,3 +177,42 @@ function checkNotAuthenticated(req, res, next) {
 app.listen(PORT, () => {
     console.log(`Servidor front-end na porta ${PORT}🦽`);
 });
+
+// // END-POINT deleta pessoa
+// server.delete("/usuarios", (req, res) => {
+//     const item = req.body;
+//     deletar(item.id);
+//     res.json(item);
+// })
+
+// function deletar(id){
+//     pool.connect((err, client, done) => {
+//         if (err) throw err
+//         client.query("DELETE FROM pessoas WHERE id = $1;", [id],
+//             (err, res) => {
+//                 done()
+//                 if (err) {
+//                     console.log(err.stack)
+//                 } else {
+//                     console.log(res.rows[0])
+//                 }
+//             })
+//     })
+// }
+
+//==================================================================================================
+
+function mostrarTodos() {
+    poolPostgres.connect((err, client, done) => {
+        if (err) throw err
+        client.query("SELECT * FROM entradas ", [],
+            (err, res) => {
+                done()
+                if (err) {
+                    console.log(err.stack)
+                } else {
+                    console.log(res.rows[0])
+                }
+            })
+    })
+}

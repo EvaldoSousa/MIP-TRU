@@ -1,7 +1,7 @@
 let data = [];
 
 function updateData() {
-    return axios.get('http://localhost:3000/entrada', {
+    return axios.get('http://localhost:3001/entrada', {
     }
     )
         .then(function (response) {
