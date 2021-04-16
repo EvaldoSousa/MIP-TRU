@@ -19,20 +19,22 @@
 
 <body>
     <!-- Cria uma lista com as mensagens ao ser redirecionado após um cadastro -->
-    <ul>
-        <% if(messages.success_msg) {%>
-            <li>
-                <%= messages.success_msg %>
-            </li>
-        <% } %>
-    </ul>
-    <ul>
-        <% if(messages.error) {%>
-            <li>
-                <%= messages.error %>
-            </li>
-        <% } %>
-    </ul>
+    <% if(messages.success_msg) {%>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= messages.success_msg %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <% } %>
+    <% if(messages.error) {%>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= messages.error %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <% } %>
     <div class="container">
         <div class="col mx-auto text-center">
             <img class="img-responsive" id="logo" src="/img/logo.png" alt="">
@@ -53,7 +55,8 @@
                             </div>
                             <div class="form-group form-check">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Lembre de mim</label>
+                                <label class="form-check-label" for="exampleCheck1">Lembre de
+                                    mim</label>
                             </div>
                             <button type="submit" class="btn btn-success btn-lg btn-block">Entrar</button>
                         </form>

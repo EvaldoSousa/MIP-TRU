@@ -10,6 +10,7 @@ const { Pool, Client } = require("pg");
 const cors = require('cors');
 app.use(cors());
 const db = require('./database');
+const phone_format = require('./public/js/cadastro');
 
 // parse JSON (application/json content-type)
 app.use(express.json());
@@ -24,20 +25,23 @@ app.get('/entrada', (req, res, next) => {
     })
 });
 
+// Inicializa o Passport
 const initializePassport = require('./database/passportConfig');
-
 initializePassport(passport);
 
+// Escolhe a porta da conexão
 const PORT = process.env.PORT || 3001;
 
-//rota para arquivos estáticos (img, css, js)
+// rota para arquivos estáticos (img, css, js)
 app.use(express.static("public"));
 
+// middleware pra trabalhar com arquivos ejs
 app.set('view engine', 'ejs');
 
 //envia informações do front para o server
 app.use(express.urlencoded({ extended: false }))
 
+// usa o session para criar um "segredo" pra conexão
 app.use(session({
     secret: 'secret',
 
@@ -51,31 +55,34 @@ app.use(passport.session());
 
 app.use(flash())
 
+// rota para página inicial
 app.get("/", checkNotAuthenticated, (req, res) => {
     res.render('index');
 });
 
+// rota para tabela
 app.get("/table", checkNotAuthenticated, (req, res) => {
     res.render("table");
 });
 
+// rota para página de cadastro
 app.get("/cadastro", (req, res) => {
     res.render("cadastro");
 });
 
+// rota para finalizar sessão
 app.get('/logout', (req, res) => {
     req.logOut();
     req.flash('success_msg', "Você se desconectou");
     res.redirect('/login');
 });
 
-
+// rota para página de edição de perfil
 app.get('/editar', (req, res) => {
     res.render("editarPerfil");
 });
 
-
-
+// rota para cadastrar usuários
 app.post("/cadastro", async (req, res) => {
     let { nome, email, usuario, telefone, senha, senha2 } = req.body;
 
@@ -119,7 +126,7 @@ app.post("/cadastro", async (req, res) => {
                         if(err) {
                             throw err;
                         }
-
+                        // verifica se há algum usuario no banco de dados com o nome de usuário cadastrado
                         if(results.rows.length > 0) {
                             errors.push({message: "Nome de Usuário já cadastrado"});
                             res.render('cadastro', { errors });
@@ -127,7 +134,7 @@ app.post("/cadastro", async (req, res) => {
                             pool.query(
                                 `INSERT INTO usuarios (nome, email, nomeusuario, telefone, senha)
                                 VALUES ($1, $2, $3, $4, $5)
-                                RETURNING id, senha`, [nome, email, usuario, telefone, hashedPassword], 
+                                RETURNING id, senha`, [nome, email, usuario, phone_format(telefone), hashedPassword], 
                                 (err, results) => {
                                     if(err) {
                                         throw err
@@ -145,37 +152,44 @@ app.post("/cadastro", async (req, res) => {
     )
 });
 
+// rota para página de login
 app.get("/login", checkAuthenticated, (req, res) => {
     res.render("login");
 });
 
+// rota para página de erro 404
 // app.use(function(req, res, next){
 //     res.status(404).render("error404");
 // });
 
+// rota para autenticação de login
 app.post('/login', passport.authenticate('local', {
     successRedirect: "/",
     failureRedirect: "/login",
     failureFlash: true
 }));
 
+// função de verificação de autenticação
 function checkAuthenticated(req, res, next){
+    // se estiver autenticado, redireciona para página inicial
     if (req.isAuthenticated()) {
         return res.redirect('/');
     }
     next();
 }
 
+// função de verificação de não-autenticação
 function checkNotAuthenticated(req, res, next) {
     if(req.isAuthenticated()) {
         return next();
     }
-
+    // se não estiver autenticado, redireciona para página de login
     res.redirect('/login');
 }
 
+// starta o servidor
 app.listen(PORT, () => {
-    console.log(`Servidor front-end na porta ${PORT}🦽`);
+    console.log(`Servidor na porta ${PORT}🦽`);
 });
 
 // // END-POINT deleta pessoa
