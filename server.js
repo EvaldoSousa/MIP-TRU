@@ -202,6 +202,56 @@ app.listen(PORT, () => {
 
 //==================================================================================================
 
+app.post("/cadastro", async (req, res) => {
+    
+    let nameUser;
+
+   
+    pool.query(
+        `SELECT * FROM usuarios
+        WHERE nome = $1`, [nome], (err, results) => {
+            if(err) {
+                throw err
+            }
+
+            // verifica se há algum usuario no banco de dados com o e-mail cadastrado
+            if(results.rows.length > 0) {
+                errors.push({message: "E-mail já cadastrado"});
+                res.render('cadastro', { errors });
+            } else {
+                pool.query(
+                    `SELECT * FROM usuarios
+                    WHERE nomeusuario = $1`, [usuario], (err, results) => {
+                        if(err) {
+                            throw err;
+                        }
+
+                        if(results.rows.length > 0) {
+                            errors.push({message: "Nome de Usuário já cadastrado"});
+                            res.render('cadastro', { errors });
+                        } else {
+                            pool.query(
+                                `INSERT INTO usuarios (nome, email, nomeusuario, telefone, senha)
+                                VALUES ($1, $2, $3, $4, $5)
+                                RETURNING id, senha`, [nome, email, usuario, telefone, hashedPassword], 
+                                (err, results) => {
+                                    if(err) {
+                                        throw err
+                                    }
+            
+                                    req.flash("success_msg", "Você agora está registrado. Por favor, faça login");
+                                    res.redirect('/login');
+                                }
+                            );
+                        }
+                    }
+                );
+            }
+        }
+    )
+});
+//==================================================================================================
+
 function mostrarTodos() {
     poolPostgres.connect((err, client, done) => {
         if (err) throw err

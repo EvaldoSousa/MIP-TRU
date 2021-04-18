@@ -26,12 +26,32 @@
 </head>
 
 <body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
+          <div class="container">
+            <a class="navbar-brand" href="/inicial">UNIFESSPA</a>
+    
+            <div class="dropdown">
+              <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Usuário
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Perfil</a>
+                <a class="dropdown-item" href="#">Sair</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+
     <div class="container mt-5">
         <div class="table table-">
             <table id="example" class="display" style="width:100%">
                 <caption>Entradas / Saídas 2018</caption>
                 <thead class="thead-dark">
-                    <tr>
+                    <tr> 
                         <th>Ano</th>
                         <th>Entrada/Saida</th>
                         <th>Destinatario</th>
@@ -52,6 +72,14 @@
             </table>
         </div>
     </div>
+
+    <footer>
+        <div class="col-xg">
+          <nav class="navbar navbar-light bg-sucess">
+            <div class="rodape"><a class="navbar-brand" href="#">@Unifesspa</a></div>
+          </nav>
+        </div> 
+      </footer>
     
     <!--Jquey-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
