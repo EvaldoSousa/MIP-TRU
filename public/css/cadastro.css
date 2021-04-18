@@ -12,3 +12,7 @@
 {
     font-family: Raleway, sans-serif;
 }
+
+.alert {
+    margin-bottom: 5px !important;
+}
