@@ -12,6 +12,8 @@ app.use(cors());
 const db = require('./database');
 const phone_format = require('./public/js/cadastro');
 
+let nameUser;
+
 // parse JSON (application/json content-type)
 app.use(express.json());
 
@@ -57,7 +59,7 @@ app.use(flash())
 
 // rota para página inicial
 app.get("/", checkNotAuthenticated, (req, res) => {
-    res.render('index');
+    res.render('index', {user: req.user.nome});
 });
 
 // rota para tabela
@@ -70,16 +72,16 @@ app.get("/cadastro", (req, res) => {
     res.render("cadastro");
 });
 
+// rota para página de edição de perfil
+app.get('/editar', (req, res) => {
+    res.render("editarPerfil", {user: req.user.nome});
+});
+
 // rota para finalizar sessão
 app.get('/logout', (req, res) => {
     req.logOut();
     req.flash('success_msg', "Você se desconectou");
     res.redirect('/login');
-});
-
-// rota para página de edição de perfil
-app.get('/editar', (req, res) => {
-    res.render("editarPerfil");
 });
 
 // rota para cadastrar usuários
@@ -91,18 +93,18 @@ app.post("/cadastro", async (req, res) => {
 
     // após verificações, adiciona erros no vetor
     if (!nome || !email || !usuario || !telefone || !senha || !senha2) {
-        errors.push({message: "Por favor preencha todos os campos"});
+        errors.push({ message: "Por favor preencha todos os campos" });
     }
-    if(senha.length < 6) {
-        errors.push({message: "Senha deve ter no mínimo 6 caracteres"});
+    if (senha.length < 6) {
+        errors.push({ message: "Senha deve ter no mínimo 6 caracteres" });
     }
-    if(senha != senha2) {
-        errors.push({message: "As senhas não estão iguais"});
+    if (senha != senha2) {
+        errors.push({ message: "As senhas não estão iguais" });
     }
 
     // caso haja erros, renderiza a página cadastro com os erros
-    if(errors.length > 0) {
-        res.render('cadastro', {errors});
+    if (errors.length > 0) {
+        res.render('cadastro', { errors });
     } else {
         //Formulário foi validado
         var hashedPassword = await bcrypt.hash(senha, 10);
@@ -111,44 +113,41 @@ app.post("/cadastro", async (req, res) => {
     pool.query(
         `SELECT * FROM usuarios
         WHERE email = $1`, [email], (err, results) => {
-            if(err) {
-                throw err
-            }
 
-            // verifica se há algum usuario no banco de dados com o e-mail cadastrado
-            if(results.rows.length > 0) {
-                errors.push({message: "E-mail já cadastrado"});
-                res.render('cadastro', { errors });
-            } else {
-                pool.query(
-                    `SELECT * FROM usuarios
+        // verifica se há algum usuario no banco de dados com o e-mail cadastrado
+        if (results.rows.length > 0) {
+            errors.push({ message: "E-mail já cadastrado" });
+            res.render('cadastro', { errors });
+        } else {
+            pool.query(
+                `SELECT * FROM usuarios
                     WHERE nomeusuario = $1`, [usuario], (err, results) => {
-                        if(err) {
-                            throw err;
-                        }
-                        // verifica se há algum usuario no banco de dados com o nome de usuário cadastrado
-                        if(results.rows.length > 0) {
-                            errors.push({message: "Nome de Usuário já cadastrado"});
-                            res.render('cadastro', { errors });
-                        } else {
-                            pool.query(
-                                `INSERT INTO usuarios (nome, email, nomeusuario, telefone, senha)
+                if (err) {
+                    throw err;
+                }
+                // verifica se há algum usuario no banco de dados com o nome de usuário cadastrado
+                if (results.rows.length > 0) {
+                    errors.push({ message: "Nome de Usuário já cadastrado" });
+                    res.render('cadastro', { errors });
+                } else {
+                    pool.query(
+                        `INSERT INTO usuarios (nome, email, nomeusuario, telefone, senha)
                                 VALUES ($1, $2, $3, $4, $5)
-                                RETURNING id, senha`, [nome, email, usuario, phone_format(telefone), hashedPassword], 
-                                (err, results) => {
-                                    if(err) {
-                                        throw err
-                                    }
-            
-                                    req.flash("success_msg", "Você agora está registrado. Por favor, faça login");
-                                    res.redirect('/login');
-                                }
-                            );
+                                RETURNING id, senha`, [nome, email, usuario, phone_format(telefone), hashedPassword],
+                        (err, results) => {
+                            if (err) {
+                                throw err
+                            }
+
+                            req.flash("success_msg", "Você agora está registrado. Por favor, faça login");
+                            res.redirect('/login');
                         }
-                    }
-                );
+                    );
+                }
             }
+            );
         }
+    }
     )
 });
 
@@ -170,7 +169,7 @@ app.post('/login', passport.authenticate('local', {
 }));
 
 // função de verificação de autenticação
-function checkAuthenticated(req, res, next){
+function checkAuthenticated(req, res, next) {
     // se estiver autenticado, redireciona para página inicial
     if (req.isAuthenticated()) {
         return res.redirect('/');
@@ -180,7 +179,7 @@ function checkAuthenticated(req, res, next){
 
 // função de verificação de não-autenticação
 function checkNotAuthenticated(req, res, next) {
-    if(req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
         return next();
     }
     // se não estiver autenticado, redireciona para página de login
@@ -216,54 +215,7 @@ app.listen(PORT, () => {
 
 //==================================================================================================
 
-app.post("/cadastro", async (req, res) => {
-    
-    let nameUser;
 
-   
-    pool.query(
-        `SELECT * FROM usuarios
-        WHERE nome = $1`, [nome], (err, results) => {
-            if(err) {
-                throw err
-            }
-
-            // verifica se há algum usuario no banco de dados com o e-mail cadastrado
-            if(results.rows.length > 0) {
-                errors.push({message: "E-mail já cadastrado"});
-                res.render('cadastro', { errors });
-            } else {
-                pool.query(
-                    `SELECT * FROM usuarios
-                    WHERE nomeusuario = $1`, [usuario], (err, results) => {
-                        if(err) {
-                            throw err;
-                        }
-
-                        if(results.rows.length > 0) {
-                            errors.push({message: "Nome de Usuário já cadastrado"});
-                            res.render('cadastro', { errors });
-                        } else {
-                            pool.query(
-                                `INSERT INTO usuarios (nome, email, nomeusuario, telefone, senha)
-                                VALUES ($1, $2, $3, $4, $5)
-                                RETURNING id, senha`, [nome, email, usuario, telefone, hashedPassword], 
-                                (err, results) => {
-                                    if(err) {
-                                        throw err
-                                    }
-            
-                                    req.flash("success_msg", "Você agora está registrado. Por favor, faça login");
-                                    res.redirect('/login');
-                                }
-                            );
-                        }
-                    }
-                );
-            }
-        }
-    )
-});
 //==================================================================================================
 
 function mostrarTodos() {
