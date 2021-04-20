@@ -73,8 +73,8 @@ app.get("/cadastro", (req, res) => {
 });
 
 // rota para página de edição de perfil
-app.get('/editar', (req, res) => {
-    res.render("editarPerfil", {user: req.user.nome});
+app.get('/editar', checkNotAuthenticated, (req, res) => {
+    res.render("editarPerfil", {user: req.user.nome, nick: req.user.nomeusuario, senha: req.user.senha});
 });
 
 // rota para finalizar sessão
