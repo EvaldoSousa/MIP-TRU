@@ -12,7 +12,6 @@ module.exports = (request) => {
     const profile = request.user.perfil;
     const method = request.method;
 
-    console.log(originalUrl);
     //switch/case para tomada de decisão sobre autorizações
     switch(originalUrl){
         case '/': return true;

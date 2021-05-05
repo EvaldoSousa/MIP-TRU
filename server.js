@@ -60,8 +60,7 @@ app.use(flash())
 
 // rota para página inicial
 app.get("/", checkNotAuthenticated, (req, res) => {
-    console.log(permission(req));
-    res.render('index', {user: req.user.nome});
+    res.render('index', {user: req.user.nome, profile: req.user.perfil});
 });
 
 // rota para tabela
@@ -71,8 +70,6 @@ app.get("/table", checkNotAuthenticated, (req, res) => {
 
 // rota para página de cadastro
 app.get("/cadastro", checkNotAuthenticated, (req, res) => {
-    console.log(permission(req));
-    console.log(req.user.perfil);
     res.render("cadastro");
 });
 
