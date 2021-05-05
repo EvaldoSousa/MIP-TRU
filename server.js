@@ -11,6 +11,7 @@ const cors = require('cors');
 app.use(cors());
 const db = require('./database');
 const phone_format = require('./public/js/cadastro');
+const permission = require('./permissions');
 
 let nameUser;
 
@@ -59,7 +60,7 @@ app.use(flash())
 
 // rota para página inicial
 app.get("/", checkNotAuthenticated, (req, res) => {
-    res.render('index', { user: req.user.nome });
+    res.render('index', {user: req.user.nome, profile: req.user.perfil});
 });
 
 // rota para tabela
@@ -68,7 +69,7 @@ app.get("/table", checkNotAuthenticated, (req, res) => {
 });
 
 // rota para página de cadastro
-app.get("/cadastro", (req, res) => {
+app.get("/cadastro", checkNotAuthenticated, (req, res) => {
     res.render("cadastro");
 });
 
@@ -100,13 +101,15 @@ app.get('/logout', (req, res) => {
 
 // rota para cadastrar usuários
 app.post("/cadastro", async (req, res) => {
-    let { nome, email, usuario, telefone, senha, senha2 } = req.body;
+    let { nome, sobrenome, email, usuario, telefone, perfil, senha, senha2 } = req.body;
+
+    console.log(nome, sobrenome, email, usuario, telefone, perfil, senha, senha2);
 
     // cria um vetor de erros
     let errors = [];
 
     // após verificações, adiciona erros no vetor
-    if (!nome || !email || !usuario || !telefone || !senha || !senha2) {
+    if (!nome || !sobrenome || !email || !usuario || !telefone || !senha || !senha2) {
         errors.push({ message: "Por favor preencha todos os campos" });
     }
     if (senha.length < 6) {
@@ -145,9 +148,9 @@ app.post("/cadastro", async (req, res) => {
                     res.render('cadastro', { errors });
                 } else {
                     pool.query(
-                        `INSERT INTO usuarios (nome, email, nomeusuario, telefone, senha)
-                                VALUES ($1, $2, $3, $4, $5)
-                                RETURNING id, senha`, [nome, email, usuario, phone_format(telefone), hashedPassword],
+                        `INSERT INTO usuarios (nome, sobrenome, email, nomeusuario, telefone, perfil, senha)
+                                VALUES ($1, $2, $3, $4, $5, $6, $7)
+                                RETURNING id, senha`, [nome, sobrenome, email, usuario, phone_format(telefone), perfil, hashedPassword],
                         (err, results) => {
                             if (err) {
                                 throw err
@@ -198,7 +201,7 @@ app.post('/login', passport.authenticate('local', {
 // função de verificação de autenticação
 function checkAuthenticated(req, res, next) {
     // se estiver autenticado, redireciona para página inicial
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated() && permission(req)) {
         return res.redirect('/');
     }
     next();
@@ -206,7 +209,7 @@ function checkAuthenticated(req, res, next) {
 
 // função de verificação de não-autenticação
 function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated() && permission(req)) {
         return next();
     }
     // se não estiver autenticado, redireciona para página de login

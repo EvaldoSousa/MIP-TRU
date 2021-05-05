@@ -67,7 +67,8 @@
                                 <div class="form-group row">
                                     <label for="full_name" class="col-md-4 col-form-label text-md-right">Nome Completo</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="full_name" class="form-control" name="nome" required>
+                                        <input type="text" id="name" class="form-control" placeholder="Nome" name="nome" required>
+                                        <input type="text" id="last_name" placeholder="Sobrenome" class="form-control" name="sobrenome" required>
                                     </div>
                                 </div>
 
@@ -94,6 +95,16 @@
                                 </div>
 
                                 <div class="form-group row">
+                                  <label for="profile" class="col-md-4 col-form-label text-md-right">Perfil</label>
+                                  <div class="col-md-6">
+                                      <select name="perfil" id="profile" class="form-control" required>
+                                        <option value="1">Usuário</option>
+                                        <option value="2">Administrador</option>
+                                      </select>
+                                  </div>
+                              </div>
+
+                                <div class="form-group row">
                                     <label for="Senha" class="col-md-4 col-form-label text-md-right">Senha</label>
                                     <div class="col-md-6">
                                         <input type="password" id="Senha" class="form-control" name="senha" required>
@@ -101,7 +112,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                  <label for="Senha" class="col-md-4 col-form-label text-md-right">Confirme a Senha</label>
+                                  <label for="Senha2" class="col-md-4 col-form-label text-md-right">Confirme a Senha</label>
                                   <div class="col-md-6">
                                       <input type="password" id="Senha2" class="form-control" name="senha2" required>
                                       <small id="passwordHelpBlock" class="form-text text-muted">

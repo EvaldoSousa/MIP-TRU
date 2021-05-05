@@ -33,7 +33,11 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="/editar">Perfil</a>
+            <%
+            if(profile == '2') { 
+            %>
             <a class="dropdown-item" href="/cadastro">Cadastro</a>
+            <% } %>
             <a class="dropdown-item" href="/logout">Sair</a>
           </div>
         </div>
