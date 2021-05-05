@@ -16,7 +16,7 @@
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
-  <title>Document</title>
+  <title>Editar Perfil</title>
 </head>
 
 <body>
@@ -49,7 +49,9 @@
       <h1 class="display-4">
         <%= user %>
       </h1>
-      <p class="lead"> <%= nick %> </p>
+      <p class="lead">
+        <%= nick %>
+      </p>
       <hr class="my-4">
 
       <div class="container mr-5">
@@ -64,13 +66,14 @@
           </div>
 
           <div class="col-2">
+
             <p>
               <%= user %>
             </p>
           </div>
 
           <div class="col-1">
-            <a href="#">Editar</a>
+            <button class="btn btn-outline-primary" onclick="telaEdita()">Editar</button>
           </div>
 
         </div>
@@ -83,12 +86,12 @@
 
           <div class="col-2">
             <p>
-              4002-8922
+              <%= ntelefone %>
             </p>
           </div>
 
           <div class="col-1">
-            <a href="#">Editar</a>
+            <button class="btn btn-outline-primary" onclick="telaEdita()">Editar</button>
           </div>
 
         </div>
@@ -106,7 +109,7 @@
           </div>
 
           <div class="col-1">
-            <a href="#">Editar</a>
+            <button class="btn btn-outline-primary" onclick="telaEdita()">Editar</button>
           </div>
 
         </div>
@@ -124,7 +127,7 @@
           </div>
 
           <div class="col-1">
-            <a href="#">Editar</a>
+            <button class="btn btn-outline-primary" onclick="telaEdita()">Editar</button>
           </div>
 
         </div>
@@ -134,16 +137,9 @@
   </div>
 
 
-
-
-
-
-
-
-
-
   <footer>
     <div class="col-xg">
+
       <nav class="navbar fixed-bottom navbar-light bg-sucess">
         <div class="rodape"><a class="navbar-brand" href="#">@Unifesspa</a></div>
       </nav>

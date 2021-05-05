@@ -59,7 +59,7 @@ app.use(flash())
 
 // rota para página inicial
 app.get("/", checkNotAuthenticated, (req, res) => {
-    res.render('index', {user: req.user.nome});
+    res.render('index', { user: req.user.nome });
 });
 
 // rota para tabela
@@ -74,7 +74,12 @@ app.get("/cadastro", (req, res) => {
 
 // rota para página de edição de perfil
 app.get('/editar', checkNotAuthenticated, (req, res) => {
-    res.render("editarPerfil", {user: req.user.nome, nick: req.user.nomeusuario, senha: req.user.senha});
+    res.render("editarPerfil", {
+        user: req.user.nome,
+        nick: req.user.nomeusuario,
+        ntelefone: req.user.telefone,
+        senha: req.user.senha
+    });
 });
 
 // rota para finalizar sessão
@@ -83,6 +88,15 @@ app.get('/logout', (req, res) => {
     req.flash('success_msg', "Você se desconectou");
     res.redirect('/login');
 });
+
+
+//------------------------E D I T A R  C A D A S T R O ----------------------------------------//
+//rota para atualizar cadastro
+// app.update('/editar', (err, res) => {
+//     res.render("editar");
+// })
+
+//------------------------E D I T A R  C A D A S T R O ----------------------------------------//
 
 // rota para cadastrar usuários
 app.post("/cadastro", async (req, res) => {
@@ -150,6 +164,19 @@ app.post("/cadastro", async (req, res) => {
     }
     )
 });
+
+//------------------------E D I T A R  C A D A S T R O ----------------------------------------//
+// app.update("/editar", (err, res) => {
+//     pool.query(
+//         "UPDATE usuarios FROM nome = 'updateNome' WHERE $1", [nome], (err, results) => {
+
+//         }
+//     )
+// })
+
+//------------------------E D I T A R  C A D A S T R O ----------------------------------------//
+
+
 
 // rota para página de login
 app.get("/login", checkAuthenticated, (req, res) => {

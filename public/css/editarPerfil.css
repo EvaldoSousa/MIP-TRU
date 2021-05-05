@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
 .rodape{
     margin-left: 45%;
 }
@@ -5,3 +7,18 @@
 .imagem{
     width: 30px;
 }
+
+.row{
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.row:hover{
+    color: #124ebe;
+}
+
+.container{
+    padding-bottom: 10px;
+}
+
+
