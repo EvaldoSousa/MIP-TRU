@@ -86,7 +86,7 @@
                           <div class="form-group row">
                             <label for="user_name" class="col-md-4 col-form-label text-md-right">Nome de Usuário:</label>
                             <div class="col-md-6">
-                              <input type="text" id="user_name" class="form-control" name="usuario" required>
+                              <input type="text" id="user_name" class="form-control" name="usuario" autocomplete="false" required>
                             </div>
                           </div>
 
@@ -103,7 +103,7 @@
                             <label for="profile" class="col-md-4 col-form-label text-md-right">Perfil:</label>
                             <div class="col-md-6">
                               <select name="perfil" id="profile" class="form-control" required>
-                                <option value="1">Usuário</option>
+                                <option value="1">Padrão</option>
                                 <option value="2">Administrador</option>
                               </select>
                             </div>
@@ -112,7 +112,7 @@
                           <div class="form-group row">
                             <label for="Senha" class="col-md-4 col-form-label text-md-right">Senha:</label>
                             <div class="col-md-6">
-                              <input type="password" id="Senha" class="form-control" name="senha" onchange="verificaSenha()" required>
+                              <input type="password" id="Senha" class="form-control" name="senha" autocomplete="new-password" onchange="verificaSenha()" required>
                             </div>
                           </div>
 
@@ -131,8 +131,8 @@
                           </div>
 
 
-                          <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-success" id="botaoCadastrar"
+                          <div class="col-4 mx-auto">
+                            <button type="submit" class="btn btn-success btn-block mt-3" id="botaoCadastrar"
                               name="botaoCadastrar">Cadastrar</button>
                           </div>
                       </div>
@@ -152,7 +152,7 @@
           <footer>
             <div class="col-xg">
               <nav class="navbar navbar-light bg-sucess">
-                <div class="rodape"><a class="navbar-brand" href="/">@Unifesspa</a></div>
+                <div class="rodape mx-auto"><a class="navbar-brand" href="/">@Unifesspa</a></div>
               </nav>
             </div>
           </footer>

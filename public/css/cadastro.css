@@ -24,3 +24,13 @@ body {
 .alert {
     margin-bottom: 5px !important;
 }
+
+#botaoCadastrar {
+    border-radius: 50px;
+}
+
+#botaoCadastrar:hover {
+    background-color: white !important;
+    color: #28a745 !important;
+    border-color: #28a745 !important;
+}
