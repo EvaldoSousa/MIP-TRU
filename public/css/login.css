@@ -1,10 +1,23 @@
-.caixa{
-    background-color: rgb(220,220,220);
-    padding: 20px;
+body {
+    background-color: #f5f8fa !important;
 }
 
-.butao{
-    margin: 5px;
+* {
+    font-family: 'Raleway' !important;
+}
+
+.caixa{
+    background-color: white;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    padding: 20px;
+    box-shadow: 10px 5px black;
+    -webkit-box-shadow: 3px 3px 18px -4px rgba(0,0,0,0.51);
+    -moz-box-shadow: 3px 3px 18px -4px rgba(0,0,0,0.51);
+    box-shadow: 3px 3px 18px -4px rgba(0,0,0,0.51);
+    position: absolute;
+    top: calc(50% - 200px);
 }
 
 #logo {
@@ -19,23 +32,101 @@
     right: auto;
 }
 
+
 input[type=password], input[type=text], input[type=email] {
+    padding-left: 40px;
+    border-radius: 0 !important;
     width: 200px !important;
+    border: none;
+    border-bottom: 1px solid #484e53;
+    outline: none;
+    background-color: white !important;
+}
+
+input:placeholder-shown {
+    margin-left: 4px;
+}
+
+/* Para alterar a cor do auto-preenchimento */
+input:-webkit-autofill
+{    
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    -webkit-text-fill-color: black !important;
+}
+
+input:-webkit-autofill:hover {
+    -webkit-background-clip: #f5f8fa !important;
+}
+
+input:focus{ 
+    outline: none !important;
+}
+
+input {
+    color: black !important;
+}
+
+input:hover {
+    background-color: #f5f8fa !important;
 }
 
 #toggle {
     position: absolute;
     /* top: 50%; */
     right: 5px;
-    transform: translateY(-120%);
+    transform: translateY(50%);
     width: 20px;
     height: 20px;
     background: url('/img/show.png');
     background-size: cover;
     cursor: pointer;
+    z-index: 10;
+}
+
+#icon-user {
+    position: absolute;
+    left: 5px;
+    transform: translateY(50%);
+    width: 20px;
+    height: 20px;
+    background: url('/img/user.png');
+    background-size: cover;
+    z-index: 10;
+}
+
+#icon-password {
+    position: absolute;
+    left: 5px;
+    transform: translateY(50%);
+    width: 20px;
+    height: 20px;
+    background: url('/img/lock.png');
+    background-size: cover;
+    z-index: 10;
 }
 
 #toggle.hide {
     background: url('/img/hide.png');
     background-size: cover;
+    z-index: 10;
 }
+
+.title {
+    color: #155130 !important;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#botao {
+    border-radius: 50px;
+}
+
+@media screen and (max-width: 400px) {
+    body {
+        background-color: white !important;
+    }
+    .caixa {
+        box-shadow: none;
+        background-color: white;
+    }
+ }

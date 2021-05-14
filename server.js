@@ -10,7 +10,7 @@ const { Pool, Client } = require("pg");
 const cors = require('cors');
 app.use(cors());
 const db = require('./database');
-const phone_format = require('./public/js/cadastro');
+const phone_format = require('./public/js/functions');
 const permission = require('./permissions');
 
 let nameUser;
@@ -75,7 +75,7 @@ app.get("/cadastro", checkNotAuthenticated, (req, res) => {
 
 // rota para página de edição de perfil
 app.get('/editar', checkNotAuthenticated, (req, res) => {
-    res.render("editarPerfil", {user: req.user.nome, nick: req.user.nomeusuario, senha: req.user.senha});
+    res.render("editarPerfil", {nome: req.user.nome, sobrenome: req.user.sobrenome, nick: req.user.nomeusuario, senha: req.user.senha});
 });
 
 // rota para finalizar sessão

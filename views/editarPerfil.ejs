@@ -6,6 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- favicon -->
+  <link rel="shortcut icon" href="/img/logoIcon.png" />
+
   <!--Link css Local-->
   <link rel="stylesheet" href="/css/editarPerfil.css">
 
@@ -32,7 +35,6 @@
             Usuário
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Perfil</a>
             <a class="dropdown-item" href="/cadastro">Cadastro</a>
             <a class="dropdown-item" href="/logout">Sair</a>
           </div>
@@ -47,9 +49,11 @@
     <div class="text-center">
 
       <h1 class="display-4">
-        <%= user %>
+        <%= nome %>
       </h1>
-      <p class="lead"> <%= nick %> </p>
+      <p class="lead">
+        <%= nick %>
+      </p>
       <hr class="my-4">
 
       <div class="container mr-5">
@@ -65,7 +69,8 @@
 
           <div class="col-2">
             <p>
-              <%= user %>
+              <%= nome %>
+                <%= sobrenome %>
             </p>
           </div>
 
@@ -144,8 +149,8 @@
 
   <footer>
     <div class="col-xg">
-      <nav class="navbar fixed-bottom navbar-light bg-sucess">
-        <div class="rodape"><a class="navbar-brand" href="#">@Unifesspa</a></div>
+      <nav class="navbar navbar-light bg-sucess">
+        <div class="rodape"><a class="navbar-brand" href="/">@Unifesspa</a></div>
       </nav>
     </div>
   </footer>

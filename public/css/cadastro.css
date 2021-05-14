@@ -1,5 +1,13 @@
+body {
+    background-color: #f5f8fa !important;
+}
+
 .rodape{
     margin-left: 45%;
+}
+
+.navbar-light.navbar-laravel{
+    background-color: white !important;
 }
 
 .navbar-laravel
