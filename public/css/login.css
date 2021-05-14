@@ -121,6 +121,12 @@ input:hover {
     border-radius: 50px;
 }
 
+#botao:hover {
+    background-color: white !important;
+    color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
 @media screen and (max-width: 400px) {
     body {
         background-color: white !important;
