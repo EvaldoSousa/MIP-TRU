@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueci Minha Senha</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/img/logoIcon.png" />
+
+    <link rel="stylesheet" href="/css/forgot.css">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Cria uma lista com os erros -->
+  <% if(typeof errors !='undefined' ) {%>
+    <% errors.forEach(error=>{ %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error.message %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <% }) %>
+        <% } %>
+
+    <div class="container-fluid">
+        <div class="row form-login justify-content-center p-4">
+            <div class="align-self-center area-form caixa">
+
+                <a href="/login"><div id="close-icon"></div></a>
+
+                <div class="row justify-content-center mb-4">
+                    <img src="img/logo.png" id="logo">
+                </div>
+
+                <span class="d-block text-center title mb-2">Lembrar Senha</span>
+                <form action="/forgot" method="POST">
+                    <p class="form-text text-muted text-center">
+                        Digite o e-mail de cadastro abaixo para receber novas credenciais de acesso:
+                    </p>
+                    <div class="input-group col-10 mx-auto mt-2">
+                        <input type="email" class="form-control bg-light btn-outline-secondary shadow-none" name="email" placeholder="E-mail">
+                        <div id="icon-email"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8 mx-auto">
+                            <button type="submit" id="botao" class="btn btn-success btn-block mt-2">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--Jquey-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+
+    <!--Bootstrap-->
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

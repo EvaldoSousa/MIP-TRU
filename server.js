@@ -60,7 +60,7 @@ app.use(flash())
 
 // rota para página inicial
 app.get("/", checkNotAuthenticated, (req, res) => {
-    res.render('index', {user: req.user.nome, profile: req.user.perfil});
+    res.render('index', { user: req.user.nome, profile: req.user.perfil });
 });
 
 // rota para tabela
@@ -75,7 +75,7 @@ app.get("/cadastro", checkNotAuthenticated, (req, res) => {
 
 // rota para página de edição de perfil
 app.get('/editar', checkNotAuthenticated, (req, res) => {
-    res.render("editarPerfil", {nome: req.user.nome, sobrenome: req.user.sobrenome, nick: req.user.nomeusuario, senha: req.user.senha});
+    res.render("editarPerfil", { nome: req.user.nome, sobrenome: req.user.sobrenome, nick: req.user.nomeusuario, senha: req.user.senha });
 });
 
 // rota para finalizar sessão
@@ -85,11 +85,50 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
+app.post("/forgot", async (req, res) => {
+    let { email } = req.body;
+    let errors = [];
+    if (!email) {
+        errors.push({ message: "Preencha o campo de e-mail" });
+    }
+    if (errors.length > 0) {
+        res.render('forgot', { errors });
+    } else {
+        //Formulário foi validado
+        var senha = require('./public/js/util').gerarSenha();
+        var hashedPassword = await bcrypt.hash(senha, 10);
+        console.log(senha);
+    }
+
+    pool.query(
+        `SELECT * FROM usuarios
+        WHERE email = $1`, [email], (err, results) => {
+        // verifica se há algum usuario no banco de dados com o e-mail cadastrado
+        if (results.rows.length < 1) {
+            errors.push({ message: "E-mail não encontrado" });
+            res.render('forgot', { errors });
+        } else {
+            pool.query(
+                `UPDATE usuarios
+                SET senha = $1
+                WHERE email = $2`, [hashedPassword, results.rows[0].email], (erro, dados) => {
+                    if (err) {
+                        throw err
+                    }
+                    
+                    require('./public/js/mail')(results.rows[0].email, "Sua nova senha do MIP/TRU", "Olá, " + results.rows[0].nome + ", sua nova senha é " + senha);
+                    req.flash("success_msg", "Sua nova senha foi enviada pro seu e-mail. Por favor, faça login.");
+                    res.redirect('/login');
+                }
+            );
+        }
+    }
+    );
+});
+
 // rota para cadastrar usuários
 app.post("/cadastro", async (req, res) => {
     let { nome, sobrenome, email, usuario, telefone, perfil, senha, senha2 } = req.body;
-
-    console.log(nome, sobrenome, email, usuario, telefone, perfil, senha, senha2);
 
     // cria um vetor de erros
     let errors = [];
@@ -158,6 +197,11 @@ app.post("/cadastro", async (req, res) => {
 app.get("/login", checkAuthenticated, (req, res) => {
     res.render("login");
 });
+
+app.get("/forgot", checkAuthenticated, (req, res) => {
+    res.render("forgot");
+});
+
 
 // rota para página de erro 404
 // app.use(function(req, res, next){
@@ -235,3 +279,7 @@ function mostrarTodos() {
             })
     })
 }
+
+app.get('*', function (req, res) {
+    res.status(404).render('error404');
+});

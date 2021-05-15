@@ -17,19 +17,20 @@ body {
     -moz-box-shadow: 3px 3px 18px -4px rgba(0,0,0,0.51);
     box-shadow: 3px 3px 18px -4px rgba(0,0,0,0.51);
     position: absolute;
-    top: calc(50% - 200px);
+    top: 50%;
+    transform: translateY(-50%);
 }
+
 
 #logo {
     width: 100%;
     max-width: 500px;
 }
 
-
 input[type=password], input[type=text], input[type=email] {
     padding-left: 40px;
     border-radius: 0 !important;
-    width: 200px !important;
+    width: 10px !important;
     border: none;
     border-bottom: 1px solid #484e53;
     outline: none;
@@ -63,47 +64,6 @@ input:hover {
     background-color: #f5f8fa !important;
 }
 
-#toggle {
-    position: absolute;
-    /* top: 50%; */
-    right: 5px;
-    transform: translateY(50%);
-    width: 20px;
-    height: 20px;
-    background: url('/img/show.png');
-    background-size: cover;
-    cursor: pointer;
-    z-index: 10;
-}
-
-#icon-user {
-    position: absolute;
-    left: 5px;
-    transform: translateY(50%);
-    width: 20px;
-    height: 20px;
-    background: url('/img/user.png');
-    background-size: cover;
-    z-index: 10;
-}
-
-#icon-password {
-    position: absolute;
-    left: 5px;
-    transform: translateY(50%);
-    width: 20px;
-    height: 20px;
-    background: url('/img/lock.png');
-    background-size: cover;
-    z-index: 10;
-}
-
-#toggle.hide {
-    background: url('/img/hide.png');
-    background-size: cover;
-    z-index: 10;
-}
-
 .title {
     color: #155130 !important;
     font-size: 20px;
@@ -118,6 +78,29 @@ input:hover {
     background-color: white !important;
     color: #28a745 !important;
     border-color: #28a745 !important;
+}
+
+#icon-email {
+    position: absolute;
+    left: 25px;
+    transform: translateY(50%);
+    width: 20px;
+    height: 20px;
+    background: url('/img/email.png');
+    background-size: cover;
+    z-index: 10;
+}
+
+#close-icon {
+    position: absolute;
+    right: 25px;
+    transform: translateY(50%);
+    width: 15px;
+    height: 15px;
+    background: url('/img/close.png');
+    background-size: cover;
+    cursor: pointer;
+    z-index: 10;
 }
 
 @media screen and (max-width: 400px) {

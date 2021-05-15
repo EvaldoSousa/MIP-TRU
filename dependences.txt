@@ -7,3 +7,5 @@ npm i --save bcrypt
 npm i --save express-session express-flash
 
 npm i --save passport passport-local
+
+npm install -S nodemailer
