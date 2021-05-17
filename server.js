@@ -13,8 +13,6 @@ const db = require('./database');
 const phone_format = require('./public/js/functions');
 const permission = require('./permissions');
 
-let nameUser;
-
 // parse JSON (application/json content-type)
 app.use(express.json());
 
@@ -75,7 +73,7 @@ app.get("/cadastro", checkNotAuthenticated, (req, res) => {
 
 // rota para página de edição de perfil
 app.get('/editar', checkNotAuthenticated, (req, res) => {
-    res.render("editarPerfil", { nome: req.user.nome, sobrenome: req.user.sobrenome, nick: req.user.nomeusuario, senha: req.user.senha });
+    res.render("editarPerfil", { nome: req.user.nome, sobrenome: req.user.sobrenome, nick: req.user.nomeusuario, senha: req.user.senha, telefone: phone_format.reverseFormat(req.user.telefone) });
 });
 
 // rota para finalizar sessão
@@ -112,14 +110,14 @@ app.post("/forgot", async (req, res) => {
                 `UPDATE usuarios
                 SET senha = $1
                 WHERE email = $2`, [hashedPassword, results.rows[0].email], (erro, dados) => {
-                    if (err) {
-                        throw err
-                    }
-                    
-                    require('./public/js/mail')(results.rows[0].email, "Sua nova senha do MIP/TRU", "Olá, " + results.rows[0].nome + ", sua nova senha é " + senha);
-                    req.flash("success_msg", "Sua nova senha foi enviada pro seu e-mail. Por favor, faça login.");
-                    res.redirect('/login');
+                if (err) {
+                    throw err
                 }
+
+                require('./public/js/mail')(results.rows[0].email, "Sua nova senha do MIP/TRU", "Olá, " + results.rows[0].nome + ", sua nova senha é " + senha);
+                req.flash("success_msg", "Sua nova senha foi enviada pro seu e-mail. Por favor, faça login.");
+                res.redirect('/login');
+            }
             );
         }
     }
@@ -175,7 +173,7 @@ app.post("/cadastro", async (req, res) => {
                     pool.query(
                         `INSERT INTO usuarios (nome, sobrenome, email, nomeusuario, telefone, perfil, senha)
                                 VALUES ($1, $2, $3, $4, $5, $6, $7)
-                                RETURNING id, senha`, [nome, sobrenome, email, usuario, phone_format(telefone), perfil, hashedPassword],
+                                RETURNING id, senha`, [nome, sobrenome, email, usuario, phone_format.formatarTelefone(telefone), perfil, hashedPassword],
                         (err, results) => {
                             if (err) {
                                 throw err

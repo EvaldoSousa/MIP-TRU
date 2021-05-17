@@ -1,9 +1,4 @@
-function formatarTelefone(telefone) {
-    if(telefone.length < 12) {
-        return telefone;
-    }
-    return telefone.replace('(', '').replace(')', '').replace('-', '').replace(/ /g, '');
-}
+var tel = '94992760279';
 
 function reverseFormat (telefone) {
     var tels = [];
@@ -28,4 +23,4 @@ function reverseFormat (telefone) {
     return phormat;
 }
 
-module.exports = {formatarTelefone, reverseFormat};
+console.log(reverseFormat(tel));
