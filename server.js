@@ -75,16 +75,7 @@ app.get("/cadastro", checkNotAuthenticated, (req, res) => {
 
 // rota para página de edição de perfil
 app.get('/editar', checkNotAuthenticated, (req, res) => {
-<<<<<<< HEAD
-    res.render("editarPerfil", {
-        user: req.user.nome,
-        nick: req.user.nomeusuario,
-        ntelefone: req.user.telefone,
-        senha: req.user.senha
-    });
-=======
     res.render("editarPerfil", { nome: req.user.nome, sobrenome: req.user.sobrenome, nick: req.user.nomeusuario, senha: req.user.senha });
->>>>>>> 7e4056dfa63cb6f210f3dd551aba7b7296fc4c59
 });
 
 // rota para finalizar sessão
@@ -94,16 +85,6 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-<<<<<<< HEAD
-
-//------------------------E D I T A R  C A D A S T R O ----------------------------------------//
-//rota para atualizar cadastro
-// app.update('/editar', (err, res) => {
-//     res.render("editar");
-// })
-
-//------------------------E D I T A R  C A D A S T R O ----------------------------------------//
-=======
 app.post("/forgot", async (req, res) => {
     let { email } = req.body;
     let errors = [];
@@ -131,20 +112,19 @@ app.post("/forgot", async (req, res) => {
                 `UPDATE usuarios
                 SET senha = $1
                 WHERE email = $2`, [hashedPassword, results.rows[0].email], (erro, dados) => {
-                    if (err) {
-                        throw err
-                    }
-                    
-                    require('./public/js/mail')(results.rows[0].email, "Sua nova senha do MIP/TRU", "Olá, " + results.rows[0].nome + ", sua nova senha é " + senha);
-                    req.flash("success_msg", "Sua nova senha foi enviada pro seu e-mail. Por favor, faça login.");
-                    res.redirect('/login');
+                if (err) {
+                    throw err
                 }
+
+                require('./public/js/mail')(results.rows[0].email, "Sua nova senha do MIP/TRU", "Olá, " + results.rows[0].nome + ", sua nova senha é " + senha);
+                req.flash("success_msg", "Sua nova senha foi enviada pro seu e-mail. Por favor, faça login.");
+                res.redirect('/login');
+            }
             );
         }
     }
     );
 });
->>>>>>> 7e4056dfa63cb6f210f3dd551aba7b7296fc4c59
 
 // rota para cadastrar usuários
 app.post("/cadastro", async (req, res) => {
@@ -212,18 +192,6 @@ app.post("/cadastro", async (req, res) => {
     }
     )
 });
-
-//------------------------E D I T A R  C A D A S T R O ----------------------------------------//
-// app.update("/editar", (err, res) => {
-//     pool.query(
-//         "UPDATE usuarios FROM nome = 'updateNome' WHERE $1", [nome], (err, results) => {
-
-//         }
-//     )
-// })
-
-//------------------------E D I T A R  C A D A S T R O ----------------------------------------//
-
 
 
 // rota para página de login
