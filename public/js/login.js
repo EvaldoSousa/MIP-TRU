@@ -10,3 +10,5 @@ function showHide() {
         toggle.classList.remove('hide');
     }
 }
+
+// document.oncontextmenu = function(){return false};

@@ -1,5 +1,13 @@
+body {
+    background-color: #f5f8fa !important;
+}
+
 .rodape{
     margin-left: 45%;
+}
+
+.navbar-light.navbar-laravel{
+    background-color: white !important;
 }
 
 .navbar-laravel
@@ -15,4 +23,14 @@
 
 .alert {
     margin-bottom: 5px !important;
+}
+
+#botaoCadastrar {
+    border-radius: 50px;
+}
+
+#botaoCadastrar:hover {
+    background-color: white !important;
+    color: #28a745 !important;
+    border-color: #28a745 !important;
 }

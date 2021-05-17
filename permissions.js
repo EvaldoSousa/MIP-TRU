@@ -19,6 +19,7 @@ module.exports = (request) => {
         case '/entrada': return true;;
         case '/table': return true;
         case '/editar': return true;
+        case '/forgot': return true;
         case '/cadastro': { return isAdmin(profile); }
         default: return false;
     }

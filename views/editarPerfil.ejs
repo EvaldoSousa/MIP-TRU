@@ -5,6 +5,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil - MIP/TRU</title>
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="/img/logoIcon.png" />
 
   <!--Link css Local-->
   <link rel="stylesheet" href="/css/editarPerfil.css">
@@ -32,7 +36,6 @@
             Usuário
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Perfil</a>
             <a class="dropdown-item" href="/cadastro">Cadastro</a>
             <a class="dropdown-item" href="/logout">Sair</a>
           </div>
@@ -47,7 +50,7 @@
     <div class="text-center">
 
       <h1 class="display-4">
-        <%= user %>
+        <%= nome %>
       </h1>
       <p class="lead">
         <%= nick %>
@@ -68,7 +71,8 @@
           <div class="col-2">
 
             <p>
-              <%= user %>
+              <%= nome %>
+                <%= sobrenome %>
             </p>
           </div>
 
@@ -139,9 +143,14 @@
 
   <footer>
     <div class="col-xg">
+<<<<<<< HEAD
 
       <nav class="navbar mx-auto navbar-light bg-sucess">
         <div class="rodape"><a class="navbar-brand" href="#">@Unifesspa</a></div>
+=======
+      <nav class="navbar navbar-light bg-sucess">
+        <div class="rodape"><a class="navbar-brand" href="/">@Unifesspa</a></div>
+>>>>>>> 7e4056dfa63cb6f210f3dd551aba7b7296fc4c59
       </nav>
     </div>
   </footer>

@@ -1,5 +1,17 @@
-function formatarTelefone(telefone) {
-    return telefone.replace('(', '').replace(')', '').replace('-', '').replace(/ /g, '');
-}
+var texto = document.getElementById('passwordHelpBlock');
+var verificacao = document.getElementById('verificacao');
 
-module.exports = formatarTelefone;
+function verificaSenha() {
+    var senha1 = document.getElementById('Senha').value;
+    var senha2 = document.getElementById('Senha2').value;
+    if (senha1 != senha2) {
+        texto.innerHTML = "";
+        verificacao.innerHTML = "Senhas Diferentes!";
+        verificacao.classList.add('alert');
+        verificacao.classList.add('alert-danger');
+    } else {
+        verificacao.innerHTML = "";
+        verificacao.classList.remove('alert');
+        verificacao.classList.remove('alert-danger');
+    }
+}
