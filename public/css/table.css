@@ -7,3 +7,13 @@ tfoot input {
 body{
     background-color: greenyellow;
 }
+
+.dt-button{
+    color: white;
+    background-color: #28a745;
+    border: none;
+    border-radius: 51px;
+    
+
+
+}

@@ -26,12 +26,25 @@ $(document).ready(function () {
 
         // DataTable
         var table = $('#example').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'],
+
+
+            "lengthChange": true,
+            "lengthMenu": [10, 25, 50, 75, 100, "All"],
+
+                "buttons":{
+                    "copy": "Copiar",
+                },
+
+
             "data": data,
-            "columns":[
-                {"data": 'ano'},
-                {"data": 'entrada'},
-                {"data": 'destinatario'},
-                {"data": 'cnae'},
+            "columns": [
+                { "data": 'ano' },
+                { "data": 'entrada' },
+                { "data": 'destinatario' },
+                { "data": 'cnae' },
             ],
             "language": {
                 "search": "Pesquisar",
