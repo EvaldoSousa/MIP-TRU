@@ -43,12 +43,14 @@ input:placeholder-shown {
 
 /* Para alterar a cor do auto-preenchimento */
 input:-webkit-autofill
-{    
+{
+    box-shadow: 0 0 0px 1000px white inset !important;
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
     -webkit-text-fill-color: black !important;
 }
 
 input:-webkit-autofill:hover {
+    background-clip: #f5f8fa !important;
     -webkit-background-clip: #f5f8fa !important;
 }
 
