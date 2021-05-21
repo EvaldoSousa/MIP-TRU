@@ -30,13 +30,10 @@ $(document).ready(function () {
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'],
 
+            "buttons": {
+                "copy": "Copiar",
+            },
 
-            "lengthChange": true,
-            "lengthMenu": [10, 25, 50, 75, 100, "All"],
-
-                "buttons":{
-                    "copy": "Copiar",
-                },
 
 
             "data": data,
