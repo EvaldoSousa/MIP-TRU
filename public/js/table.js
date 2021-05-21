@@ -18,24 +18,28 @@ function updateData() {
 $(document).ready(function () {
     updateData().then(function () {
         console.log(data);
-        // Setup - add a text input to each footer cell
-        $('#example tfoot th').each(function () {
+        // Configuração - adiciona uma entrada de texto a cada célula do rodapé
+        $('#example thead tr').clone(true).appendTo('#example thead');
+        $('#example thead tr:eq(1) th').each(function (i) {
             var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Pesquisa ' + title + '" />');
+            $(this).html('<input type="text" placeholder="Pesquisar ' + title + '" />');
+
+            $('input', this).on('keyup change', function () {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
         });
 
         // DataTable
         var table = $('#example').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'],
+            orderCellsTop: true,
+            fixedHeader: true,
 
-            "buttons": {
-                "copy": "Copiar",
-            },
-
-
-
+            //tradução
             "data": data,
             "columns": [
                 { "data": 'ano' },
@@ -44,6 +48,7 @@ $(document).ready(function () {
                 { "data": 'cnae' },
             ],
             "language": {
+                
                 "search": "Pesquisar",
                 "lengthMenu": "Mostrar _MENU_",
                 "zeroRecords": "Nenhum resultado encontrado - Desculpe 😓👉👈",
@@ -58,23 +63,9 @@ $(document).ready(function () {
                     "first": "Primeira",
                     "last": "Última",
                     "next": "Próximo",
-                    "previous": "Anterior"
+                    "previous": "Anterior",
                 },
             },
-            initComplete: function () {
-                // Apply the search
-                this.api().columns().every(function () {
-                    var that = this;
-
-                    $('input', this.footer()).on('keyup change clear', function () {
-                        if (that.search() !== this.value) {
-                            that
-                                .search(this.value)
-                                .draw();
-                        }
-                    });
-                });
-            }
         });
     });
 
