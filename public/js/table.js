@@ -36,6 +36,12 @@ $(document).ready(function () {
 
         // DataTable
         var table = $('#example').DataTable({
+
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+
             orderCellsTop: true,
             fixedHeader: true,
 
@@ -48,7 +54,7 @@ $(document).ready(function () {
                 { "data": 'cnae' },
             ],
             "language": {
-                
+
                 "search": "Pesquisar",
                 "lengthMenu": "Mostrar _MENU_",
                 "zeroRecords": "Nenhum resultado encontrado - Desculpe 😓👉👈",
