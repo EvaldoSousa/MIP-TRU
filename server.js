@@ -191,6 +191,7 @@ app.post("/cadastro", async (req, res) => {
     )
 });
 
+
 // rota para página de login
 app.get("/login", checkAuthenticated, (req, res) => {
     res.render("login");

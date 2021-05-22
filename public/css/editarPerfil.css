@@ -1,6 +1,10 @@
+<<<<<<< HEAD
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+=======
 body {
     background-color: #f5f8fa !important;
 }
+>>>>>>> 7e4056dfa63cb6f210f3dd551aba7b7296fc4c59
 
 .rodape{
     margin-left: 45%;
@@ -19,3 +23,18 @@ body {
 .imagem{
     width: 30px;
 }
+
+.row{
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.row:hover{
+    color: #124ebe;
+}
+
+.container{
+    padding-bottom: 10px;
+}
+
+
