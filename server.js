@@ -73,7 +73,7 @@ app.get("/cadastro", checkNotAuthenticated, (req, res) => {
 
 // rota para página de edição de perfil
 app.get('/editar', checkNotAuthenticated, (req, res) => {
-    res.render("editarPerfil", { nome: req.user.nome, sobrenome: req.user.sobrenome, nick: req.user.nomeusuario, senha: req.user.senha, telefone: phone_format.reverseFormat(req.user.telefone) });
+    res.render("editarPerfil", { nome: req.user.nome, sobrenome: req.user.sobrenome, nick: req.user.nomeusuario, email: req.user.email, senha: req.user.senha, telefone: phone_format.reverseFormat(req.user.telefone) });
 });
 
 // rota para finalizar sessão
@@ -81,6 +81,154 @@ app.get('/logout', (req, res) => {
     req.logOut();
     req.flash('success_msg', "Você se desconectou");
     res.redirect('/login');
+});
+
+app.post("/updatename", async (req, res) => {
+    let { nome, sobrenome } = req.body;
+    let errors = [];
+    if (!nome || !sobrenome) {
+        errors.push({ message: "Preencha todos os campos" });
+    }
+    if (errors.length > 0) {
+        req.flash("error", errors[0].message);
+        res.redirect('/editar');
+    }
+
+    pool.query(
+        `UPDATE usuarios
+        SET nome = $1, sobrenome = $2
+        WHERE email = $3`, [nome, sobrenome, req.user.email], (err, results) => {
+        if (err) {
+            throw err;
+        }
+
+        req.flash("success_msg", "Seu nome e sobrenome foram alterados com sucesso!");
+        res.redirect('/editar');
+    }
+    );
+});
+
+app.post("/updatephone", async (req, res) => {
+    let { telefone } = req.body;
+    let errors = [];
+    if (!telefone) {
+        errors.push({ message: "Insira o número de telefone" });
+    }
+    if (errors.length > 0) {
+        req.flash("error", errors[0].message);
+        res.redirect('/editar');
+    }
+
+    pool.query(
+        `UPDATE usuarios
+        SET telefone = $1
+        WHERE email = $2`, [phone_format.formatarTelefone(telefone), req.user.email], (err, results) => {
+        if (err) {
+            throw err;
+        }
+
+        req.flash("success_msg", "Seu telefone foi alterado com sucesso!");
+        res.redirect('/editar');
+    }
+    );
+});
+
+app.post("/updatenick", async (req, res) => {
+    let { nick } = req.body;
+    let errors = [];
+    if (!nick) {
+        errors.push({ message: "Insira o novo nome de usuário!" });
+    } else if (nick == req.user.nomeusuario) {
+        errors.push({message: "Insira um nome de usuário diferente!"});
+    }
+    if (errors.length > 0) {
+        req.flash("error", errors[0].message);
+        res.redirect('/editar');
+    }
+
+    pool.query(
+        `SELECT * FROM usuarios
+        WHERE nomeusuario = $1`, [nick], (err, results) => {
+            if (results.rows.length > 0) {
+                errors.push({ message: "Nome de usuário já cadastrado!" });
+                req.flash("error", errors[0].message);
+                res.redirect('/editar');
+            } else {
+                pool.query(
+                    `UPDATE usuarios
+                    SET nomeusuario = $1
+                    WHERE email = $2`, [nick, req.user.email], (erro, resultados) => {
+                        req.flash("success_msg", "Seu nome de usuário foi alterado!");
+                        res.redirect('/editar');
+                    }
+                );
+            }
+        }
+    );
+});
+
+app.post("/updateemail", async (req, res) => {
+    let { email } = req.body;
+    let errors = [];
+    if (!email) {
+        errors.push({ message: "Insira o novo e-mail!" });
+    } else if (email == req.user.email) {
+        errors.push({ message: "Insira um e-mail diferente!" });
+    }
+
+    if (errors.length > 0) {
+        req.flash("error", errors[0].message);
+        res.redirect('/editar');
+    }
+
+    pool.query(
+        `SELECT * FROM usuarios
+        WHERE email = $1`, [email], (err, results) => {
+            if (results.rows.length > 0) {
+                errors.push({ message: "E-mail já cadastrado!" });
+                req.flash("error", errors[0].message);
+                res.redirect('/editar');
+            } else {
+                pool.query(
+                    `UPDATE usuarios
+                    SET email = $1
+                    WHERE nomeusuario = $2`, [email, req.user.nomeusuario], (erro, resultados) => {
+                        req.flash("success_msg", "Seu e-mail foi alterado!");
+                        res.redirect('/editar');
+                    }
+                );
+            }
+        }
+    );
+});
+
+app.post("/updatepassword", async (req, res) => {
+    let { senha, senha2 } = req.body;
+    let errors = [];
+    if (!senha, !senha2) {
+        errors.push({ message: "Preencha todos os campos" });
+    } else if (senha != senha2) {
+        errors.push({ message: "As senhas não são iguais" });
+    } else {
+        var hashedPassword = await bcrypt.hash(senha, 10);
+    }
+    if (errors.length > 0) {
+        req.flash("error", errors[0].message);
+        res.redirect('/editar');
+    }
+
+    pool.query(
+        `UPDATE usuarios
+        SET senha = $1
+        WHERE email = $2`, [hashedPassword, req.user.email], (err, results) => {
+        if (err) {
+            throw err;
+        }
+
+        req.flash("success_msg", "Sua senha foi alterada com sucesso!");
+        res.redirect('/editar');
+    }
+    );
 });
 
 app.post("/forgot", async (req, res) => {

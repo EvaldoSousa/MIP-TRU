@@ -24,6 +24,24 @@
 </head>
 
 <body>
+  <!-- Cria uma lista com as mensagens ao ser redirecionado após um cadastro -->
+  <% if(messages.success_msg) {%>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= messages.success_msg %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+<% } %>
+
+<% if(messages.error) {%>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= messages.error %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+<% } %>
 
   <header>
     <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
@@ -61,27 +79,60 @@
       </div>
     </div>
 
-      <div class="container text-center">
-        <div class="row">
+    <div class="container text-center">
+      <div class="row">
 
-          <div class="col-1">
-            <img src="/img/nome.png" alt="" class="imagem">
-          </div>
+        <div class="col-1">
+          <img src="/img/nome.png" alt="" class="imagem">
+        </div>
 
-          <div class="col-4">
+        <div class="col-4">
 
-            <p>
-              <%= nome %>
-                <%= sobrenome %>
-            </p>
-          </div>
+          <p>
+            <%= nome %>
+              <%= sobrenome %>
+          </p>
+        </div>
 
-          <div class="col-1">
-            <button class="btn btn-outline-primary" onclick="telaEdita()">Editar</button>
-          </div>
-
-
+        <div class="col-1">
+          <button class="btn btn-outline-primary" data-toggle="modal" data-target="#updateName">Editar</button>
+        </div>
       </div>
+
+      <div class="modal fade" id="updateName" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Editar nome e sobrenome</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="form-group">
+              <form action="/updatename" method="POST" >
+                <div class="modal-body">
+                  <div class="form-group row">
+                    <label for="name" class="col-4 col-form-label text-md-right">Nome:</label>
+                    <div class="col-8">
+                      <input type="text" id="name" class="form-control" name="nome" required>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="last_name" class="col-4 col-form-label text-md-right">Sobrenome:</label>
+                    <div class="col-8">
+                      <input type="text" id="last_name" class="form-control" name="sobrenome" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div><!--Modal para nome e sobrenome-->
 
       <div class="row">
 
@@ -97,11 +148,40 @@
 
         </div>
 
-          <div class="col-1">
-            <button class="btn btn-outline-primary" onclick="telaEdita()">Editar</button>
-          </div>
-
+        <div class="col-1">
+          <button class="btn btn-outline-primary" data-toggle="modal" data-target="#updatePhone">Editar</button>
+        </div>
       </div>
+
+      <div class="modal fade" id="updatePhone" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Editar telefone</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="form-group">
+              <form action="/updatephone" method="POST" >
+                <div class="modal-body">
+                  <div class="form-group row">
+                    <label for="name" class="col-4 col-form-label text-md-right">Telefone:</label>
+                    <div class="col-8">
+                      <input type="tel" name="telefone" id="phone_number" class="form-control"
+                      onkeypress="$(this).mask('(00) 0 0009-0000')" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div><!--Modal para telefone-->
 
       <div class="row">
 
@@ -114,14 +194,95 @@
           <p>
             <%= nick %>
           </p>
-          
+
         </div>
 
-          <div class="col-1">
-            <button class="btn btn-outline-primary" onclick="telaEdita()">Editar</button>
-          </div>
+        <div class="col-1">
+          <button class="btn btn-outline-primary" data-toggle="modal" data-target="#updateNick">Editar</button>
+        </div>
 
       </div>
+
+      <div class="modal fade" id="updateNick" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Editar nome de usuário</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="form-group">
+              <form action="/updatenick" method="POST" >
+                <div class="modal-body">
+                  <div class="form-group row">
+                    <label for="name" class="col-4 col-form-label text-md-right">Nome de usuário:</label>
+                    <div class="col-8">
+                      <input type="text" id="name" class="form-control" name="nick" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div><!--Modal para nick-->
+
+      <div class="row">
+
+        <div class="col-1">
+          <img src="/img/envelope.png" alt="" class="imagem">
+        </div>
+
+        <div class="col-4">
+
+          <p>
+            <%= email %>
+          </p>
+
+        </div>
+
+        <div class="col-1">
+          <button class="btn btn-outline-primary" data-toggle="modal" data-target="#updateEmail">Editar</button>
+        </div>
+
+      </div>
+
+      <div class="modal fade" id="updateEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Editar e-mail</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="form-group">
+              <form action="/updateemail" method="POST">
+                <div class="modal-body">
+                  <div class="form-group row">
+                    <label for="email_address" class="col-4 col-form-label text-md-right">Novo
+                      E-mail:</label>
+                    <div class="col-8">
+                      <input type="email" id="email_address" class="form-control" name="email" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Modal para e-mail-->
 
       <div class="row">
 
@@ -134,14 +295,49 @@
           <p>
             Senha
           </p>
-          
+
         </div>
 
-          <div class="col-1">
-            <button class="btn btn-outline-primary" onclick="telaEdita()">Editar</button>
-          </div>
+        <div class="col-1">
+          <button class="btn btn-outline-primary" data-toggle="modal" data-target="#updatePassword">Editar</button>
+        </div>
 
       </div>
+
+      <div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Alterar</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="form-group">
+              <form action="/updatepassword" method="POST" >
+                <div class="modal-body">
+                  <div class="form-group row">
+                    <label for="password" class="col-4 col-form-label text-md-right">Insira a senha:</label>
+                    <div class="col-8">
+                      <input type="password" id="password" class="form-control" name="senha" required>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="password2" class="col-4 col-form-label text-md-right">Repita a senha:</label>
+                    <div class="col-8">
+                      <input type="password" id="password2" class="form-control" name="senha2" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div><!--Modal para senha-->
     </div>
   </div>
 
@@ -165,6 +361,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
+
+    <!-- JQuery Mask -->
+    <script src="/js/jquery.mask.min.js"></script>
 
   <!--Bootstrap-->
   <script src="/js/bootstrap.min.js"></script>
