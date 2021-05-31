@@ -1,5 +1,5 @@
-function myFunction() {
-    document.getElementById("demo").innerHTML = "Teste deu certo";
-  }
-
-  module.exports = myFunction;
+document.getElementById("username").onkeypress = function (e) {
+  var chr = String.fromCharCode(e.which);
+  if ("1234567890qwertyuioplkjhgfdsazxcvbnm".indexOf(chr) < 0)
+      return false;
+};

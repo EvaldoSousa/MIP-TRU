@@ -10,7 +10,7 @@ const { Pool, Client } = require("pg");
 const cors = require('cors');
 app.use(cors());
 const db = require('./database');
-const phone_format = require('./public/js/functions');
+const f = require('./public/js/functions');
 const permission = require('./permissions');
 
 // parse JSON (application/json content-type)
@@ -73,7 +73,7 @@ app.get("/cadastro", checkNotAuthenticated, (req, res) => {
 
 // rota para página de edição de perfil
 app.get('/editar', checkNotAuthenticated, (req, res) => {
-    res.render("editarPerfil", { nome: req.user.nome, sobrenome: req.user.sobrenome, nick: req.user.nomeusuario, email: req.user.email, senha: req.user.senha, telefone: phone_format.reverseFormat(req.user.telefone) });
+    res.render("editarPerfil", { nome: req.user.nome, sobrenome: req.user.sobrenome, nick: req.user.nomeusuario, email: req.user.email, senha: req.user.senha, telefone: f.reverseFormat(req.user.telefone) });
 });
 
 // rota para finalizar sessão
@@ -92,6 +92,7 @@ app.post("/updatename", async (req, res) => {
     if (errors.length > 0) {
         req.flash("error", errors[0].message);
         res.redirect('/editar');
+        return
     }
 
     pool.query(
@@ -117,12 +118,13 @@ app.post("/updatephone", async (req, res) => {
     if (errors.length > 0) {
         req.flash("error", errors[0].message);
         res.redirect('/editar');
+        return
     }
 
     pool.query(
         `UPDATE usuarios
         SET telefone = $1
-        WHERE email = $2`, [phone_format.formatarTelefone(telefone), req.user.email], (err, results) => {
+        WHERE email = $2`, [f.formatarTelefone(telefone), req.user.email], (err, results) => {
         if (err) {
             throw err;
         }
@@ -135,6 +137,7 @@ app.post("/updatephone", async (req, res) => {
 
 app.post("/updatenick", async (req, res) => {
     let { nick } = req.body;
+    nick = f.removeAcento(nick.toLowerCase().trim());
     let errors = [];
     if (!nick) {
         errors.push({ message: "Insira o novo nome de usuário!" });
@@ -144,6 +147,7 @@ app.post("/updatenick", async (req, res) => {
     if (errors.length > 0) {
         req.flash("error", errors[0].message);
         res.redirect('/editar');
+        return
     }
 
     pool.query(
@@ -154,6 +158,7 @@ app.post("/updatenick", async (req, res) => {
                 req.flash("error", errors[0].message);
                 res.redirect('/editar');
             } else {
+                console.log("sai");
                 pool.query(
                     `UPDATE usuarios
                     SET nomeusuario = $1
@@ -169,6 +174,7 @@ app.post("/updatenick", async (req, res) => {
 
 app.post("/updateemail", async (req, res) => {
     let { email } = req.body;
+    email = email.toLowerCase().trim();
     let errors = [];
     if (!email) {
         errors.push({ message: "Insira o novo e-mail!" });
@@ -179,6 +185,7 @@ app.post("/updateemail", async (req, res) => {
     if (errors.length > 0) {
         req.flash("error", errors[0].message);
         res.redirect('/editar');
+        return
     }
 
     pool.query(
@@ -215,6 +222,7 @@ app.post("/updatepassword", async (req, res) => {
     if (errors.length > 0) {
         req.flash("error", errors[0].message);
         res.redirect('/editar');
+        return
     }
 
     pool.query(
@@ -233,6 +241,7 @@ app.post("/updatepassword", async (req, res) => {
 
 app.post("/forgot", async (req, res) => {
     let { email } = req.body;
+    email = email.toLowerCase().trim();
     let errors = [];
     if (!email) {
         errors.push({ message: "Preencha o campo de e-mail" });
@@ -275,6 +284,9 @@ app.post("/forgot", async (req, res) => {
 // rota para cadastrar usuários
 app.post("/cadastro", async (req, res) => {
     let { nome, sobrenome, email, usuario, telefone, perfil, senha, senha2 } = req.body;
+
+    email = email.toLowerCase().trim();
+    usuario = f.removeAcento(usuario.toLowerCase().trim());
 
     // cria um vetor de erros
     let errors = [];
@@ -321,7 +333,7 @@ app.post("/cadastro", async (req, res) => {
                     pool.query(
                         `INSERT INTO usuarios (nome, sobrenome, email, nomeusuario, telefone, perfil, senha)
                                 VALUES ($1, $2, $3, $4, $5, $6, $7)
-                                RETURNING id, senha`, [nome, sobrenome, email, usuario, phone_format.formatarTelefone(telefone), perfil, hashedPassword],
+                                RETURNING id, senha`, [nome, sobrenome, email, usuario, f.formatarTelefone(telefone), perfil, hashedPassword],
                         (err, results) => {
                             if (err) {
                                 throw err

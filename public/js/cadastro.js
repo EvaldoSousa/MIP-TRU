@@ -1,3 +1,9 @@
+document.getElementById("user_name").onkeypress = function (e) {
+    var chr = String.fromCharCode(e.which);
+    if ("1234567890qwertyuioplkjhgfdsazxcvbnm".indexOf(chr) < 0)
+        return false;
+};
+
 var texto = document.getElementById('passwordHelpBlock');
 var verificacao = document.getElementById('verificacao');
 
