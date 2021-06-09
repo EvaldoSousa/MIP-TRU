@@ -38,4 +38,25 @@ function removeAcento(text){
     return text;                 
 }
 
-module.exports = {formatarTelefone, reverseFormat, removeAcento};
+function buscar(ano, destinatario, cnae) {
+    let txt = 'SELECT ano, entrada, destinatario, cnae FROM entradas WHERE ';
+
+    if(ano) {
+        txt += "ano ilike \'%" + ano + "%\' ";
+    }
+    if(destinatario) {
+        if(ano) {
+            txt += "and"
+        }
+        txt += " destinatario ilike \'%" + destinatario + "%\' ";
+    }
+    if(cnae) {
+        if(ano || destinatario) {
+            txt += "and"
+        }
+        txt += " cnae ilike \'%" + cnae + "%\'";
+    }
+    return txt;
+}
+
+module.exports = {formatarTelefone, reverseFormat, removeAcento, buscar};

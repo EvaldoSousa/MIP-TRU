@@ -12,6 +12,8 @@ app.use(cors());
 const db = require('./database');
 const f = require('./public/js/functions');
 const permission = require('./permissions');
+const { ExportToCsv } = require('export-to-csv');
+const fs = require('fs');
 
 // parse JSON (application/json content-type)
 app.use(express.json());
@@ -66,6 +68,10 @@ app.get("/table", checkNotAuthenticated, (req, res) => {
     res.render("table");
 });
 
+app.get("/search", checkNotAuthenticated, (req, res) => {
+    res.render("search");
+});
+
 // rota para página de cadastro
 app.get("/cadastro", checkNotAuthenticated, (req, res) => {
     res.render("cadastro");
@@ -82,6 +88,54 @@ app.get('/logout', (req, res) => {
     req.flash('success_msg', "Você se desconectou");
     res.redirect('/login');
 });
+
+app.post('/search', (req, res) => {
+    let { ano, destinatario, cnae } = req.body;
+    let errors = [];
+
+    if (!ano && !destinatario && !cnae) {
+        errors.push({ message: "Preencha ao menos um dos campos" });
+    }
+
+    if (errors.length > 0) {
+        req.flash("error", errors[0].message);
+        res.redirect('/search');
+        return
+    }
+
+    let sql = f.buscar(ano, destinatario, cnae);
+    pool.query(sql, (err, results) => {
+        if (err) {
+            throw err;
+        }
+        let dados = results.rows;
+        if (dados == null || dados.length < 1) {
+            req.flash("error", "Nenhum dado encontrado!");
+            res.redirect('/search');
+            return
+        }
+        console.log(dados);
+
+        const options = {
+            fieldSeparator: ',',
+            filename: 'tabela',
+            quoteStrings: '"',
+            decimalSeparator: '.',
+            showLabels: true,
+            showTitle: false,
+            useTextFile: false,
+            useBom: true,
+            useKeysAsHeaders: false,
+            headers: ['Ano', 'Entrada/Saída', 'Destinatário', 'CNAE']
+        };
+
+        const csvExporter = new ExportToCsv(options);
+
+        const csvData = csvExporter.generateCsv(dados, true);
+        fs.writeFileSync('tabela.csv', csvData);
+        res.download('tabela.csv');
+    });
+})
 
 app.post("/updatename", async (req, res) => {
     let { nome, sobrenome } = req.body;
@@ -142,7 +196,7 @@ app.post("/updatenick", async (req, res) => {
     if (!nick) {
         errors.push({ message: "Insira o novo nome de usuário!" });
     } else if (nick == req.user.nomeusuario) {
-        errors.push({message: "Insira um nome de usuário diferente!"});
+        errors.push({ message: "Insira um nome de usuário diferente!" });
     }
     if (errors.length > 0) {
         req.flash("error", errors[0].message);
@@ -153,22 +207,22 @@ app.post("/updatenick", async (req, res) => {
     pool.query(
         `SELECT * FROM usuarios
         WHERE nomeusuario = $1`, [nick], (err, results) => {
-            if (results.rows.length > 0) {
-                errors.push({ message: "Nome de usuário já cadastrado!" });
-                req.flash("error", errors[0].message);
-                res.redirect('/editar');
-            } else {
-                console.log("sai");
-                pool.query(
-                    `UPDATE usuarios
+        if (results.rows.length > 0) {
+            errors.push({ message: "Nome de usuário já cadastrado!" });
+            req.flash("error", errors[0].message);
+            res.redirect('/editar');
+        } else {
+            console.log("sai");
+            pool.query(
+                `UPDATE usuarios
                     SET nomeusuario = $1
                     WHERE email = $2`, [nick, req.user.email], (erro, resultados) => {
-                        req.flash("success_msg", "Seu nome de usuário foi alterado!");
-                        res.redirect('/editar');
-                    }
-                );
+                req.flash("success_msg", "Seu nome de usuário foi alterado!");
+                res.redirect('/editar');
             }
+            );
         }
+    }
     );
 });
 
@@ -191,21 +245,21 @@ app.post("/updateemail", async (req, res) => {
     pool.query(
         `SELECT * FROM usuarios
         WHERE email = $1`, [email], (err, results) => {
-            if (results.rows.length > 0) {
-                errors.push({ message: "E-mail já cadastrado!" });
-                req.flash("error", errors[0].message);
-                res.redirect('/editar');
-            } else {
-                pool.query(
-                    `UPDATE usuarios
+        if (results.rows.length > 0) {
+            errors.push({ message: "E-mail já cadastrado!" });
+            req.flash("error", errors[0].message);
+            res.redirect('/editar');
+        } else {
+            pool.query(
+                `UPDATE usuarios
                     SET email = $1
                     WHERE nomeusuario = $2`, [email, req.user.nomeusuario], (erro, resultados) => {
-                        req.flash("success_msg", "Seu e-mail foi alterado!");
-                        res.redirect('/editar');
-                    }
-                );
+                req.flash("success_msg", "Seu e-mail foi alterado!");
+                res.redirect('/editar');
             }
+            );
         }
+    }
     );
 });
 
@@ -248,6 +302,7 @@ app.post("/forgot", async (req, res) => {
     }
     if (errors.length > 0) {
         res.render('forgot', { errors });
+        return
     } else {
         //Formulário foi validado
         var senha = require('./public/js/util').gerarSenha();
@@ -305,6 +360,7 @@ app.post("/cadastro", async (req, res) => {
     // caso haja erros, renderiza a página cadastro com os erros
     if (errors.length > 0) {
         res.render('cadastro', { errors });
+        return
     } else {
         //Formulário foi validado
         var hashedPassword = await bcrypt.hash(senha, 10);
