@@ -28,4 +28,35 @@ function reverseFormat (telefone) {
     return phormat;
 }
 
-module.exports = {formatarTelefone, reverseFormat};
+function removeAcento(text){       
+    text = text.toLowerCase();                                                         
+    text = text.replace(new RegExp('[ÁÀÂÃÄ]','gi'), 'a');
+    text = text.replace(new RegExp('[ÉÈÊË]','gi'), 'e');
+    text = text.replace(new RegExp('[ÍÌÎÏ]','gi'), 'i');
+    text = text.replace(new RegExp('[ÓÒÔÕÖ]','gi'), 'o');
+    text = text.replace(new RegExp('[ÚÙÛÜ]','gi'), 'u');
+    return text;                 
+}
+
+function buscar(ano, destinatario, cnae) {
+    let txt = 'SELECT ano, entrada, destinatario, cnae FROM entradas WHERE ';
+
+    if(ano) {
+        txt += "ano ilike \'%" + ano + "%\' ";
+    }
+    if(destinatario) {
+        if(ano) {
+            txt += "and"
+        }
+        txt += " destinatario ilike \'%" + destinatario + "%\' ";
+    }
+    if(cnae) {
+        if(ano || destinatario) {
+            txt += "and"
+        }
+        txt += " cnae ilike \'%" + cnae + "%\'";
+    }
+    return txt;
+}
+
+module.exports = {formatarTelefone, reverseFormat, removeAcento, buscar};

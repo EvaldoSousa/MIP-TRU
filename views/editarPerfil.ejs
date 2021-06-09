@@ -216,9 +216,9 @@
               <form action="/updatenick" method="POST" >
                 <div class="modal-body">
                   <div class="form-group row">
-                    <label for="name" class="col-4 col-form-label text-md-right">Nome de usuário:</label>
+                    <label for="username" class="col-4 col-form-label text-md-right">Nome de usuário:</label>
                     <div class="col-8">
-                      <input type="text" id="name" class="form-control" name="nick" required>
+                      <input type="text" id="username" class="form-control" name="nick" pattern="[a-z0-9]+" title="Apenas números e letras minúsculas sem acentuação. Sem espaços ou caracteres especiais." required>
                     </div>
                   </div>
                 </div>
@@ -369,7 +369,7 @@
   <script src="/js/bootstrap.min.js"></script>
 
   <!--JS local-->
-  <script src="js/index.js"></script>
+  <script src="js/editarPerfil.js"></script>
 </body>
 
 </html>

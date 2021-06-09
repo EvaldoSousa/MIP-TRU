@@ -1,13 +1,14 @@
 const LocalStrategy = require('passport-local').Strategy;
 const { pool } = require('./dbConfig');
 const bcrypt = require('bcrypt');
+const f = require('../public/js/functions');
 
 // inicializa o Passport
 function initialize (passport) {
     // autenticação do usuário
     const authenticateUser = (usuario, senha, done) => {
         pool.query(
-            `SELECT * FROM usuarios WHERE nomeusuario = $1`, [usuario], (err, results) => {
+            `SELECT * FROM usuarios WHERE nomeusuario = $1`, [f.removeAcento(usuario.toLowerCase().trim())], (err, results) => {
                 if(err) {
                     throw err;
                 }
