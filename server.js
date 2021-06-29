@@ -69,7 +69,31 @@ app.get("/table", checkNotAuthenticated, (req, res) => {
 });
 
 app.get("/search", checkNotAuthenticated, (req, res) => {
-    res.render("search");
+    pool.query(f.buscarSelect('ano'), (erro, results) => {
+        if (erro) {
+            throw erro;
+        }
+        let ano = results.rows;
+        pool.query(f.buscarSelect('destinatario'), (erro, results) => {
+            if (erro) {
+                throw erro;
+            }
+            let destinatario = results.rows;
+            pool.query(f.buscarSelect('cnae'), (erro, results) => {
+                if (erro) {
+                    throw erro;
+                }
+                let cnae = results.rows;
+                pool.query(f.buscarSelect('entrada'), (erro, results) => {
+                    if (erro) {
+                        throw erro;
+                    }
+                    let entrada = results.rows;
+                    res.render("search", {ano, entrada, destinatario, cnae});
+                });
+            });
+        });
+    });
 });
 
 // rota para página de cadastro
@@ -90,10 +114,10 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/search', (req, res) => {
-    let { ano, destinatario, cnae } = req.body;
+    let { ano, entrada, destinatario, cnae } = req.body;
     let errors = [];
 
-    if (!ano && !destinatario && !cnae) {
+    if (!ano && !entrada && !destinatario && !cnae) {
         errors.push({ message: "Preencha ao menos um dos campos" });
     }
 
@@ -103,7 +127,7 @@ app.post('/search', (req, res) => {
         return
     }
 
-    let sql = f.buscar(ano, destinatario, cnae);
+    let sql = f.buscar(ano, entrada, destinatario, cnae);
     pool.query(sql, (err, results) => {
         if (err) {
             throw err;
@@ -114,7 +138,6 @@ app.post('/search', (req, res) => {
             res.redirect('/search');
             return
         }
-        console.log(dados);
 
         const options = {
             fieldSeparator: ',',
@@ -134,6 +157,7 @@ app.post('/search', (req, res) => {
         const csvData = csvExporter.generateCsv(dados, true);
         fs.writeFileSync('tabela.csv', csvData);
         res.download('tabela.csv');
+        return;
     });
 })
 

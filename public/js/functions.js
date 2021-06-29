@@ -38,25 +38,49 @@ function removeAcento(text){
     return text;                 
 }
 
-function buscar(ano, destinatario, cnae) {
+function buscar(ano, entrada, destinatario, cnae) {
     let txt = 'SELECT ano, entrada, destinatario, cnae FROM entradas WHERE ';
 
     if(ano) {
         txt += "ano ilike \'%" + ano + "%\' ";
     }
-    if(destinatario) {
+    if(entrada) {
         if(ano) {
+            txt += "and"
+        }
+        txt += " entrada ilike \'%" + entrada + "%\' ";
+    }
+    if(destinatario) {
+        if(ano || entrada) {
             txt += "and"
         }
         txt += " destinatario ilike \'%" + destinatario + "%\' ";
     }
     if(cnae) {
-        if(ano || destinatario) {
+        if(ano || entrada || destinatario) {
             txt += "and"
         }
-        txt += " cnae ilike \'%" + cnae + "%\'";
+        txt += " cnae ilike \'" + cnae + "%\'";
     }
     return txt;
 }
 
-module.exports = {formatarTelefone, reverseFormat, removeAcento, buscar};
+function buscarSelect(entrada) {
+    let txt = 'SELECT DISTINCT ';
+
+    if(entrada == 'ano') {
+        txt += "ano FROM entradas order by ano asc";
+    }
+    if(entrada == 'destinatario') {
+        txt += "destinatario FROM entradas order by destinatario asc";
+    }
+    if(entrada == 'cnae') {
+        txt += "cnae FROM entradas order by cnae asc";
+    }
+    if(entrada == 'entrada') {
+        txt += "entrada FROM entradas order by entrada asc";
+    }
+    return txt;
+}
+
+module.exports = {formatarTelefone, reverseFormat, removeAcento, buscar, buscarSelect};

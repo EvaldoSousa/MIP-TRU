@@ -1,19 +1,37 @@
-tfoot input {
-    width: 100%;
-    padding: 3px;
-    box-sizing: border-box;
+#pdf, #csv, #xlsx{
+    position: relative !important;
 }
 
-body{
-    background-color: greenyellow;
+.button__text {
+    transition: all 0.2s;
 }
 
-.dt-button{
-    color: white;
-    background-color: #28a745;
-    border: none;
-    border-radius: 51px;
-    
+.button--loading .button__text {
+    visibility: hidden;
+    opacity: 0;
+}
 
+.button--loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease infinite;
+}
 
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
 }
