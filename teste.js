@@ -1,18 +1,16 @@
-function gerarCsv(row){
-     
-    var csv = 'Ano, Entrada, Destinatário, CNAE\n';
- 
-    row.forEach(function(abs) {
-            csv += abs.ano;
-            csv += ','+ abs.entrada;
-            csv += ','+ abs.destinatario;
-            csv += ','+ abs.cnae;
-            csv += '\n';
-    });
-  
-    var hiddenElement = document.createElement('a');
-    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-    hiddenElement.target = '_blank';
-    hiddenElement.download = 'produtos.csv';
-    hiddenElement.click();
-};
+function buscarSelect(entrada) {
+    let txt = 'SELECT DISTINCT ';
+
+    if(entrada == 'ano') {
+        txt += "ano FROM entradas order by ano asc";
+    }
+    if(entrada == 'destinatario') {
+        txt += "destinatario FROM entradas order by destinatario asc";
+    }
+    if(entrada == 'cnae') {
+        txt += "cnae FROM entradas order by cnae asc";
+    }
+    return txt;
+}
+
+console.log(buscarSelect('destinatario'));
