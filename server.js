@@ -69,27 +69,104 @@ app.get("/table", checkNotAuthenticated, (req, res) => {
 });
 
 app.get("/search", checkNotAuthenticated, (req, res) => {
-    pool.query(f.buscarSelect('ano'), (erro, results) => {
+    pool.query(f.buscarSelect('municipio_emissor'), (erro, results) => {
         if (erro) {
             throw erro;
         }
-        let ano = results.rows;
-        pool.query(f.buscarSelect('destinatario'), (erro, results) => {
+        let municipio_emissor = results.rows;
+        pool.query(f.buscarSelect('uf_emissor'), (erro, results) => {
             if (erro) {
                 throw erro;
             }
-            let destinatario = results.rows;
-            pool.query(f.buscarSelect('cnae'), (erro, results) => {
+            let uf_emissor = results.rows;
+            pool.query(f.buscarSelect('municipio_destinatario'), (erro, results) => {
                 if (erro) {
                     throw erro;
                 }
-                let cnae = results.rows;
-                pool.query(f.buscarSelect('entrada'), (erro, results) => {
+                let municipio_destinatario = results.rows;
+                pool.query(f.buscarSelect('uf_destinatario'), (erro, results) => {
                     if (erro) {
                         throw erro;
                     }
-                    let entrada = results.rows;
-                    res.render("search", {ano, entrada, destinatario, cnae});
+                    let uf_destinatario = results.rows;
+                    pool.query(f.buscarSelect('cfop'), (erro, results) => {
+                        if (erro) {
+                            throw erro;
+                        }
+                        let cfop = results.rows;
+                        pool.query(f.buscarSelect('cfop_1d'), (erro, results) => {
+                            if (erro) {
+                                throw erro;
+                            }
+                            let cfop_1d = results.rows;
+                            pool.query(f.buscarSelect('cfop_2d'), (erro, results) => {
+                                if (erro) {
+                                    throw erro;
+                                }
+                                let cfop_2d = results.rows;
+                                pool.query(f.buscarSelect('cfop_3d'), (erro, results) => {
+                                    if (erro) {
+                                        throw erro;
+                                    }
+                                    let cfop_3d = results.rows;
+                                    pool.query(f.buscarSelect('cnae'), (erro, results) => {
+                                        if (erro) {
+                                            throw erro;
+                                        }
+                                        let cnae = results.rows;
+                                        pool.query(f.buscarSelect('cnae_divisao'), (erro, results) => {
+                                            if (erro) {
+                                                throw erro;
+                                            }
+                                            let cnae_divisao = results.rows;
+                                            pool.query(f.buscarSelect('cnae_grupo'), (erro, results) => {
+                                                if (erro) {
+                                                    throw erro;
+                                                }
+                                                let cnae_grupo = results.rows;
+                                                pool.query(f.buscarSelect('cnae_classe_4d'), (erro, results) => {
+                                                    if (erro) {
+                                                        throw erro;
+                                                    }
+                                                    let cnae_classe_4d = results.rows;
+                                                    pool.query(f.buscarSelect('cnae_classe_5d'), (erro, results) => {
+                                                        if (erro) {
+                                                            throw erro;
+                                                        }
+                                                        let cnae_classe_5d = results.rows;
+                                                        pool.query(f.buscarSelect('scr_2010_trabalho'), (erro, results) => {
+                                                            if (erro) {
+                                                                throw erro;
+                                                            }
+                                                            let scr_2010_trabalho = results.rows;
+                                                            pool.query(f.buscarSelect('scr_2010_divulga'), (erro, results) => {
+                                                                if (erro) {
+                                                                    throw erro;
+                                                                }
+                                                                let scr_2010_divulga = results.rows;
+                                                                pool.query(f.buscarSelect('ncm_produto'), (erro, results) => {
+                                                                    if (erro) {
+                                                                        throw erro;
+                                                                    }
+                                                                    let ncm_produto = results.rows;
+                                                                    res.render("search",
+                                                                        {
+                                                                            municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario,
+                                                                            cfop, cfop_1d, cfop_2d, cfop_3d, cnae, cnae_divisao, cnae_grupo,
+                                                                            cnae_classe_4d, cnae_classe_5d, scr_2010_trabalho, scr_2010_divulga, ncm_produto
+                                                                        });
+                                                                });
+                                                            });
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
                 });
             });
         });
@@ -114,10 +191,16 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/search', (req, res) => {
-    let { ano, entrada, destinatario, cnae } = req.body;
+    let {
+        municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario,
+        cfop, cfop_1d, cfop_2d, cfop_3d, cnae, cnae_divisao, cnae_grupo,
+        cnae_classe_4d, cnae_classe_5d, scr_2010_trabalho, scr_2010_divulga, ncm_produto
+    } = req.body;
     let errors = [];
 
-    if (!ano && !entrada && !destinatario && !cnae) {
+    console.log("Município: " + municipio_emissor);
+    
+    if (!municipio_emissor && !uf_emissor && !municipio_destinatario && !uf_destinatario && !cfop && !cfop_1d && !cfop_2d && !cfop_3d && !cnae && !cnae_divisao && !cnae_grupo && !cnae_classe_4d && !cnae_classe_5d && !scr_2010_trabalho && !scr_2010_divulga && !ncm_produto) {
         errors.push({ message: "Preencha ao menos um dos campos" });
     }
 
@@ -127,7 +210,9 @@ app.post('/search', (req, res) => {
         return
     }
 
-    let sql = f.buscar(ano, entrada, destinatario, cnae);
+    let sql = f.buscar(municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario,
+        cfop, cfop_1d, cfop_2d, cfop_3d, cnae, cnae_divisao, cnae_grupo,
+        cnae_classe_4d, cnae_classe_5d, scr_2010_trabalho, scr_2010_divulga, ncm_produto);
     pool.query(sql, (err, results) => {
         if (err) {
             throw err;
@@ -149,7 +234,13 @@ app.post('/search', (req, res) => {
             useTextFile: false,
             useBom: true,
             useKeysAsHeaders: false,
-            headers: ['Ano', 'Entrada/Saída', 'Destinatário', 'CNAE']
+            headers: ['Município Emissor', 'UF Emissor', 'Município Destinatário', 'UF Destinatário',
+                'CFOP', 'Descrição CFOP', 'CFOP (1D)', 'CFOP (2D)', 'CFOP (3D)', 'CNAE (C)',
+                'Descrição do CNAE', 'CNAE (Divisão)', 'CNAE (Divisão) Desc', 'CNAE (Grupo)',
+                'CNAE (Grupo) Desc', 'CNAE (Classe - 4D)', 'CNAE (Classe - 4D) Desc',
+                'CNAE (Classe - 5D)', 'CNAE (Classe - 5D) Desc', 'SCR 2010 Trabalho',
+                'SCR 2010 Trabalho Desc', 'SCR 2010 Divulga', 'SCR 2010 Divulga Desc',
+                'NCM Produto', 'Total Bruto Produtos']
         };
 
         const csvExporter = new ExportToCsv(options);

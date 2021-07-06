@@ -70,31 +70,71 @@
     <div class="">
       <form method="POST" id="form">
         <div class="row mb-3">
-          <div class="col">
-            <select name="ano" id="ano" class="form-control">
-              <option value="" selected>Selecionar Ano</option>
-              <% ano.forEach(ano => {%>
-                <option value=<%= ano.ano %> ><%= ano.ano %></option>
+          <div class="col-md-6 mb-2">
+            <select name="municipio_emissor" id="municipio_emissor" class="form-control">
+              <option value="" selected>Selecionar Emissor</option>
+              <% municipio_emissor.forEach(m_e => {%>
+                <option value=<%= m_e.municipio_emissor %> ><%= m_e.municipio_emissor %></option>
               <%}); %> 
             </select>
           </div>
-          <div class="col">
-            <select name="entrada" id="entrada" class="form-control">
-              <option value="" selected>Selecionar Entrada/Saída</option>
-              <% entrada.forEach(e => {%>
-                <option value=<%= e.entrada %> ><%= e.entrada %></option>
+          <div class="col-md-6 mb-2">
+            <select name="uf_emissor" id="uf_emissor" class="form-control">
+              <option value="" selected>Selecionar UF Emissor</option>
+              <% uf_emissor.forEach(u_e => {%>
+                <option value=<%= u_e.uf_emissor %> ><%= u_e.uf_emissor %></option>
               <%}); %> 
             </select>
           </div>
-          <div class="col">
-            <select name="destinatario" id="destinatario" class="form-control">
+          <div class="col-md-6 mb-2">
+            <select name="municipio_destinatario" id="municipio_destinatario" class="form-control">
               <option value="" selected>Selecionar Destinatário</option>
-              <% destinatario.forEach(dest => {%>
-                <option value=<%= dest.destinatario %> ><%= dest.destinatario %></option>
+              <% municipio_destinatario.forEach(dest => {%>
+                <option value=<%= dest.municipio_destinatario %> ><%= dest.municipio_destinatario %></option>
               <%}); %> 
             </select>
           </div>
-          <div class="col">
+          <div class="col-md-6 mb-2">
+            <select name="uf_destinatario" id="uf_destinatario" class="form-control">
+              <option value="" selected>Selecionar UF Destinatário</option>
+              <% uf_destinatario.forEach(u_d => {%>
+                <option value=<%= u_d.uf_destinatario %> ><%= u_d.uf_destinatario %></option>
+              <%}); %> 
+            </select>
+          </div>
+          <div class="col-md-6 mb-2">
+            <select name="cfop" id="cfop" class="form-control">
+              <option value="" selected>Selecionar CFOP</option>
+              <% cfop.forEach(cfop => {%>
+                <option value=<%= cfop.cfop %> ><%= cfop.cfop %></option>
+              <%}); %> 
+            </select>
+          </div>
+          <div class="col-md-6 mb-2">
+            <select name="cfop_1d" id="cfop_1d" class="form-control">
+              <option value="" selected>Selecionar CFOP (1D)</option>
+              <% cfop_1d.forEach(cfop_1d => {%>
+                <option value=<%= cfop_1d.cfop_1d %> ><%= cfop_1d.cfop_1d %></option>
+              <%}); %> 
+            </select>
+          </div>
+          <div class="col-md-6 mb-2">
+            <select name="cfop_2d" id="cfop_2d" class="form-control">
+              <option value="" selected>Selecionar UF CFOP (2D)</option>
+              <% cfop_2d.forEach(cfop_2d => {%>
+                <option value=<%= cfop_2d.cfop_2d %> ><%= cfop_2d.cfop_2d %></option>
+              <%}); %> 
+            </select>
+          </div>
+          <div class="col-md-6 mb-2">
+            <select name="cfop_3d" id="cfop_3d" class="form-control">
+              <option value="" selected>Selecionar CFOP (3D)</option>
+              <% cfop_3d.forEach(cfop_3d => {%>
+                <option value=<%= cfop_3d.cfop_3d %> ><%= cfop_3d.cfop_3d %></option>
+              <%}); %> 
+            </select>
+          </div>
+          <div class="col-md-6 mb-2">
             <select name="cnae" id="cnae" class="form-control">
               <option value="" selected>Selecionar CNAE</option>
               <% cnae.forEach(cnae => {%>
@@ -102,17 +142,74 @@
               <%}); %> 
             </select>
           </div>
+          <div class="col-md-6 mb-2">
+            <select name="cnae_divisao" id="cnae_divisao" class="form-control">
+              <option value="" selected>Selecionar CNAE (Divisão)</option>
+              <% cnae_divisao.forEach(cnae_divisao => {%>
+                <option value=<%= cnae_divisao.cnae_divisao %> ><%= cnae_divisao.cnae_divisao %></option>
+              <%}); %> 
+            </select>
+          </div>
+          <div class="col-md-6 mb-2">
+            <select name="cnae_grupo" id="cnae_grupo" class="form-control">
+              <option value="" selected>Selecionar CNAE (Grupo)</option>
+              <% cnae_grupo.forEach(cnae_grupo => {%>
+                <option value=<%= cnae_grupo.cnae_grupo %> ><%= cnae_grupo.cnae_grupo %></option>
+              <%}); %> 
+            </select>
+          </div>
+          <div class="col-md-6 mb-2">
+            <select name="cnae_classe_4d" id="cnae_classe_4d" class="form-control">
+              <option value="" selected>Selecionar CNAE (Classe - 4D)</option>
+              <% cnae_classe_4d.forEach(cnae_classe_4d => {%>
+                <option value=<%= cnae_classe_4d.cnae_classe_4d %> ><%= cnae_classe_4d.cnae_classe_4d %></option>
+              <%}); %> 
+            </select>
+          </div>
+          <div class="col-md-6 mb-2">
+            <select name="cnae_classe_5d" id="cnae_classe_5d" class="form-control">
+              <option value="" selected>Selecionar CNAE (Classe - 5D)</option>
+              <% cnae_classe_5d.forEach(cnae_classe_5d => {%>
+                <option value=<%= cnae_classe_5d.cnae_classe_5d %> ><%= cnae_classe_5d.cnae_classe_5d %></option>
+              <%}); %> 
+            </select>
+          </div>
+          <div class="col-md-6 mb-2">
+            <select name="scr_2010_trabalho" id="scr_2010_trabalho" class="form-control">
+              <option value="" selected>Selecionar SCR 2010 Trabalho</option>
+              <% scr_2010_trabalho.forEach(scr_2010_trabalho => {%>
+                <option value=<%= scr_2010_trabalho.scr_2010_trabalho %> ><%= scr_2010_trabalho.scr_2010_trabalho %></option>
+              <%}); %> 
+            </select>
+          </div>
+          <div class="col-md-6 mb-2">
+            <select name="scr_2010_divulga" id="scr_2010_divulga" class="form-control">
+              <option value="" selected>Selecionar SCR 2010 Divulga</option>
+              <% scr_2010_divulga.forEach(scr_2010_divulga => {%>
+                <option value=<%= scr_2010_divulga.scr_2010_divulga %> ><%= scr_2010_divulga.scr_2010_divulga %></option>
+              <%}); %> 
+            </select>
+          </div>
+          <div class="col-md-6 mb-2">
+            <select name="ncm_produto" id="ncm_produto" class="form-control">
+              <option value="" selected>Selecionar NCM Produto</option>
+              <% ncm_produto.forEach(ncm_produto => {%>
+                <option value=<%= ncm_produto.ncm_produto %> ><%= ncm_produto.ncm_produto %></option>
+              <%}); %> 
+            </select>
+          </div>
+          
         </div>
         <div class="form-row">
-          <div class="col-4">
+          <div class="col-md-4 mb-2">
             <button id="csv" type="submit" class="btn btn-success btn-block">
               <span class="button__text">Baixar em csv</span>
             </button>
           </div>
-          <div class="col-4">
+          <div class="col-md-4 mb-2">
             <input type="submit" class="btn btn-primary btn-block" formaction="/xlsx" value="Baixar em xlsx">
           </div>
-          <div class="col-4">
+          <div class="col-md-4 mb-2">
             <input type="submit" class="btn btn-secondary btn-block" formaction="/pdf" value="Baixar em pdf">
           </div>
         </div>
