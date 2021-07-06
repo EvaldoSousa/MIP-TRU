@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-CREATE TABLE entradas
-(
-	id BIGSERIAL PRIMARY KEY NOT NULL,
-	ano VARCHAR(50) NOT NULL,
-	entrada VARCHAR(100) NOT NULL,
-	destinatario VARCHAR(100),
-	cnae VARCHAR(300)
-);
-=======
 CREATE TABLE entradas(id BIGSERIAL PRIMARY KEY NOT NULL, 
 					municipio_emissor VARCHAR(100) NOT NULL,
 					uf_emissor VARCHAR(2) NOT NULL,
@@ -34,4 +24,3 @@ CREATE TABLE entradas(id BIGSERIAL PRIMARY KEY NOT NULL,
 					scr_2010_divulga_desc TEXT NOT NULL,
 					ncm_produto BIGINT NOT NULL,
 					total_bruto_produtos DECIMAL(12,2) NOT NULL);
->>>>>>> 6f721ed3db406cbef3b09e1eed9bc26e86f8340e
