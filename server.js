@@ -198,11 +198,9 @@ app.post('/search', (req, res) => {
     } = req.body;
     let errors = [];
 
-    console.log("Município: " + municipio_emissor);
+    //console.log("Município: " + municipio_emissor);
     
-    if (!municipio_emissor && !uf_emissor && !municipio_destinatario && !uf_destinatario && !cfop && !cfop_1d && !cfop_2d && !cfop_3d && !cnae && !cnae_divisao && !cnae_grupo && !cnae_classe_4d && !cnae_classe_5d && !scr_2010_trabalho && !scr_2010_divulga && !ncm_produto) {
-        errors.push({ message: "Preencha ao menos um dos campos" });
-    }
+
 
     if (errors.length > 0) {
         req.flash("error", errors[0].message);
