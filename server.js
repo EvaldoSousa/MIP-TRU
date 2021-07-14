@@ -42,7 +42,7 @@ app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
 //envia informações do front para o server
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }));
 
 // usa o session para criar um "segredo" pra conexão
 app.use(session({
@@ -196,21 +196,13 @@ app.post('/search', (req, res) => {
         cfop, cfop_1d, cfop_2d, cfop_3d, cnae, cnae_divisao, cnae_grupo,
         cnae_classe_4d, cnae_classe_5d, scr_2010_trabalho, scr_2010_divulga, ncm_produto
     } = req.body;
+
     let errors = [];
-
-    //console.log("Município: " + municipio_emissor);
-    
-
-
-    if (errors.length > 0) {
-        req.flash("error", errors[0].message);
-        res.redirect('/search');
-        return
-    }
 
     let sql = f.buscar(municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario,
         cfop, cfop_1d, cfop_2d, cfop_3d, cnae, cnae_divisao, cnae_grupo,
         cnae_classe_4d, cnae_classe_5d, scr_2010_trabalho, scr_2010_divulga, ncm_produto);
+
     pool.query(sql, (err, results) => {
         if (err) {
             throw err;

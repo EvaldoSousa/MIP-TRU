@@ -44,117 +44,119 @@ function buscar(municipio_emissor, uf_emissor, municipio_destinatario, uf_destin
     let txt = `SELECT municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario, 
     cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d, cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
     cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, scr_2010_trabalho, 
-    scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc, ncm_produto, total_bruto_produtos FROM entradas WHERE `;
+    scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc, ncm_produto, total_bruto_produtos FROM entradas`;
 
-    
+    if (municipio_emissor || uf_emissor, municipio_destinatario || uf_destinatario ||
+        cfop || cfop_1d || cfop_2d || cfop_3d || cnae || cnae_divisao || cnae_grupo ||
+        cnae_classe_4d || cnae_classe_5d || scr_2010_trabalho || scr_2010_divulga || ncm_produto) {
+            txt += " WHERE ";
+    }
 
     if (municipio_emissor) {
-        txt += "municipio_emissor ilike \'%" + municipio_emissor + "%\' ";
-        console.log("aqui tá ino")
+        txt += " municipio_emissor ilike \'" + municipio_emissor + "%\' ";
     }
 
     if (uf_emissor) {
         if (municipio_emissor) {
             txt += "and"
         }
-        txt += " uf_emissor ilike \'%" + uf_emissor + "%\' ";
+        txt += " uf_emissor ilike \'" + uf_emissor + "%\' ";
     }
 
     if (municipio_destinatario) {
         if (municipio_emissor || uf_emissor) {
             txt += "and"
         }
-        txt += " municipio_destinatario ilike \'%" + municipio_destinatario + "%\' ";
+        txt += " municipio_destinatario ilike \'" + municipio_destinatario + "%\' ";
     }
     if (uf_destinatario) {
         if (municipio_emissor || uf_emissor || municipio_destinatario) {
             txt += "and"
         }
-        txt += " uf_destinatario ilike \'" + uf_destinatario + "%\'";
+        txt += " uf_destinatario ilike \'" + uf_destinatario + "%\' ";
     }
     if (cfop) {
         if (municipio_emissor || uf_emissor || municipio_destinatario || uf_destinatario) {
             txt += "and"
         }
-        txt += " cfop ilike \'" + cfop + "%\'";
+        txt += " cfop ilike \'" + cfop + "%\' ";
     }
     if (cfop_1d) {
         if (municipio_emissor || uf_emissor || municipio_destinatario || uf_destinatario || cfop) {
             txt += "and"
         }
-        txt += " cfop_1d ilike \'" + cfop_1d + "%\'";
+        txt += " cfop_1d ilike \'" + cfop_1d + "%\' ";
     }
     if (cfop_2d) {
         if (municipio_emissor || uf_emissor || municipio_destinatario || uf_destinatario || cfop || cfop_1d) {
             txt += "and"
         }
-        txt += " cfop_2d ilike \'" + cfop_2d + "%\'";
+        txt += " cfop_2d ilike \'" + cfop_2d + "%\' ";
     }
     if (cfop_3d) {
         if (municipio_emissor || uf_emissor || municipio_destinatario || uf_destinatario || cfop || cfop_1d || cfop_2d) {
             txt += "and"
         }
-        txt += " cfop_3d ilike \'" + cfop_3d + "%\'";
+        txt += " cfop_3d ilike \'" + cfop_3d + "%\' ";
     }
     if (cnae) {
         if (municipio_emissor || uf_emissor || municipio_destinatario || uf_destinatario || cfop || cfop_1d || cfop_2d || cfop_3d) {
             txt += "and"
         }
-        txt += " cnae ilike \'" + cnae + "%\'";
+        txt += " cnae ilike \'" + cnae + "%\' ";
     }
     if (cnae_divisao) {
         if (municipio_emissor || uf_emissor || municipio_destinatario || uf_destinatario || cfop || cfop_1d
             || cfop_2d || cfop_3d || cnae) {
             txt += "and"
         }
-        txt += " cnae_divisao ilike \'" + cnae_divisao + "%\'";
+        txt += " cnae_divisao ilike \'" + cnae_divisao + "%\' ";
     }
     if (cnae_grupo) {
         if (municipio_emissor || uf_emissor || municipio_destinatario || uf_destinatario || cfop || cfop_1d
             || cfop_2d || cfop_3d || cnae || cnae_divisao) {
             txt += "and"
         }
-        txt += " cnae_grupo ilike \'" + cnae_grupo + "%\'";
+        txt += " cnae_grupo ilike \'" + cnae_grupo + "%\' ";
     }
     if (cnae_classe_4d) {
         if (municipio_emissor || uf_emissor || municipio_destinatario || uf_destinatario || cfop || cfop_1d
             || cfop_2d || cfop_3d || cnae || cnae_divisao || cnae_grupo) {
             txt += "and"
         }
-        txt += " cnae_classe_4d ilike \'" + cnae_classe_4d + "%\'";
+        txt += " cnae_classe_4d ilike \'" + cnae_classe_4d + "%\' ";
     }
     if (cnae_classe_5d) {
         if (municipio_emissor || uf_emissor || municipio_destinatario || uf_destinatario || cfop || cfop_1d
             || cfop_2d || cfop_3d || cnae || cnae_divisao || cnae_grupo || cnae_classe_4d) {
             txt += "and"
         }
-        txt += " cnae_classe_5d ilike \'" + cnae_classe_5d + "%\'";
+        txt += " cnae_classe_5d ilike \'" + cnae_classe_5d + "%\' ";
     }
     if (scr_2010_trabalho) {
         if (municipio_emissor || uf_emissor || municipio_destinatario || uf_destinatario || cfop || cfop_1d
             || cfop_2d || cfop_3d || cnae || cnae_divisao || cnae_grupo || cnae_classe_4d || cnae_classe_5d) {
             txt += "and"
         }
-        txt += " scr_2010_trabalho ilike \'" + scr_2010_trabalho + "%\'";
+        txt += " scr_2010_trabalho ilike \'" + scr_2010_trabalho + "%\' ";
     }
     if (scr_2010_divulga) {
         if (municipio_emissor || uf_emissor || municipio_destinatario || uf_destinatario || cfop || cfop_1d
-            || cfop_2d || cfop_3d || cnae || cnae_divisao || cnae_grupo || cnae_classe_4d || cnae_classe_5d || 
+            || cfop_2d || cfop_3d || cnae || cnae_divisao || cnae_grupo || cnae_classe_4d || cnae_classe_5d ||
             scr_2010_trabalho) {
             txt += "and"
         }
-        txt += " scr_2010_divulga ilike \'" + scr_2010_divulga + "%\'";
+        txt += " scr_2010_divulga ilike \'" + scr_2010_divulga + "%\' ";
     }
     if (ncm_produto) {
         if (municipio_emissor || uf_emissor || municipio_destinatario || uf_destinatario || cfop || cfop_1d
-            || cfop_2d || cfop_3d || cnae || cnae_divisao || cnae_grupo || cnae_classe_4d || cnae_classe_5d || 
+            || cfop_2d || cfop_3d || cnae || cnae_divisao || cnae_grupo || cnae_classe_4d || cnae_classe_5d ||
             scr_2010_trabalho || scr_2010_divulga) {
             txt += "and"
         }
-        txt += " ncm_produto ilike \'" + ncm_produto + "%\'";
+        txt += " ncm_produto ilike \'" + ncm_produto + "%\' ";
     }
 
-    console.log(txt);
     return txt;
 }
 
