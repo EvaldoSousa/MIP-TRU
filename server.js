@@ -194,14 +194,14 @@ app.post('/search', (req, res) => {
     let {
         municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario,
         cfop, cfop_1d, cfop_2d, cfop_3d, cnae, cnae_divisao, cnae_grupo,
-        cnae_classe_4d, cnae_classe_5d, scr_2010_trabalho, scr_2010_divulga, ncm_produto
+        cnae_classe_4d, cnae_classe_5d, scr_2010_trabalho, scr_2010_divulga, ncm_produto, agrupar
     } = req.body;
 
     let errors = [];
 
     let sql = f.buscar(municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario,
         cfop, cfop_1d, cfop_2d, cfop_3d, cnae, cnae_divisao, cnae_grupo,
-        cnae_classe_4d, cnae_classe_5d, scr_2010_trabalho, scr_2010_divulga, ncm_produto);
+        cnae_classe_4d, cnae_classe_5d, scr_2010_trabalho, scr_2010_divulga, ncm_produto, agrupar);
 
     pool.query(sql, (err, results) => {
         if (err) {
@@ -232,6 +232,21 @@ app.post('/search', (req, res) => {
                 'SCR 2010 Trabalho Desc', 'SCR 2010 Divulga', 'SCR 2010 Divulga Desc',
                 'NCM Produto', 'Total Bruto Produtos']
         };
+
+        if(agrupar == "cnae") {
+            options.headers = [ 'CNAE (C)',
+            'Descrição do CNAE', 'CNAE (Divisão)', 'CNAE (Divisão) Desc', 'CNAE (Grupo)',
+            'CNAE (Grupo) Desc', 'CNAE (Classe - 4D)', 'CNAE (Classe - 4D) Desc',
+            'CNAE (Classe - 5D)', 'CNAE (Classe - 5D) Desc', 'SCR 2010 Trabalho',
+            'SCR 2010 Trabalho Desc', 'SCR 2010 Divulga', 'SCR 2010 Divulga Desc', 
+            'Soma Total Bruto Produtos']
+        }
+        if(agrupar == "emissor") {
+            options.headers = ['Município Emissor', 'UF Emissor', 'Soma Total Bruto Produtos']
+        }
+        if(agrupar == "destinatario") {
+            options.headers = ['Município Destinatário', 'UF Destinatário', 'Soma Total Bruto Produtos']
+        }
 
         const csvExporter = new ExportToCsv(options);
 
