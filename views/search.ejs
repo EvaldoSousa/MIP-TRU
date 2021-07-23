@@ -72,7 +72,7 @@
         <div class="row mb-3">
           <div class="col-md-6 mb-2">
             <select name="municipio_emissor" id="municipio_emissor" class="form-control">
-              <option value="" selected>Selecionar Emissor</option>
+              <option value="" selected>Selecionar Município Emissor</option>
               <% municipio_emissor.forEach(m_e => {%>
                 <option value=<%= m_e.municipio_emissor %> ><%= m_e.municipio_emissor %></option>
               <%}); %> 
@@ -80,7 +80,7 @@
           </div>
           <div class="col-md-6 mb-2">
             <select name="uf_emissor" id="uf_emissor" class="form-control">
-              <option value="" selected>Selecionar UF Emissor</option>
+              <option value="" selected>Selecionar Estado Emissor</option>
               <% uf_emissor.forEach(u_e => {%>
                 <option value=<%= u_e.uf_emissor %> ><%= u_e.uf_emissor %></option>
               <%}); %> 
@@ -88,7 +88,7 @@
           </div>
           <div class="col-md-6 mb-2">
             <select name="municipio_destinatario" id="municipio_destinatario" class="form-control">
-              <option value="" selected>Selecionar Destinatário</option>
+              <option value="" selected>Selecionar Município Destinatário</option>
               <% municipio_destinatario.forEach(dest => {%>
                 <option value=<%= dest.municipio_destinatario %> ><%= dest.municipio_destinatario %></option>
               <%}); %> 
@@ -96,7 +96,7 @@
           </div>
           <div class="col-md-6 mb-2">
             <select name="uf_destinatario" id="uf_destinatario" class="form-control">
-              <option value="" selected>Selecionar UF Destinatário</option>
+              <option value="" selected>Selecionar Estado Destinatário</option>
               <% uf_destinatario.forEach(u_d => {%>
                 <option value=<%= u_d.uf_destinatario %> ><%= u_d.uf_destinatario %></option>
               <%}); %> 
@@ -120,7 +120,7 @@
           </div>
           <div class="col-md-6 mb-2">
             <select name="cfop_2d" id="cfop_2d" class="form-control">
-              <option value="" selected>Selecionar UF CFOP (2D)</option>
+              <option value="" selected>Selecionar CFOP (2D)</option>
               <% cfop_2d.forEach(cfop_2d => {%>
                 <option value=<%= cfop_2d.cfop_2d %> ><%= cfop_2d.cfop_2d %></option>
               <%}); %> 

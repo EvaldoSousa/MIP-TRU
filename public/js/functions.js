@@ -85,7 +85,7 @@ function buscar(
     if (municipio_emissor) {
       txt = `SELECT municipio_emissor, uf_emissor,
         SUM(total_bruto_produtos) FROM entradas
-        WHERE municipio_emissor=\'${municipio_emissor}\'
+        WHERE municipio_emissor ilike \'${municipio_emissor}%\'
        group by municipio_emissor, uf_emissor`;
     } else {
       txt = `SELECT municipio_emissor, uf_emissor,
@@ -100,7 +100,7 @@ function buscar(
     if (municipio_destinatario) {
       txt = `SELECT municipio_destinatario, uf_destinatario,
         SUM(total_bruto_produtos) FROM entradas
-        WHERE municipio_destinatario=\'${municipio_destinatario}\'
+        WHERE municipio_destinatario ilike \'${municipio_destinatario}%\'
        group by municipio_destinatario, uf_destinatario`;
     } else {
       txt = `SELECT municipio_destinatario, uf_destinatario,
@@ -382,7 +382,7 @@ function buscar(
     ) {
       txt += "and";
     }
-    txt += " ncm_produto ilike '" + ncm_produto + "%' ";
+    txt += " ncm_produto='" + ncm_produto + "' ";
   }
 
   return txt;
