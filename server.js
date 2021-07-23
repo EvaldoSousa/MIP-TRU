@@ -237,8 +237,7 @@ app.post('/search', (req, res) => {
             options.headers = [ 'CNAE (C)',
             'Descrição do CNAE', 'CNAE (Divisão)', 'CNAE (Divisão) Desc', 'CNAE (Grupo)',
             'CNAE (Grupo) Desc', 'CNAE (Classe - 4D)', 'CNAE (Classe - 4D) Desc',
-            'CNAE (Classe - 5D)', 'CNAE (Classe - 5D) Desc', 'SCR 2010 Trabalho',
-            'SCR 2010 Trabalho Desc', 'SCR 2010 Divulga', 'SCR 2010 Divulga Desc', 
+            'CNAE (Classe - 5D)', 'CNAE (Classe - 5D) Desc', 
             'Soma Total Bruto Produtos']
         }
         if(agrupar == "emissor") {
@@ -246,6 +245,13 @@ app.post('/search', (req, res) => {
         }
         if(agrupar == "destinatario") {
             options.headers = ['Município Destinatário', 'UF Destinatário', 'Soma Total Bruto Produtos']
+        }
+        if(agrupar == "cfop") {
+            options.headers = ['CFOP', 'Descrição CFOP', 'CFOP (1D)', 'CFOP (2D)', 'CFOP (3D)', 'Soma Total Bruto Produtos']
+        }
+        if(agrupar == "scr") {
+            options.headers = ['SCR 2010 Trabalho', 'SCR 2010 Trabalho Desc', 'SCR 2010 Divulga', 
+            'SCR 2010 Divulga Desc', 'Soma Total Bruto Produtos']
         }
 
         const csvExporter = new ExportToCsv(options);
@@ -332,7 +338,6 @@ app.post("/updatenick", async (req, res) => {
             req.flash("error", errors[0].message);
             res.redirect('/editar');
         } else {
-            console.log("sai");
             pool.query(
                 `UPDATE usuarios
                     SET nomeusuario = $1
@@ -427,7 +432,6 @@ app.post("/forgot", async (req, res) => {
         //Formulário foi validado
         var senha = require('./public/js/util').gerarSenha();
         var hashedPassword = await bcrypt.hash(senha, 10);
-        console.log(senha);
     }
 
     pool.query(
@@ -573,47 +577,8 @@ app.listen(PORT, () => {
     console.log(`Servidor na porta ${PORT}🦽`);
 });
 
-// // END-POINT deleta pessoa
-// server.delete("/usuarios", (req, res) => {
-//     const item = req.body;
-//     deletar(item.id);
-//     res.json(item);
-// })
-
-// function deletar(id){
-//     pool.connect((err, client, done) => {
-//         if (err) throw err
-//         client.query("DELETE FROM pessoas WHERE id = $1;", [id],
-//             (err, res) => {
-//                 done()
-//                 if (err) {
-//                     console.log(err.stack)
-//                 } else {
-//                     console.log(res.rows[0])
-//                 }
-//             })
-//     })
-// }
 
 //==================================================================================================
-
-
-//==================================================================================================
-
-function mostrarTodos() {
-    poolPostgres.connect((err, client, done) => {
-        if (err) throw err
-        client.query("SELECT * FROM entradas ", [],
-            (err, res) => {
-                done()
-                if (err) {
-                    console.log(err.stack)
-                } else {
-                    console.log(res.rows[0])
-                }
-            })
-    })
-}
 
 app.get('*', function (req, res) {
     res.status(404).render('error404');

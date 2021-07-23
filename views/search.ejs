@@ -199,44 +199,50 @@
             </select>
           </div>
           <div class="col-md-12 mb-2 form-row mt-3">
-            <div class="form-check form-check-inline col-2">
+            <div class="form-check form-check-inline col-md-3">
               <input class="form-check-input" type="radio" name="agrupar" id="agrupar" value="null" checked>
               <label class="form-check-label" for="agrupar">
                 Não agrupar
               </label>
             </div>
-            <div class="form-check form-check-inline col-3">
-              <input class="form-check-input" type="radio" name="agrupar" id="agrupar2" value="cnae">
+            <div class="form-check form-check-inline col-md-4">
+              <input class="form-check-input" type="radio" name="agrupar" id="agrupar2" value="emissor">
               <label class="form-check-label" for="agrupar2">
-                Agrupar por CNAE
-              </label>
-            </div>
-            <div class="form-check form-check-inline col-3">
-              <input class="form-check-input" type="radio" name="agrupar" id="agrupar3" value="emissor">
-              <label class="form-check-label" for="agrupar3">
                 Agrupar por Emissor
               </label>
             </div>
-            <div class="form-check form-check-inline col-3">
-              <input class="form-check-input" type="radio" name="agrupar" id="agrupar4" value="destinatario">
-              <label class="form-check-label" for="agrupar4">
+            <div class="form-check form-check-inline col-md-4">
+              <input class="form-check-input" type="radio" name="agrupar" id="agrupar3" value="destinatario">
+              <label class="form-check-label" for="agrupar3">
                 Agrupar por Destinatário
+              </label>
+            </div>
+            <div class="form-check form-check-inline col-md-3">
+              <input class="form-check-input" type="radio" name="agrupar" id="agrupar4" value="cfop">
+              <label class="form-check-label" for="agrupar4">
+                Agrupar por CFOP
+              </label>
+            </div>
+            <div class="form-check form-check-inline col-md-4">
+              <input class="form-check-input" type="radio" name="agrupar" id="agrupar5" value="cnae">
+              <label class="form-check-label" for="agrupar5">
+                Agrupar por CNAE
+              </label>
+            </div>
+            <div class="form-check form-check-inline col-md-4">
+              <input class="form-check-input" type="radio" name="agrupar" id="agrupar6" value="scr">
+              <label class="form-check-label" for="agrupar6">
+                Agrupar por SCR
               </label>
             </div>
           </div>
           
         </div>
         <div class="form-row">
-          <div class="col-md-4 mb-2">
-            <button id="csv" type="submit" formaction="/search" class="btn btn-success btn-block">
+          <div class="mx-auto mb-2">
+            <button id="csv" type="submit" formaction="/search" class="btn btn-success btn-lg">
               <span class="button__text">Baixar em csv</span>
             </button>
-          </div>
-          <div class="col-md-4 mb-2">
-            <input type="submit" class="btn btn-primary btn-block" formaction="/xlsx" value="Baixar em xlsx">
-          </div>
-          <div class="col-md-4 mb-2">
-            <input type="submit" class="btn btn-secondary btn-block" formaction="/pdf" value="Baixar em pdf">
           </div>
         </div>
       </form>

@@ -69,16 +69,14 @@ function buscar(
   if (agrupar == "cnae") {
     if (cnae) {
       txt = `SELECT cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
-            cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, scr_2010_trabalho, 
-            scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc, SUM(total_bruto_produtos) FROM entradas WHERE cnae=\'${cnae}\' group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
-            cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, scr_2010_trabalho, 
-            scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc`;
+            cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, 
+            SUM(total_bruto_produtos) FROM entradas WHERE cnae=\'${cnae}\' group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
+            cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc`;
     } else {
       txt = `SELECT cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
-            cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, scr_2010_trabalho, 
-            scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc, SUM(total_bruto_produtos) FROM entradas group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
-            cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, scr_2010_trabalho, 
-            scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc order by cnae asc`;
+            cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc,  SUM(total_bruto_produtos) 
+            FROM entradas group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
+            cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc order by cnae asc`;
     }
     return txt;
   }
@@ -109,6 +107,40 @@ function buscar(
             SUM(total_bruto_produtos) FROM entradas
            group by municipio_destinatario, uf_destinatario
           order by municipio_destinatario asc`;
+    }
+    return txt;
+  }
+
+  if (agrupar == "cfop") {
+    if (cfop) {
+      txt = `SELECT cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d,
+        SUM(total_bruto_produtos) FROM entradas
+        WHERE cfop=\'${cfop}\'
+       group by cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d`;
+    } else {
+      txt = `SELECT cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d,
+            SUM(total_bruto_produtos) FROM entradas
+           group by cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d
+          order by cfop asc`;
+    }
+    return txt;
+  }
+
+  if (agrupar == "scr") {
+    if (scr_2010_trabalho) {
+      txt = `SELECT scr_2010_trabalho, 
+            scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc,
+            SUM(total_bruto_produtos) FROM entradas
+            WHERE scr_2010_trabalho=\'${scr_2010_trabalho}\'
+            group by scr_2010_trabalho, 
+            scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc`;
+    } else {
+      txt = `SELECT scr_2010_trabalho, 
+            scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc,
+            SUM(total_bruto_produtos) FROM entradas
+            group by scr_2010_trabalho, 
+            scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc
+            order by scr_2010_trabalho asc`;
     }
     return txt;
   }
