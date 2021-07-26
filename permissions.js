@@ -21,6 +21,7 @@ module.exports = (request) => {
         case '/editar': return true;
         case '/forgot': return true;
         case '/search': return true;
+        case '/creditos': return true;
         case '/cadastro': { return isAdmin(profile); }
         default: return false;
     }

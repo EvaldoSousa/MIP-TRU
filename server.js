@@ -64,8 +64,8 @@ app.get("/", checkNotAuthenticated, (req, res) => {
 });
 
 // rota para página de créditos
-app.get("/table", checkNotAuthenticated, (req, res) => {
-    res.render("table");
+app.get("/creditos", checkNotAuthenticated, (req, res) => {
+    res.render("creditos");
 });
 
 // rota para tabela

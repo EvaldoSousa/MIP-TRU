@@ -1,0 +1,37 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+.rodape {
+    margin-left: 45%;
+}
+
+.navbar-light.navbar-laravel {
+    background-color: white !important;
+}
+
+.navbar-laravel {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
+}
+
+.imagem {
+    width: 37px;
+    -webkit-animation: pulsa 1s linear 0s infinite alternate;
+}
+
+
+@keyframes pulsa {
+    0% {
+        transform: scale(0.9) rotate(0deg);
+    }
+}
+
+.row {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.row:hover {
+    color: #124ebe;
+}
+
+.container {
+    padding-bottom: 10px;
+}
