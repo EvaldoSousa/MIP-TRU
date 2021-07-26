@@ -63,6 +63,9 @@ app.get("/", checkNotAuthenticated, (req, res) => {
     res.render('index', { user: req.user.nome, profile: req.user.perfil });
 });
 
+// rota para página de créditos
+
+
 // rota para tabela
 app.get("/table", checkNotAuthenticated, (req, res) => {
     res.render("table");
