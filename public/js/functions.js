@@ -100,8 +100,9 @@ function buscar(
     if (municipio_destinatario) {
       txt = `SELECT municipio_destinatario, uf_destinatario,
         SUM(total_bruto_produtos) FROM entradas
-        WHERE municipio_destinatario ilike \'${municipio_destinatario}%\'
+        WHERE municipio_destinatario in (${municipio_destinatario.join(', ')})
        group by municipio_destinatario, uf_destinatario`;
+
     } else {
       txt = `SELECT municipio_destinatario, uf_destinatario,
             SUM(total_bruto_produtos) FROM entradas
@@ -178,7 +179,7 @@ function buscar(
     if (municipio_emissor || uf_emissor) {
       txt += "and";
     }
-    txt += " municipio_destinatario ilike '" + municipio_destinatario + "%' ";
+    txt += " municipio_destinatario in (" + municipio_destinatario + ") ";
   }
   if (uf_destinatario) {
     if (municipio_emissor || uf_emissor || municipio_destinatario) {
@@ -443,10 +444,21 @@ function buscarSelect(entrada) {
   return txt;
 }
 
+function aspas(entrada, retorno) {
+  if(entrada != null) {
+    entrada.map(function(e, i) {
+      retorno[i] = `\'${e}\'`;
+    });
+  } else {
+    retorno = entrada;
+  }
+}
+
 module.exports = {
   formatarTelefone,
   reverseFormat,
   removeAcento,
   buscar,
   buscarSelect,
+  aspas
 };
