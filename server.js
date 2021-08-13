@@ -202,6 +202,8 @@ app.post('/search', (req, res) => {
         cnae_classe_4d, cnae_classe_5d, scr_2010_trabalho, scr_2010_divulga, ncm_produto, agrupar
     } = req.body;
 
+    f.aspas(municipio_destinatario, municipio_destinatario);
+
     let errors = [];
 
     let sql = f.buscar(municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario,
