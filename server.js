@@ -64,11 +64,6 @@ app.get("/creditos", checkNotAuthenticated, (req, res) => {
     res.render("creditos", { profile: req.user.perfil });
 });
 
-// rota para tabela
-app.get("/table", checkNotAuthenticated, (req, res) => {
-    res.render("table", { profile: req.user.perfil });
-});
-
 // rota para página inicial
 app.get("/", checkNotAuthenticated, (req, res) => {
     pool.query(f.buscarSelect('municipio_emissor'), (erro, results) => {
