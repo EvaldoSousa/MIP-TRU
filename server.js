@@ -177,7 +177,7 @@ app.get("/", checkNotAuthenticated, (req, res) => {
 });
 
 // rota para página de cadastro
-app.get("/cadastro", (req, res) => {
+app.get("/cadastro", checkNotAuthenticated, (req, res) => {
     res.render("cadastro");
 });
 
