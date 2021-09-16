@@ -58,10 +58,6 @@ app.use(passport.session());
 
 app.use(flash())
 
-// rota para página inicial
-app.get("/", checkNotAuthenticated, (req, res) => {
-    res.render('index', { user: req.user.nome, profile: req.user.perfil });
-});
 
 // rota para página de créditos
 app.get("/creditos", checkNotAuthenticated, (req, res) => {
@@ -73,7 +69,8 @@ app.get("/table", checkNotAuthenticated, (req, res) => {
     res.render("table");
 });
 
-app.get("/search", checkNotAuthenticated, (req, res) => {
+// rota para página inicial
+app.get("/", checkNotAuthenticated, (req, res) => {
     pool.query(f.buscarSelect('municipio_emissor'), (erro, results) => {
         if (erro) {
             throw erro;
@@ -156,6 +153,7 @@ app.get("/search", checkNotAuthenticated, (req, res) => {
                                                                     let ncm_produto = results.rows;
                                                                     res.render("search",
                                                                         {
+                                                                            user: req.user.nome, profile: req.user.perfil,
                                                                             municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario,
                                                                             cfop, cfop_1d, cfop_2d, cfop_3d, cnae, cnae_divisao, cnae_grupo,
                                                                             cnae_classe_4d, cnae_classe_5d, scr_2010_trabalho, scr_2010_divulga, ncm_produto
@@ -179,7 +177,7 @@ app.get("/search", checkNotAuthenticated, (req, res) => {
 });
 
 // rota para página de cadastro
-app.get("/cadastro", checkNotAuthenticated, (req, res) => {
+app.get("/cadastro", (req, res) => {
     res.render("cadastro");
 });
 
@@ -240,25 +238,25 @@ app.post('/search', (req, res) => {
                 'NCM Produto', 'Total Bruto Produtos']
         };
 
-        if(agrupar == "cnae") {
-            options.headers = [ 'CNAE (C)',
-            'Descrição do CNAE', 'CNAE (Divisão)', 'CNAE (Divisão) Desc', 'CNAE (Grupo)',
-            'CNAE (Grupo) Desc', 'CNAE (Classe - 4D)', 'CNAE (Classe - 4D) Desc',
-            'CNAE (Classe - 5D)', 'CNAE (Classe - 5D) Desc', 
-            'Soma Total Bruto Produtos']
+        if (agrupar == "cnae") {
+            options.headers = ['CNAE (C)',
+                'Descrição do CNAE', 'CNAE (Divisão)', 'CNAE (Divisão) Desc', 'CNAE (Grupo)',
+                'CNAE (Grupo) Desc', 'CNAE (Classe - 4D)', 'CNAE (Classe - 4D) Desc',
+                'CNAE (Classe - 5D)', 'CNAE (Classe - 5D) Desc',
+                'Soma Total Bruto Produtos']
         }
-        if(agrupar == "emissor") {
+        if (agrupar == "emissor") {
             options.headers = ['Município Emissor', 'UF Emissor', 'Soma Total Bruto Produtos']
         }
-        if(agrupar == "destinatario") {
+        if (agrupar == "destinatario") {
             options.headers = ['Município Destinatário', 'UF Destinatário', 'Soma Total Bruto Produtos']
         }
-        if(agrupar == "cfop") {
+        if (agrupar == "cfop") {
             options.headers = ['CFOP', 'Descrição CFOP', 'CFOP (1D)', 'CFOP (2D)', 'CFOP (3D)', 'Soma Total Bruto Produtos']
         }
-        if(agrupar == "scr") {
-            options.headers = ['SCR 2010 Trabalho', 'SCR 2010 Trabalho Desc', 'SCR 2010 Divulga', 
-            'SCR 2010 Divulga Desc', 'Soma Total Bruto Produtos']
+        if (agrupar == "scr") {
+            options.headers = ['SCR 2010 Trabalho', 'SCR 2010 Trabalho Desc', 'SCR 2010 Divulga',
+                'SCR 2010 Divulga Desc', 'Soma Total Bruto Produtos']
         }
 
         const csvExporter = new ExportToCsv(options);
