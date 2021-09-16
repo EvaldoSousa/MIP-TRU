@@ -16,6 +16,14 @@
     color: #198754;
 }
 
+
+/* img perfil */
+.img-perfil{
+    margin-left: 33%;
+    width: 50px;
+}
+
+
 body{
     margin: 0;
     font-size: .9rem;
