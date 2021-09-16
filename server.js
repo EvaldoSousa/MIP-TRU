@@ -60,8 +60,8 @@ app.use(flash())
 
 
 // rota para página de créditos
-app.get("/creditos", checkNotAuthenticated, (req, res) => {
-    res.render("creditos");
+app.get("/sobres", checkNotAuthenticated, (req, res) => {
+    res.render("sobres");
 });
 
 // rota para tabela

@@ -10,8 +10,7 @@
   <!-- favicon -->
   <link rel="shortcut icon" href="/img/logoIcon.png" />
 
-  <!--Link css Local-->
-  <link rel="stylesheet" href="/css/table.css">
+ 
 
   <!--Bootstrap-->
   <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -34,7 +33,7 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
       <div class="container">
-        <a href="/creditos" class="txt-info "><img src="/img/infor.png" alt="" class="icon-info"> Sobre</a>
+        <a href="/sobres" class="txt-info "><img src="/img/infor.png" alt="" class="icon-info"> Sobre</a>
 
         <div class="dropdown">
           <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -43,6 +42,8 @@
           </button>
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <br>
+              <hr>
             <a class="dropdown-item" href="/editar">Meu Perfil</a>
             <% if(profile=='2' ) { %>
               <a class="dropdown-item" href="/cadastro">Cadastro</a>

@@ -1,5 +1,20 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
+/* img infor */
+.icon-info {
+    height: 28px;
+}
+
+/* texto sobre */
+.txt-info{
+    font-size: 20px;
+    text-decoration: none !important;
+    font-family: Raleway, sans-serif !important;
+    color: black;
+}
+.txt-info:hover{
+    color: #198754;
+}
 
 body{
     margin: 0;
