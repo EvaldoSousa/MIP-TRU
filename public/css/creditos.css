@@ -1,14 +1,35 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
-body{
+/* img infor */
+.icon-info {
+    height: 28px;
+}
+
+/* texto sobre */
+.txt-info{
+    font-size: 20px;
+    text-decoration: none !important;
     font-family: Raleway, sans-serif !important;
+    color: black;
+}
+.txt-info:hover{
+    color: #198754;
+}
+
+body {
+    font-family: Raleway, sans-serif !important;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    height: 100%;
 }
 
 .rodape {
     margin-left: 45%;
 }
 
-.logo-lcc{
+.logo-lcc {
     margin-top: 30px;
 }
 
@@ -20,15 +41,52 @@ body{
     box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
 }
 
-.row {
-    margin-top: 15px;
-    margin-bottom: 10px;
-}
-
-.row:hover {
-    color: #124ebe;
-}
-
 .container {
     padding-bottom: 10px;
+}
+
+/* footer */
+
+#myFooter .footer-copyright {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+}
+
+#myFooter .row {
+    margin-bottom: 60px;
+}
+
+#myFooter .navbar-brand {
+    margin-top: 45px;
+    height: 65px;
+}
+
+#myFooter .footer-copyright p {
+    margin: 10px;
+    color: white
+}
+
+@media screen and (max-width: 767px) {
+    #myFooter {
+        text-align: center;
+    }
+}
+
+/* CSS utilizado para posicionar o rodapé no final da página. */
+
+/* Você pode remover isso. */
+
+html {
+    height: 100%;
+}
+
+.content {
+    flex: 1 0 auto;
+    -webkit-flex: 1 0 auto;
+}
+
+#myFooter {
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
 }
