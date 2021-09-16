@@ -61,12 +61,12 @@ app.use(flash())
 
 // rota para página de créditos
 app.get("/creditos", checkNotAuthenticated, (req, res) => {
-    res.render("creditos");
+    res.render("creditos", { profile: req.user.perfil });
 });
 
 // rota para tabela
 app.get("/table", checkNotAuthenticated, (req, res) => {
-    res.render("table");
+    res.render("table", { profile: req.user.perfil });
 });
 
 // rota para página inicial
@@ -183,7 +183,7 @@ app.get("/cadastro", (req, res) => {
 
 // rota para página de edição de perfil
 app.get('/editar', checkNotAuthenticated, (req, res) => {
-    res.render("editarPerfil", { nome: req.user.nome, sobrenome: req.user.sobrenome, nick: req.user.nomeusuario, email: req.user.email, senha: req.user.senha, telefone: f.reverseFormat(req.user.telefone) });
+    res.render("editarPerfil", { nome: req.user.nome, sobrenome: req.user.sobrenome, nick: req.user.nomeusuario, email: req.user.email, senha: req.user.senha, telefone: f.reverseFormat(req.user.telefone), profile: req.user.perfil });
 });
 
 // rota para finalizar sessão
