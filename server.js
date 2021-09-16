@@ -151,7 +151,7 @@ app.get("/", checkNotAuthenticated, (req, res) => {
                                                                         throw erro;
                                                                     }
                                                                     let ncm_produto = results.rows;
-                                                                    res.render("search",
+                                                                    res.render("index",
                                                                         {
                                                                             user: req.user.nome, profile: req.user.perfil,
                                                                             municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario,
@@ -193,7 +193,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-app.post('/search', (req, res) => {
+app.post('/index', (req, res) => {
     let {
         municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario,
         cfop, cfop_1d, cfop_2d, cfop_3d, cnae, cnae_divisao, cnae_grupo,
@@ -215,7 +215,7 @@ app.post('/search', (req, res) => {
         let dados = results.rows;
         if (dados == null || dados.length < 1) {
             req.flash("error", "Nenhum dado encontrado!");
-            res.redirect('/search');
+            res.redirect('/index');
             return
         }
 
