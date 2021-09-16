@@ -29,18 +29,19 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light navbar-laravel mb-3">
       <div class="container">
-        <a class="navbar-brand" href="/">UNIFESSPA</a>
+        <a href="/" class="txt-info "><img src="/img/infor.png" alt="" class="icon-info"> Tabela</a>
 
         <div class="dropdown">
           <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Usuário
           </button>
+
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="/editar">Perfil</a>
+            <a class="dropdown-item" href="/editar">Meu Perfil</a>
             <a class="dropdown-item" href="/logout">Sair</a>
-            <a class="dropdown-item" href="/creditos">Créditos</a>
           </div>
+
         </div>
       </div>
     </nav>
@@ -85,9 +86,13 @@
                           </div>
 
                           <div class="form-group row">
-                            <label for="user_name" class="col-md-4 col-form-label text-md-right">Nome de Usuário:</label>
+                            <label for="user_name" class="col-md-4 col-form-label text-md-right">Nome de
+                              Usuário:</label>
                             <div class="col-md-6">
-                              <input type="text" id="user_name" class="form-control" name="usuario" autocomplete="false" pattern="[a-zA-Z0-9]+" title="Apenas números e letras minúsculas sem acentuação. Sem espaços ou caracteres especiais." required>
+                              <input type="text" id="user_name" class="form-control" name="usuario" autocomplete="false"
+                                pattern="[a-zA-Z0-9]+"
+                                title="Apenas números e letras minúsculas sem acentuação. Sem espaços ou caracteres especiais."
+                                required>
                             </div>
                           </div>
 
@@ -113,20 +118,22 @@
                           <div class="form-group row">
                             <label for="Senha" class="col-md-4 col-form-label text-md-right">Senha:</label>
                             <div class="col-md-6">
-                              <input type="password" id="Senha" class="form-control" name="senha" autocomplete="new-password" onchange="verificaSenha()" required>
+                              <input type="password" id="Senha" class="form-control" name="senha"
+                                autocomplete="new-password" onchange="verificaSenha()" required>
                             </div>
                           </div>
 
                           <div class="form-group row">
                             <label for="Senha2" class="col-md-4 col-form-label text-md-right">Confirme a Senha</label>
                             <div class="col-md-6">
-                              <input type="password" id="Senha2" class="form-control" name="senha2" onchange="verificaSenha()" required>
+                              <input type="password" id="Senha2" class="form-control" name="senha2"
+                                onchange="verificaSenha()" required>
                               <small id="passwordHelpBlock" class="form-text text-muted">
                                 Para maior segurança a senha deve ter entre 8 e 20 caracteres, os quais devem conter
                                 letras e números.
                               </small>
                               <div id="verificacao" class="" role="alert">
-                                
+
                               </div>
                             </div>
                           </div>

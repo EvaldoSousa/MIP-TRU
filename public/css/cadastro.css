@@ -1,23 +1,41 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+/* img infor */
+
+.icon-info {
+    height: 28px;
+}
+
+/* texto sobre */
+
+.txt-info {
+    font-size: 20px;
+    text-decoration: none !important;
+    font-family: Raleway, sans-serif !important;
+    color: black;
+}
+
+.txt-info:hover {
+    color: #198754;
+}
+
 body {
     background-color: #f5f8fa !important;
 }
 
-.rodape{
+.rodape {
     margin-left: 45%;
 }
 
-.navbar-light.navbar-laravel{
+.navbar-light.navbar-laravel {
     background-color: white !important;
 }
 
-.navbar-laravel
-{
-    box-shadow: 0 2px 4px rgba(0,0,0,.04);
+.navbar-laravel {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
     margin-bottom: 10px;
 }
 
-.navbar-brand , .nav-link, .my-form, .login-form
-{
+.navbar-brand, .nav-link, .my-form, .login-form {
     font-family: Raleway, sans-serif;
 }
 

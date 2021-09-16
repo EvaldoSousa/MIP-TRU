@@ -34,23 +34,28 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
       <div class="container">
-        <a class="navbar-brand" href="/">UNIFESSPA</a>
+        <a href="/creditos" class="txt-info "><img src="/img/infor.png" alt="" class="icon-info"> Sobre</a>
 
         <div class="dropdown">
           <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Usuário
           </button>
+
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="/editar">Perfil</a>
+            <a class="dropdown-item" href="/editar">Meu Perfil</a>
             <% if(profile=='2' ) { %>
               <a class="dropdown-item" href="/cadastro">Cadastro</a>
               <% } %>
                 <a class="dropdown-item" href="/logout">Sair</a>
-                <a class="dropdown-item" href="/creditos">Sobre</a>
           </div>
+
         </div>
+
       </div>
+
+      </div>
+
     </nav>
   </header>
 
@@ -81,7 +86,8 @@
                     <select name="municipio_emissor" id="municipio_emissor" class="form-control">
                       <option value="" selected>Selecionar Município Emissor</option>
                       <% municipio_emissor.forEach(m_e=> {%>
-                        <option value="<%=m_e.municipio_emissor %>" ><%= m_e.municipio_emissor %>
+                        <option value="<%=m_e.municipio_emissor %>">
+                          <%= m_e.municipio_emissor %>
                         </option>
                         <%}); %>
                     </select>
@@ -90,16 +96,18 @@
                     <select name="uf_emissor" id="uf_emissor" class="form-control">
                       <option value="" selected>Selecionar Estado Emissor</option>
                       <% uf_emissor.forEach(u_e=> {%>
-                        <option value="<%=u_e.uf_emissor %>" ><%= u_e.uf_emissor %>
+                        <option value="<%=u_e.uf_emissor %>">
+                          <%= u_e.uf_emissor %>
                         </option>
                         <%}); %>
                     </select>
                   </div>
                   <div class="col-md-6 mb-2">
-                    <select name="municipio_destinatario" id="municipio_destinatario" class="selectpicker form-control" multiple
-                      data-live-search="true" title="Selecionar Município Destinatário">
+                    <select name="municipio_destinatario" id="municipio_destinatario" class="selectpicker form-control"
+                      multiple data-live-search="true" title="Selecionar Município Destinatário">
                       <% municipio_destinatario.forEach(dest=> {%>
-                        <option value="<%=dest.municipio_destinatario %>" ><%= dest.municipio_destinatario %>
+                        <option value="<%=dest.municipio_destinatario %>">
+                          <%= dest.municipio_destinatario %>
                         </option>
                         <%}); %>
                     </select>
@@ -108,7 +116,8 @@
                     <select name="uf_destinatario" id="uf_destinatario" class="form-control">
                       <option value="" selected>Selecionar Estado Destinatário</option>
                       <% uf_destinatario.forEach(u_d=> {%>
-                        <option value="<%=u_d.uf_destinatario %>" ><%= u_d.uf_destinatario %>
+                        <option value="<%=u_d.uf_destinatario %>">
+                          <%= u_d.uf_destinatario %>
                         </option>
                         <%}); %>
                     </select>
@@ -117,7 +126,8 @@
                     <select name="cfop" id="cfop" class="form-control">
                       <option value="" selected>Selecionar CFOP</option>
                       <% cfop.forEach(cfop=> {%>
-                        <option value="<%=cfop.cfop %>" ><%= cfop.cfop %>
+                        <option value="<%=cfop.cfop %>">
+                          <%= cfop.cfop %>
                         </option>
                         <%}); %>
                     </select>
@@ -126,7 +136,8 @@
                     <select name="cfop_1d" id="cfop_1d" class="form-control">
                       <option value="" selected>Selecionar CFOP (1D)</option>
                       <% cfop_1d.forEach(cfop_1d=> {%>
-                        <option value="<%=cfop_1d.cfop_1d %>" ><%= cfop_1d.cfop_1d %>
+                        <option value="<%=cfop_1d.cfop_1d %>">
+                          <%= cfop_1d.cfop_1d %>
                         </option>
                         <%}); %>
                     </select>
@@ -135,7 +146,8 @@
                     <select name="cfop_2d" id="cfop_2d" class="form-control">
                       <option value="" selected>Selecionar CFOP (2D)</option>
                       <% cfop_2d.forEach(cfop_2d=> {%>
-                        <option value="<%=cfop_2d.cfop_2d %>" ><%= cfop_2d.cfop_2d %>
+                        <option value="<%=cfop_2d.cfop_2d %>">
+                          <%= cfop_2d.cfop_2d %>
                         </option>
                         <%}); %>
                     </select>
@@ -144,7 +156,8 @@
                     <select name="cfop_3d" id="cfop_3d" class="form-control">
                       <option value="" selected>Selecionar CFOP (3D)</option>
                       <% cfop_3d.forEach(cfop_3d=> {%>
-                        <option value="<%=cfop_3d.cfop_3d %>" ><%= cfop_3d.cfop_3d %>
+                        <option value="<%=cfop_3d.cfop_3d %>">
+                          <%= cfop_3d.cfop_3d %>
                         </option>
                         <%}); %>
                     </select>
@@ -153,7 +166,8 @@
                     <select name="cnae" id="cnae" class="form-control">
                       <option value="" selected>Selecionar CNAE</option>
                       <% cnae.forEach(cnae=> {%>
-                        <option value="<%=cnae.cnae %>" ><%= cnae.cnae %>
+                        <option value="<%=cnae.cnae %>">
+                          <%= cnae.cnae %>
                         </option>
                         <%}); %>
                     </select>
@@ -162,7 +176,8 @@
                     <select name="cnae_divisao" id="cnae_divisao" class="form-control">
                       <option value="" selected>Selecionar CNAE (Divisão)</option>
                       <% cnae_divisao.forEach(cnae_divisao=> {%>
-                        <option value="<%=cnae_divisao.cnae_divisao %>" ><%= cnae_divisao.cnae_divisao %>
+                        <option value="<%=cnae_divisao.cnae_divisao %>">
+                          <%= cnae_divisao.cnae_divisao %>
                         </option>
                         <%}); %>
                     </select>
@@ -171,7 +186,8 @@
                     <select name="cnae_grupo" id="cnae_grupo" class="form-control">
                       <option value="" selected>Selecionar CNAE (Grupo)</option>
                       <% cnae_grupo.forEach(cnae_grupo=> {%>
-                        <option value="<%=cnae_grupo.cnae_grupo %>" ><%= cnae_grupo.cnae_grupo %>
+                        <option value="<%=cnae_grupo.cnae_grupo %>">
+                          <%= cnae_grupo.cnae_grupo %>
                         </option>
                         <%}); %>
                     </select>
@@ -180,7 +196,8 @@
                     <select name="cnae_classe_4d" id="cnae_classe_4d" class="form-control">
                       <option value="" selected>Selecionar CNAE (Classe - 4D)</option>
                       <% cnae_classe_4d.forEach(cnae_classe_4d=> {%>
-                        <option value="<%=cnae_classe_4d.cnae_classe_4d %>" ><%= cnae_classe_4d.cnae_classe_4d %>
+                        <option value="<%=cnae_classe_4d.cnae_classe_4d %>">
+                          <%= cnae_classe_4d.cnae_classe_4d %>
                         </option>
                         <%}); %>
                     </select>
@@ -189,7 +206,8 @@
                     <select name="cnae_classe_5d" id="cnae_classe_5d" class="form-control">
                       <option value="" selected>Selecionar CNAE (Classe - 5D)</option>
                       <% cnae_classe_5d.forEach(cnae_classe_5d=> {%>
-                        <option value="<%=cnae_classe_5d.cnae_classe_5d %>" ><%= cnae_classe_5d.cnae_classe_5d %>
+                        <option value="<%=cnae_classe_5d.cnae_classe_5d %>">
+                          <%= cnae_classe_5d.cnae_classe_5d %>
                         </option>
                         <%}); %>
                     </select>
@@ -198,8 +216,8 @@
                     <select name="scr_2010_trabalho" id="scr_2010_trabalho" class="form-control">
                       <option value="" selected>Selecionar SCR 2010 Trabalho</option>
                       <% scr_2010_trabalho.forEach(scr_2010_trabalho=> {%>
-                        <option value="<%=scr_2010_trabalho.scr_2010_trabalho %>" ><%= scr_2010_trabalho.scr_2010_trabalho
-                            %>
+                        <option value="<%=scr_2010_trabalho.scr_2010_trabalho %>">
+                          <%= scr_2010_trabalho.scr_2010_trabalho %>
                         </option>
                         <%}); %>
                     </select>
@@ -208,7 +226,8 @@
                     <select name="scr_2010_divulga" id="scr_2010_divulga" class="form-control">
                       <option value="" selected>Selecionar SCR 2010 Divulga</option>
                       <% scr_2010_divulga.forEach(scr_2010_divulga=> {%>
-                        <option value="<%=scr_2010_divulga.scr_2010_divulga %>" ><%= scr_2010_divulga.scr_2010_divulga %>
+                        <option value="<%=scr_2010_divulga.scr_2010_divulga %>">
+                          <%= scr_2010_divulga.scr_2010_divulga %>
                         </option>
                         <%}); %>
                     </select>
@@ -217,7 +236,8 @@
                     <select name="ncm_produto" id="ncm_produto" class="form-control">
                       <option value="" selected>Selecionar NCM Produto</option>
                       <% ncm_produto.forEach(ncm_produto=> {%>
-                        <option value="<%=ncm_produto.ncm_produto %>" ><%= ncm_produto.ncm_produto %>
+                        <option value="<%=ncm_produto.ncm_produto %>">
+                          <%= ncm_produto.ncm_produto %>
                         </option>
                         <%}); %>
                     </select>

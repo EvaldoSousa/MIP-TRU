@@ -11,6 +11,7 @@ body {
     width: 100%;
     max-width: 400px;
     box-sizing: border-box;
+    margin-top: -80px;
     padding: 20px;
     box-shadow: 10px 5px black;
     -webkit-box-shadow: 3px 3px 18px -4px rgba(0,0,0,0.51);
