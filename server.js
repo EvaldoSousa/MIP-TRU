@@ -524,7 +524,7 @@ app.post("/cadastro", async (req, res) => {
                                 throw err
                             }
 
-                            req.flash("success_msg", "Você agora está registrado. Por favor, faça login");
+                            req.flash("success_msg", "Você registrou um novo usúario. Um novo login já pode ser feito.");
                             res.redirect('/login');
                         }
                     );
