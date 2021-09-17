@@ -60,8 +60,13 @@ app.use(flash())
 
 
 // rota para página de créditos
+<<<<<<< HEAD
+app.get("/sobre", checkNotAuthenticated, (req, res) => {
+    res.render("sobre");
+=======
 app.get("/creditos", checkNotAuthenticated, (req, res) => {
     res.render("creditos", { profile: req.user.perfil });
+>>>>>>> 7c3cc6be90d08fefbb6e6575da53657cecd1029c
 });
 
 // rota para página inicial
@@ -146,7 +151,7 @@ app.get("/", checkNotAuthenticated, (req, res) => {
                                                                         throw erro;
                                                                     }
                                                                     let ncm_produto = results.rows;
-                                                                    res.render("search",
+                                                                    res.render("index",
                                                                         {
                                                                             user: req.user.nome, profile: req.user.perfil,
                                                                             municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario,
@@ -188,7 +193,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-app.post('/search', (req, res) => {
+app.post('/index', (req, res) => {
     let {
         municipio_emissor, uf_emissor, municipio_destinatario, uf_destinatario,
         cfop, cfop_1d, cfop_2d, cfop_3d, cnae, cnae_divisao, cnae_grupo,
@@ -210,7 +215,7 @@ app.post('/search', (req, res) => {
         let dados = results.rows;
         if (dados == null || dados.length < 1) {
             req.flash("error", "Nenhum dado encontrado!");
-            res.redirect('/search');
+            res.redirect('/index');
             return
         }
 
@@ -519,7 +524,7 @@ app.post("/cadastro", async (req, res) => {
                                 throw err
                             }
 
-                            req.flash("success_msg", "Você agora está registrado. Por favor, faça login");
+                            req.flash("success_msg", "Você registrou um novo usúario. Um novo login já pode ser feito.");
                             res.redirect('/login');
                         }
                     );
