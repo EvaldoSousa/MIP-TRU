@@ -72,7 +72,36 @@ body{
     margin-right: 0;
 }
 
-.rodape{
-    margin-left: 45%;
+/* footer */
+
+#myFooter .footer-copyright {
+    padding-top: 3px;
+    padding-bottom: 3px;
     text-align: center;
+}
+
+#myFooter .footer-copyright p {
+    margin: 10px;
+    color: white
+}
+
+@media screen and (max-width: 767px) {
+    #myFooter {
+        text-align: center;
+    }
+}
+
+html {
+    height: 100vh !important; 
+}
+
+.content {
+    flex: 1 0 auto;
+    -webkit-flex: 1 0 auto;
+}
+
+#myFooter {
+    margin-top: 100px;
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
 }
