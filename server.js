@@ -61,7 +61,7 @@ app.use(flash())
 
 // rota para página de créditos
 app.get("/sobre", checkNotAuthenticated, (req, res) => {
-    res.render("sobre");
+    res.render("sobre", {profile: req.user.perfil});
 });
 
 // rota para página inicial
