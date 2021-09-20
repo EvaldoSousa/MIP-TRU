@@ -64,11 +64,6 @@ app.get("/sobre", checkNotAuthenticated, (req, res) => {
     res.render("sobre");
 });
 
-// rota para tabela
-app.get("/table", checkNotAuthenticated, (req, res) => {
-    res.render("table", { profile: req.user.perfil });
-});
-
 // rota para página inicial
 app.get("/", checkNotAuthenticated, (req, res) => {
     pool.query(f.buscarSelect('municipio_emissor'), (erro, results) => {
@@ -177,7 +172,7 @@ app.get("/", checkNotAuthenticated, (req, res) => {
 });
 
 // rota para página de cadastro
-app.get("/cadastro", (req, res) => {
+app.get("/cadastro", checkNotAuthenticated, (req, res) => {
     res.render("cadastro");
 });
 
