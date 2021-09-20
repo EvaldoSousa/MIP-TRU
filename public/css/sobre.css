@@ -53,15 +53,6 @@ body {
     text-align: center;
 }
 
-#myFooter .row {
-    margin-bottom: 60px;
-}
-
-#myFooter .navbar-brand {
-    margin-top: 45px;
-    height: 65px;
-}
-
 #myFooter .footer-copyright p {
     margin: 10px;
     color: white
@@ -72,10 +63,6 @@ body {
         text-align: center;
     }
 }
-
-/* CSS utilizado para posicionar o rodapé no final da página. */
-
-/* Você pode remover isso. */
 
 html {
     height: 100%;

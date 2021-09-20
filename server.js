@@ -60,13 +60,8 @@ app.use(flash())
 
 
 // rota para página de créditos
-<<<<<<< HEAD
 app.get("/sobre", checkNotAuthenticated, (req, res) => {
     res.render("sobre");
-=======
-app.get("/creditos", checkNotAuthenticated, (req, res) => {
-    res.render("creditos", { profile: req.user.perfil });
->>>>>>> 7c3cc6be90d08fefbb6e6575da53657cecd1029c
 });
 
 // rota para tabela
