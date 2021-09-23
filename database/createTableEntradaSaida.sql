@@ -26,4 +26,4 @@ CREATE TABLE entradas(id BIGSERIAL PRIMARY KEY NOT NULL,
 					scr_2010_trabalho_desc TEXT,
 					scr_2010_divulga VARCHAR(100),
 					scr_2010_divulga_desc TEXT,
-					total_bruto_produtos DECIMAL(12,2) NOT NULL);
+					total_bruto_produtos DECIMAL NOT NULL);
