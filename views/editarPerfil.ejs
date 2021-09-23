@@ -27,353 +27,366 @@
   <!-- Cria uma lista com as mensagens ao ser redirecionado após um cadastro -->
   <% if(messages.success_msg) {%>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <%= messages.success_msg %>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+      <%= messages.success_msg %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
     </div>
-<% } %>
+    <% } %>
 
-<% if(messages.error) {%>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <%= messages.error %>
+      <% if(messages.error) {%>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <%= messages.error %>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+              <span aria-hidden="true">&times;</span>
             </button>
-    </div>
-<% } %>
+        </div>
+        <% } %>
 
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
-      <div class="container">
-        <a href="/" class="txt-info "><img src="/img/infor.png" alt="" class="icon-info"> Tabela</a>
+          <header>
+            <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
+              <div class="container">
+                <a href="/" class="txt-info "><img src="/img/infor.png" alt="" class="icon-info"> Tabela</a>
 
                 <div class="dropdown">
-                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Usuário
-                    </button>
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Usuário
+                  </button>
 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <% if(profile=='2' ) { %>
-                        <a class="dropdown-item" href="/cadastro">Cadastro</a>
-                        <% } %>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <% if(profile=='2' ) { %>
+                      <a class="dropdown-item" href="/cadastro">Cadastro</a>
+                      <% } %>
                         <a class="dropdown-item" href="/logout">Sair</a>
-                    </div>
+                  </div>
 
                 </div>
-      </div>
-    </nav>
-  </header>
+              </div>
+            </nav>
+          </header>
 
 
 
-  <div class="container jumbotron">
-    <div class="text-center">
-      <h1 class="display-4">
-        <%= nome %>
-      </h1>
-      <p class="lead">
-        <%= nick %>
-      </p>
-      <hr class="my-4">
+          <div class="container jumbotron">
+            <div class="text-center">
+              <h1 class="display-4">
+                <%= nome %>
+              </h1>
+              <p class="lead">
+                <%= nick %>
+              </p>
+              <hr class="my-4">
 
-      <div class="container mr-5">
-        <h2>Seus Dados</h2>
-      </div>
-    </div>
-
-    <div class="container text-center">
-      <div class="row">
-
-        <div class="col-2">
-          <img src="/img/nome.png" alt="" class="imagem">
-        </div>
-
-        <div class="col-8">
-
-          <p>
-            <%= nome %>
-              <%= sobrenome %>
-          </p>
-        </div>
-
-        <div class="col-2">
-          <button class="btn btn-outline-primary" data-toggle="modal" data-target="#updateName">Editar</button>
-        </div>
-      </div>
-
-      <div class="modal fade" id="updateName" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Editar nome e sobrenome</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+              <div class="container mr-5">
+                <h2>Seus Dados</h2>
+              </div>
             </div>
-            <div class="form-group">
-              <form action="/updatename" method="POST" >
-                <div class="modal-body">
-                  <div class="form-group row">
-                    <label for="name" class="col-4 col-form-label text-md-right">Nome:</label>
-                    <div class="col-8">
-                      <input type="text" id="name" class="form-control" name="nome" required>
+
+            <div class="container text-center">
+              <div class="row">
+
+                <div class="col-2">
+                  <img src="/img/nome.png" alt="" class="imagem">
+                </div>
+
+                <div class="col-8">
+
+                  <p id="orfao">
+                    <%= nome %>
+                      <%= sobrenome %>
+                  </p>
+                </div>
+
+                <div class="col-2">
+                  <button class="btn btn-outline-success" data-toggle="modal" data-target="#updateName">Editar</button>
+                </div>
+              </div>
+
+              <div class="modal fade" id="updateName" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Editar nome e sobrenome</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="last_name" class="col-4 col-form-label text-md-right">Sobrenome:</label>
-                    <div class="col-8">
-                      <input type="text" id="last_name" class="form-control" name="sobrenome" required>
+                    <div class="form-group">
+                      <form action="/updatename" method="POST">
+                        <div class="modal-body">
+                          <div class="form-group row">
+                            <label for="name" class="col-4 col-form-label text-md-right">Nome:</label>
+                            <div class="col-8">
+                              <input type="text" id="name" class="form-control" name="nome" required>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="last_name" class="col-4 col-form-label text-md-right">Sobrenome:</label>
+                            <div class="col-8">
+                              <input type="text" id="last_name" class="form-control" name="sobrenome" required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-primary">Salvar</button>
+              </div>
+              <!--Modal para nome e sobrenome-->
+
+              <div class="row">
+
+                <div class="col-2">
+                  <img src="/img/telefone.png" alt="" class="imagem">
                 </div>
-              </form>
+
+                <div class="col-8">
+
+                  <p id="orfao"> 
+                    <%= telefone %>
+                  </p>
+
+                </div>
+
+                <div class="col-2">
+                  <button class="btn btn-outline-success" data-toggle="modal" data-target="#updatePhone">Editar</button>
+                </div>
+              </div>
+
+              <div class="modal fade" id="updatePhone" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Editar telefone</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="form-group">
+                      <form action="/updatephone" method="POST">
+                        <div class="modal-body">
+                          <div class="form-group row">
+                            <label for="name" class="col-4 col-form-label text-md-right">Telefone:</label>
+                            <div class="col-8">
+                              <input type="tel" name="telefone" id="phone_number" class="form-control"
+                                onkeypress="$(this).mask('(00) 0 0009-0000')" required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Modal para telefone-->
+
+              <div class="row">
+
+                <div class="col-2">
+                  <img src="/img/perfil.png" alt="" class="imagem">
+                </div>
+
+                <div class="col-8">
+
+                  <p id="orfao">
+                    <%= nick %>
+                  </p>
+
+                </div>
+
+                <div class="col-2">
+                  <button class="btn btn-outline-success" data-toggle="modal" data-target="#updateNick">Editar</button>
+                </div>
+
+              </div>
+
+              <div class="modal fade" id="updateNick" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Editar nome de usuário</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="form-group">
+                      <form action="/updatenick" method="POST">
+                        <div class="modal-body">
+                          <div class="form-group row">
+                            <label for="username" class="col-4 col-form-label text-md-right">Nome de usuário:</label>
+                            <div class="col-8">
+                              <input type="text" id="username" class="form-control" name="nick" pattern="[a-z0-9]+"
+                                title="Apenas números e letras minúsculas sem acentuação. Sem espaços ou caracteres especiais."
+                                required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Modal para nick-->
+
+              <div class="row">
+
+                <div class="col-2">
+                  <img src="/img/envelope.png" alt="" class="imagem">
+                </div>
+
+                <div class="col-8">
+
+                  <p id="orfao">
+                    <%= email %>
+                  </p>
+
+                </div>
+
+                <div class="col-2">
+                  <button class="btn btn-outline-success" data-toggle="modal" data-target="#updateEmail">Editar</button>
+                </div>
+
+              </div>
+
+              <div class="modal fade" id="updateEmail" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Editar e-mail</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="form-group">
+                      <form action="/updateemail" method="POST">
+                        <div class="modal-body">
+                          <div class="form-group row">
+                            <label for="email_address" class="col-4 col-form-label text-md-right">Novo
+                              E-mail:</label>
+                            <div class="col-8">
+                              <input type="email" id="email_address" class="form-control" name="email" required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Modal para e-mail-->
+
+              <div class="row">
+
+                <div class="col-2">
+                  <img src="/img/senha.png" alt="" class="imagem">
+                </div>
+
+                <div class="col-8">
+
+                  <p id="orfao">
+                    Senha
+                  </p>
+
+                </div>
+
+                <div class="col-2">
+                  <button class="btn btn-outline-success" data-toggle="modal"
+                    data-target="#updatePassword">Editar</button>
+                </div>
+
+              </div>
+
+              <div class="modal fade" id="updatePassword" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Alterar</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="form-group">
+                      <form action="/updatepassword" method="POST">
+                        <div class="modal-body">
+                          <div class="form-group row">
+                            <label for="password" class="col-4 col-form-label text-md-right">Insira a senha:</label>
+                            <div class="col-8">
+                              <input type="password" id="password" class="form-control" name="senha" required>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="password2" class="col-4 col-form-label text-md-right">Repita a senha:</label>
+                            <div class="col-8">
+                              <input type="password" id="password2" class="form-control" name="senha2" required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Modal para senha-->
             </div>
           </div>
-        </div>
-      </div><!--Modal para nome e sobrenome-->
 
-      <div class="row">
 
-        <div class="col-2">
-          <img src="/img/telefone.png" alt="" class="imagem">
-        </div>
-
-        <div class="col-8">
-
-          <p>
-            <%= telefone %>
-          </p>
-
-        </div>
-
-        <div class="col-2">
-          <button class="btn btn-outline-primary" data-toggle="modal" data-target="#updatePhone">Editar</button>
-        </div>
-      </div>
-
-      <div class="modal fade" id="updatePhone" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Editar telefone</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="form-group">
-              <form action="/updatephone" method="POST" >
-                <div class="modal-body">
-                  <div class="form-group row">
-                    <label for="name" class="col-4 col-form-label text-md-right">Telefone:</label>
-                    <div class="col-8">
-                      <input type="tel" name="telefone" id="phone_number" class="form-control"
-                      onkeypress="$(this).mask('(00) 0 0009-0000')" required>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-primary">Salvar</button>
-                </div>
-              </form>
-            </div>
+          <!-- Rodapé -->
+          <div class="content">
           </div>
-        </div>
-      </div><!--Modal para telefone-->
-
-      <div class="row">
-
-        <div class="col-2">
-          <img src="/img/perfil.png" alt="" class="imagem">
-        </div>
-
-        <div class="col-8">
-
-          <p>
-            <%= nick %>
-          </p>
-
-        </div>
-
-        <div class="col-2">
-          <button class="btn btn-outline-primary" data-toggle="modal" data-target="#updateNick">Editar</button>
-        </div>
-
-      </div>
-
-      <div class="modal fade" id="updateNick" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Editar nome de usuário</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+          <footer id="myFooter">
+            <div class="container">
             </div>
-            <div class="form-group">
-              <form action="/updatenick" method="POST" >
-                <div class="modal-body">
-                  <div class="form-group row">
-                    <label for="username" class="col-4 col-form-label text-md-right">Nome de usuário:</label>
-                    <div class="col-8">
-                      <input type="text" id="username" class="form-control" name="nick" pattern="[a-z0-9]+" title="Apenas números e letras minúsculas sem acentuação. Sem espaços ou caracteres especiais." required>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-primary">Salvar</button>
-                </div>
-              </form>
+            <div class="footer-copyright bg bg-success">
+              <p>LCC - UNIFESSPA   2021 </p>
             </div>
-          </div>
-        </div>
-      </div><!--Modal para nick-->
-
-      <div class="row">
-
-        <div class="col-2">
-          <img src="/img/envelope.png" alt="" class="imagem">
-        </div>
-
-        <div class="col-8">
-
-          <p>
-            <%= email %>
-          </p>
-
-        </div>
-
-        <div class="col-2">
-          <button class="btn btn-outline-primary" data-toggle="modal" data-target="#updateEmail">Editar</button>
-        </div>
-
-      </div>
-
-      <div class="modal fade" id="updateEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Editar e-mail</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="form-group">
-              <form action="/updateemail" method="POST">
-                <div class="modal-body">
-                  <div class="form-group row">
-                    <label for="email_address" class="col-4 col-form-label text-md-right">Novo
-                      E-mail:</label>
-                    <div class="col-8">
-                      <input type="email" id="email_address" class="form-control" name="email" required>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-primary">Salvar</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--Modal para e-mail-->
-
-      <div class="row">
-
-        <div class="col-2">
-          <img src="/img/senha.png" alt="" class="imagem">
-        </div>
-
-        <div class="col-8">
-
-          <p>
-            Senha
-          </p>
-
-        </div>
-
-        <div class="col-2">
-          <button class="btn btn-outline-primary" data-toggle="modal" data-target="#updatePassword">Editar</button>
-        </div>
-
-      </div>
-
-      <div class="modal fade" id="updatePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Alterar</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="form-group">
-              <form action="/updatepassword" method="POST" >
-                <div class="modal-body">
-                  <div class="form-group row">
-                    <label for="password" class="col-4 col-form-label text-md-right">Insira a senha:</label>
-                    <div class="col-8">
-                      <input type="password" id="password" class="form-control" name="senha" required>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="password2" class="col-4 col-form-label text-md-right">Repita a senha:</label>
-                    <div class="col-8">
-                      <input type="password" id="password2" class="form-control" name="senha2" required>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-primary">Salvar</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div><!--Modal para senha-->
-    </div>
-  </div>
 
 
-  <footer>
-    <div class="col-xg text">
-      <nav class="navbar navbar-light bg-sucess">
-        <div class="rodape mx-auto"><a class="navbar-brand" href="/">@Unifesspa</a></div>
-      </nav>
-    </div>
-  </footer>
+            <!--Jquey-->
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+              integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+              crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+              integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+              crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+              integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+              crossorigin="anonymous"></script>
 
+            <!-- JQuery Mask -->
+            <script src="/js/jquery.mask.min.js"></script>
 
-  <!--Jquey-->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-    crossorigin="anonymous"></script>
+            <!--Bootstrap-->
+            <script src="/js/bootstrap.min.js"></script>
 
-    <!-- JQuery Mask -->
-    <script src="/js/jquery.mask.min.js"></script>
-
-  <!--Bootstrap-->
-  <script src="/js/bootstrap.min.js"></script>
-
-  <!--JS local-->
-  <script src="js/editarPerfil.js"></script>
+            <!--JS local-->
+            <script src="js/editarPerfil.js"></script>
 </body>
 
 </html>

@@ -8,7 +8,6 @@
 /* texto sobre */
 .txt-info{
     font-size: 20px;
-    text-decoration: none !important;
     font-family: Raleway, sans-serif !important;
     color: black;
 }
@@ -16,7 +15,9 @@
     color: #198754;
 }
 
+
 body {
+    
     font-family: Raleway, sans-serif !important;
     display: flex;
     display: -webkit-flex;
@@ -45,6 +46,9 @@ body {
     padding-bottom: 10px;
 }
 
+
+
+
 /* footer */
 
 #myFooter .footer-copyright {
@@ -66,6 +70,8 @@ body {
 
 html {
     height: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box !important;
 }
 
 .content {
@@ -76,4 +82,24 @@ html {
 #myFooter {
     flex: 0 0 auto;
     -webkit-flex: 0 0 auto;
+}
+
+/* img com links */
+.imagemI{
+    margin-top: 8px;
+    margin-bottom: 5px;
+    margin-right: 80px !important;
+    margin-left: -50px;
+    padding-left: 15px;
+    width: 45px !important;
+
+}
+
+a{
+    text-decoration: none !important;
+    color: black !important;
+}
+
+h1{
+    color: black !important;
 }
