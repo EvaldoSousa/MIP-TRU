@@ -52,7 +52,7 @@
           </button>
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <img src="/img/focas.png" alt="" class="img-perfil text-center img-fluid">
+            <img src="/img/user.png" alt="" class="img-perfil text-center img-fluid">
             <strong>
               <p class="text-center">
                 <%= user %>
@@ -118,16 +118,18 @@
                         <%}); %>
                     </select>
                   </div>
+
                   <div class="col-md-6 mb-2">
-                    <select name="municipio_destinatario" id="municipio_destinatario" class="selectpicker form-control"
-                      multiple data-live-index="true" title="Selecionar Município Destinatário">
-                      <% municipio_destinatario.forEach(dest=> {%>
-                        <option value="<%=dest.municipio_destinatario %>">
-                          <%= dest.municipio_destinatario %>
+                    <select name="uf_emissor" id="uf_emissor" class="form-control">
+                      <option value="" selected>Selecionar Município Destinatario</option>
+                      <% uf_emissor.forEach(u_e=> {%>
+                        <option value="<%=u_e.uf_emissor %>">
+                          <%= u_e.uf_emissor %>
                         </option>
                         <%}); %>
                     </select>
                   </div>
+                  
                   <div class="col-md-6 mb-2">
                     <select name="uf_destinatario" id="uf_destinatario" class="form-control">
                       <option value="" selected>Selecionar Estado Destinatário</option>
