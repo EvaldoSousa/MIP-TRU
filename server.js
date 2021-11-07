@@ -324,16 +324,20 @@ app.get("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-app.post("/index", (req, res) => {
+app.post("/", (req, res) => {
   let {
+    ano,
+    municipio_emissor_codigo,
     municipio_emissor,
     uf_emissor,
+    municipio_destinatario_codigo,
     municipio_destinatario,
     uf_destinatario,
     cfop,
     cfop_1d,
     cfop_2d,
     cfop_3d,
+    ncm_produto,
     cnae,
     cnae_divisao,
     cnae_grupo,
@@ -341,23 +345,27 @@ app.post("/index", (req, res) => {
     cnae_classe_5d,
     scr_2010_trabalho,
     scr_2010_divulga,
-    ncm_produto,
     agrupar,
   } = req.body;
 
+  f.aspas(municipio_emissor, municipio_emissor);
   f.aspas(municipio_destinatario, municipio_destinatario);
 
   let errors = [];
 
   let sql = f.buscar(
+    ano,
+    municipio_emissor_codigo,
     municipio_emissor,
     uf_emissor,
+    municipio_destinatario_codigo,
     municipio_destinatario,
     uf_destinatario,
     cfop,
     cfop_1d,
     cfop_2d,
     cfop_3d,
+    ncm_produto,
     cnae,
     cnae_divisao,
     cnae_grupo,
@@ -365,7 +373,6 @@ app.post("/index", (req, res) => {
     cnae_classe_5d,
     scr_2010_trabalho,
     scr_2010_divulga,
-    ncm_produto,
     agrupar
   );
 
@@ -381,7 +388,7 @@ app.post("/index", (req, res) => {
     }
 
     const options = {
-      fieldSeparator: ",",
+      fieldSeparator: ";",
       filename: "tabela",
       quoteStrings: '"',
       decimalSeparator: ".",
@@ -391,8 +398,11 @@ app.post("/index", (req, res) => {
       useBom: true,
       useKeysAsHeaders: false,
       headers: [
+        "Ano",
+        "Código Município Emissor",
         "Município Emissor",
         "UF Emissor",
+        "Código Município Destinatário",
         "Município Destinatário",
         "UF Destinatário",
         "CFOP",
@@ -400,6 +410,7 @@ app.post("/index", (req, res) => {
         "CFOP (1D)",
         "CFOP (2D)",
         "CFOP (3D)",
+        "NCM Produto",
         "CNAE (C)",
         "Descrição do CNAE",
         "CNAE (Divisão)",
@@ -414,7 +425,6 @@ app.post("/index", (req, res) => {
         "SCR 2010 Trabalho Desc",
         "SCR 2010 Divulga",
         "SCR 2010 Divulga Desc",
-        "NCM Produto",
         "Total Bruto Produtos",
       ],
     };
@@ -784,7 +794,7 @@ app.post("/cadastro", async (req, res) => {
 
                   req.flash(
                     "success_msg",
-                    "Você registrou um novo usúario. Um novo login já pode ser feito."
+                    "Você registrou um novo usuário. Um novo login já pode ser feito."
                   );
                   res.redirect("/login");
                 }
