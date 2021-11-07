@@ -67,143 +67,236 @@ app.get("/sobre", checkNotAuthenticated, (req, res) => {
 
 // rota para página inicial
 app.get("/", checkNotAuthenticated, (req, res) => {
-    pool.query("select distinct ano from ano order by ano asc", (erro, resultados) => {
-        if (erro) {
+  pool.query(
+    "select distinct ano from ano order by ano asc",
+    (erro, resultados) => {
+      if (erro) {
+        throw erro;
+      }
+      ano = resultados.rows;
+      pool.query(
+        "select distinct municipio_emissor_codigo from municipio_emissor_codigo order by 1 asc",
+        (erro, resultados) => {
+          if (erro) {
             throw erro;
-        }
-        ano = resultados.rows;
-        pool.query("select distinct municipio_emissor_codigo from municipio_emissor_codigo order by 1 asc", (erro, resultados) => {
-            if (erro) {
+          }
+          municipio_emissor_codigo = resultados.rows;
+          pool.query(
+            "select distinct municipio_emissor from municipio_emissor order by 1 asc",
+            (erro, resultados) => {
+              if (erro) {
                 throw erro;
-            }
-            municipio_emissor_codigo = resultados.rows;
-            pool.query("select distinct municipio_emissor from municipio_emissor order by 1 asc", (erro, resultados) => {
-                if (erro) {
-                    throw erro;
-                }
-                municipio_emissor = resultados.rows;
-                pool.query("select distinct uf_emissor from uf_emissor order by 1 asc", (erro, resultados) => {
+              }
+              municipio_emissor = resultados.rows;
+              pool.query(
+                "select distinct uf_emissor from uf_emissor order by 1 asc",
+                (erro, resultados) => {
                   if (erro) {
-                      throw erro;
+                    throw erro;
                   }
                   uf_emissor = resultados.rows;
-                  pool.query("select distinct municipio_destinatario_codigo from municipio_destinatario_codigo order by 1 asc", (erro, resultados) => {
-                    if (erro) {
-                        throw erro;
-                    }
-                    municipio_destinatario_codigo = resultados.rows;
-                    pool.query("select distinct municipio_destinatario from municipio_destinatario order by 1 asc", (erro, resultados) => {
+                  pool.query(
+                    "select distinct municipio_destinatario_codigo from municipio_destinatario_codigo order by 1 asc",
+                    (erro, resultados) => {
                       if (erro) {
-                          throw erro;
+                        throw erro;
                       }
-                      municipio_destinatario = resultados.rows;
-                      pool.query("select distinct uf_destinatario from uf_destinatario order by 1 asc", (erro, resultados) => {
-                        if (erro) {
-                            throw erro;
-                        }
-                        uf_destinatario = resultados.rows;
-                        pool.query("select distinct cfop from cfop order by 1 asc", (erro, resultados) => {
+                      municipio_destinatario_codigo = resultados.rows;
+                      pool.query(
+                        "select distinct municipio_destinatario from municipio_destinatario order by 1 asc",
+                        (erro, resultados) => {
                           if (erro) {
-                              throw erro;
+                            throw erro;
                           }
-                          cfop = resultados.rows;
-                          pool.query("select distinct cfop_1d from cfop_1d order by 1 asc", (erro, resultados) => {
-                            if (erro) {
-                                throw erro;
-                            }
-                            cfop_1d = resultados.rows;
-                            pool.query("select distinct cfop_2d from cfop_2d order by 1 asc", (erro, resultados) => {
+                          municipio_destinatario = resultados.rows;
+                          pool.query(
+                            "select distinct uf_destinatario from uf_destinatario order by 1 asc",
+                            (erro, resultados) => {
                               if (erro) {
-                                  throw erro;
+                                throw erro;
                               }
-                              cfop_2d = resultados.rows;
-                              pool.query("select distinct cfop_3d from cfop_3d order by 1 asc", (erro, resultados) => {
-                                if (erro) {
-                                    throw erro;
-                                }
-                                cfop_3d = resultados.rows;
-                                pool.query("select distinct cnae from cnae order by 1 asc", (erro, resultados) => {
+                              uf_destinatario = resultados.rows;
+                              pool.query(
+                                "select distinct cfop from cfop order by 1 asc",
+                                (erro, resultados) => {
                                   if (erro) {
-                                      throw erro;
+                                    throw erro;
                                   }
-                                  cnae = resultados.rows;
-                                  pool.query("select distinct cnae_divisao from cnae_divisao order by 1 asc", (erro, resultados) => {
-                                    if (erro) {
-                                        throw erro;
-                                    }
-                                    cnae_divisao = resultados.rows;
-                                    pool.query("select distinct cnae_grupo from cnae_grupo order by 1 asc", (erro, resultados) => {
+                                  cfop = resultados.rows;
+                                  pool.query(
+                                    "select distinct cfop_1d from cfop_1d order by 1 asc",
+                                    (erro, resultados) => {
                                       if (erro) {
-                                          throw erro;
+                                        throw erro;
                                       }
-                                      cnae_grupo = resultados.rows;
-                                      pool.query("select distinct cnae_classe_4d from cnae_classe_4d order by 1 asc", (erro, resultados) => {
-                                        if (erro) {
-                                            throw erro;
-                                        }
-                                        cnae_classe_4d = resultados.rows;
-                                        pool.query("select distinct cnae_classe_5d from cnae_classe_5d order by 1 asc", (erro, resultados) => {
+                                      cfop_1d = resultados.rows;
+                                      pool.query(
+                                        "select distinct cfop_2d from cfop_2d order by 1 asc",
+                                        (erro, resultados) => {
                                           if (erro) {
-                                              throw erro;
+                                            throw erro;
                                           }
-                                          cnae_classe_5d = resultados.rows;
-                                          pool.query("select distinct scr_2010_trabalho from scr_2010_trabalho order by 1 asc", (erro, resultados) => {
-                                            if (erro) {
-                                                throw erro;
-                                            }
-                                            scr_2010_trabalho = resultados.rows;
-                                            pool.query("select distinct scr_2010_divulga from scr_2010_divulga order by 1 asc", (erro, resultados) => {
+                                          cfop_2d = resultados.rows;
+                                          pool.query(
+                                            "select distinct cfop_3d from cfop_3d order by 1 asc",
+                                            (erro, resultados) => {
                                               if (erro) {
-                                                  throw erro;
+                                                throw erro;
                                               }
-                                              scr_2010_divulga = resultados.rows;
-                                              pool.query("select distinct ncm_produto from ncm_produto order by 1 asc", (erro, resultados) => {
-                                                if (erro) {
+                                              cfop_3d = resultados.rows;
+                                              pool.query(
+                                                "select distinct cnae from cnae order by 1 asc",
+                                                (erro, resultados) => {
+                                                  if (erro) {
                                                     throw erro;
+                                                  }
+                                                  cnae = resultados.rows;
+                                                  pool.query(
+                                                    "select distinct cnae_divisao from cnae_divisao order by 1 asc",
+                                                    (erro, resultados) => {
+                                                      if (erro) {
+                                                        throw erro;
+                                                      }
+                                                      cnae_divisao =
+                                                        resultados.rows;
+                                                      pool.query(
+                                                        "select distinct cnae_grupo from cnae_grupo order by 1 asc",
+                                                        (erro, resultados) => {
+                                                          if (erro) {
+                                                            throw erro;
+                                                          }
+                                                          cnae_grupo =
+                                                            resultados.rows;
+                                                          pool.query(
+                                                            "select distinct cnae_classe_4d from cnae_classe_4d order by 1 asc",
+                                                            (
+                                                              erro,
+                                                              resultados
+                                                            ) => {
+                                                              if (erro) {
+                                                                throw erro;
+                                                              }
+                                                              cnae_classe_4d =
+                                                                resultados.rows;
+                                                              pool.query(
+                                                                "select distinct cnae_classe_5d from cnae_classe_5d order by 1 asc",
+                                                                (
+                                                                  erro,
+                                                                  resultados
+                                                                ) => {
+                                                                  if (erro) {
+                                                                    throw erro;
+                                                                  }
+                                                                  cnae_classe_5d =
+                                                                    resultados.rows;
+                                                                  pool.query(
+                                                                    "select distinct scr_2010_trabalho from scr_2010_trabalho order by 1 asc",
+                                                                    (
+                                                                      erro,
+                                                                      resultados
+                                                                    ) => {
+                                                                      if (
+                                                                        erro
+                                                                      ) {
+                                                                        throw erro;
+                                                                      }
+                                                                      scr_2010_trabalho =
+                                                                        resultados.rows;
+                                                                      pool.query(
+                                                                        "select distinct scr_2010_divulga from scr_2010_divulga order by 1 asc",
+                                                                        (
+                                                                          erro,
+                                                                          resultados
+                                                                        ) => {
+                                                                          if (
+                                                                            erro
+                                                                          ) {
+                                                                            throw erro;
+                                                                          }
+                                                                          scr_2010_divulga =
+                                                                            resultados.rows;
+                                                                          pool.query(
+                                                                            "select distinct ncm_produto from ncm_produto order by 1 asc",
+                                                                            (
+                                                                              erro,
+                                                                              resultados
+                                                                            ) => {
+                                                                              if (
+                                                                                erro
+                                                                              ) {
+                                                                                throw erro;
+                                                                              }
+                                                                              ncm_produto =
+                                                                                resultados.rows;
+                                                                              res.render(
+                                                                                "index",
+                                                                                {
+                                                                                  user: req
+                                                                                    .user
+                                                                                    .nome,
+                                                                                  profile:
+                                                                                    req
+                                                                                      .user
+                                                                                      .perfil,
+                                                                                  ano,
+                                                                                  municipio_emissor_codigo,
+                                                                                  municipio_emissor,
+                                                                                  uf_emissor,
+                                                                                  municipio_destinatario_codigo,
+                                                                                  municipio_destinatario,
+                                                                                  uf_destinatario,
+                                                                                  cfop,
+                                                                                  cfop_1d,
+                                                                                  cfop_2d,
+                                                                                  cfop_3d,
+                                                                                  cnae,
+                                                                                  cnae_divisao,
+                                                                                  cnae_grupo,
+                                                                                  cnae_classe_4d,
+                                                                                  cnae_classe_5d,
+                                                                                  scr_2010_trabalho,
+                                                                                  scr_2010_divulga,
+                                                                                  ncm_produto,
+                                                                                }
+                                                                              );
+                                                                            }
+                                                                          );
+                                                                        }
+                                                                      );
+                                                                    }
+                                                                  );
+                                                                }
+                                                              );
+                                                            }
+                                                          );
+                                                        }
+                                                      );
+                                                    }
+                                                  );
                                                 }
-                                                ncm_produto = resultados.rows;
-                                                res.render("index", {
-                                                  user: req.user.nome,
-                                                  profile: req.user.perfil,
-                                                  ano,
-                                                  municipio_emissor_codigo,
-                                                  municipio_emissor,
-                                                  uf_emissor,
-                                                  municipio_destinatario_codigo,
-                                                  municipio_destinatario,
-                                                  uf_destinatario,
-                                                  cfop,
-                                                  cfop_1d,
-                                                  cfop_2d,
-                                                  cfop_3d,
-                                                  cnae,
-                                                  cnae_divisao,
-                                                  cnae_grupo,
-                                                  cnae_classe_4d,
-                                                  cnae_classe_5d,
-                                                  scr_2010_trabalho,
-                                                  scr_2010_divulga,
-                                                  ncm_produto,
-                                                });
-                                              });
-                                            });
-                                          });
-                                        });
-                                      });
-                                    });
-                                  });
-                                });
-                              });
-                            });
-                          });
-                        });
-                      });
-                    });
-                    });
-                  });
-                });
-            });
-    });
+                                              );
+                                            }
+                                          );
+                                        }
+                                      );
+                                    }
+                                  );
+                                }
+                              );
+                            }
+                          );
+                        }
+                      );
+                    }
+                  );
+                }
+              );
+            }
+          );
+        }
+      );
+    }
+  );
 });
 
 // rota para página de cadastro
