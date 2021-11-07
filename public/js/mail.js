@@ -7,7 +7,7 @@ module.exports = function (para, sujeito, texto) {
         secure: true,
         auth: {
             user: "jhonnierandler@gmail.com",
-            pass: "jbmtkolbtnyrebpq"
+            pass: "nonekgpfqqvncebr"
         }
     };
 

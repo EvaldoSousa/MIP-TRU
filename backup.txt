@@ -1,0 +1,12 @@
+//campo de input sem multiseleção
+
+<div class="col-md-6 mb-2">
+    <select name="ncm_produto" id="ncm_produto" class="form-control">
+        <option value="" selected>Selecionar NCM Produto</option>
+        <% ncm_produto.forEach(ncm_produto=> {%>
+        <option value="<%=ncm_produto.ncm_produto %>">
+            <%= ncm_produto.ncm_produto %>
+        </option>
+        <%}); %>
+    </select>
+</div>

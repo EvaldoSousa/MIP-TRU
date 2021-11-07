@@ -16,11 +16,8 @@ module.exports = (request) => {
     switch(originalUrl){
         case '/': return true;
         case '/login': return true;
-        case '/entrada': return true;;
-        case '/table': return true;
         case '/editar': return true;
         case '/forgot': return true;
-        case '/index': return true;
         case '/sobre': return true;
         case '/cadastro': { return isAdmin(profile); }
         default: return false;
