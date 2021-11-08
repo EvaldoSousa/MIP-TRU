@@ -393,7 +393,7 @@ app.post("/", (req, res) => {
     agrupar
   );
 
-  console.log(sql);
+  // console.log(sql);
 
   pool.query(sql, (err, results) => {
     if (err) {

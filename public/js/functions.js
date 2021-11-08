@@ -80,7 +80,7 @@ function buscar(
       } else {
         txt = `SELECT cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
               cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, 
-              SUM(total_bruto_produtos) FROM entradas2 WHERE cnae in (\'${cnae}\') group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
+              SUM(total_bruto_produtos) FROM entradas2 WHERE cnae ilike \'${cnae}\' group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
               cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc`;
       }
     } else {
@@ -102,7 +102,7 @@ function buscar(
       } else {
         txt = `SELECT municipio_emissor, uf_emissor,
           SUM(total_bruto_produtos) FROM entradas2
-          WHERE municipio_emissor in (\'${municipio_emissor}\')
+          WHERE municipio_emissor ilike \'${municipio_emissor}\'
          group by municipio_emissor, uf_emissor`;
       }
     } else {
@@ -125,7 +125,7 @@ function buscar(
       } else {
         txt = `SELECT municipio_destinatario, uf_destinatario,
           SUM(total_bruto_produtos) FROM entradas2
-          WHERE municipio_destinatario in (\'${municipio_destinatario}\')
+          WHERE municipio_destinatario ilike \'${municipio_destinatario}\'
          group by municipio_destinatario, uf_destinatario`;
       }
     } else {
@@ -147,7 +147,7 @@ function buscar(
       } else {
         txt = `SELECT cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d,
             SUM(total_bruto_produtos) FROM entradas2
-            WHERE cfop in (\'${cfop}\')
+            WHERE cfop ilike \'${cfop}\'
            group by cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d`;
       }
     } else {
@@ -172,7 +172,7 @@ function buscar(
         txt = `SELECT scr_2010_trabalho, 
               scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc,
               SUM(total_bruto_produtos) FROM entradas2
-              WHERE scr_2010_trabalho in (${scr_2010_trabalho.join(", ")})
+              WHERE scr_2010_trabalho ilike ${scr_2010_trabalho.join(", ")}
               group by scr_2010_trabalho, 
               scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc`;
       }
@@ -227,7 +227,7 @@ function buscar(
       txt += " municipio_emissor_codigo in (" + municipio_emissor_codigo + ") ";
     } else {
       txt +=
-        " municipio_emissor_codigo in ('" + municipio_emissor_codigo + "') ";
+        " municipio_emissor_codigo ilike '" + municipio_emissor_codigo + "' ";
     }
   }
 
@@ -238,7 +238,7 @@ function buscar(
     if (Array.isArray(municipio_emissor)) {
       txt += " municipio_emissor in (" + municipio_emissor + ") ";
     } else {
-      txt += " municipio_emissor in ('" + municipio_emissor + "') ";
+      txt += " municipio_emissor ilike '" + municipio_emissor + "' ";
     }
   }
 
@@ -249,7 +249,7 @@ function buscar(
     if (Array.isArray(uf_emissor)) {
       txt += " uf_emissor in (" + uf_emissor + ") ";
     } else {
-      txt += " uf_emissor in ('" + uf_emissor + "') ";
+      txt += " uf_emissor ilike '" + uf_emissor + "' ";
     }
   }
 
@@ -264,9 +264,9 @@ function buscar(
         ") ";
     } else {
       txt +=
-        " municipio_destinatario_codigo in ('" +
+        " municipio_destinatario_codigo ilike '" +
         municipio_destinatario_codigo +
-        "') ";
+        "' ";
     }
   }
 
@@ -283,7 +283,7 @@ function buscar(
     if (Array.isArray(municipio_destinatario)) {
       txt += " municipio_destinatario in (" + municipio_destinatario + ") ";
     } else {
-      txt += " municipio_destinatario in ('" + municipio_destinatario + "') ";
+      txt += " municipio_destinatario ilike '" + municipio_destinatario + "' ";
     }
   }
 
@@ -301,7 +301,7 @@ function buscar(
     if (Array.isArray(uf_destinatario)) {
       txt += " uf_destinatario in (" + uf_destinatario + ") ";
     } else {
-      txt += " uf_destinatario in ('" + uf_destinatario + "') ";
+      txt += " uf_destinatario ilike '" + uf_destinatario + "' ";
     }
   }
   if (cfop) {
@@ -319,7 +319,7 @@ function buscar(
     if (Array.isArray(cfop)) {
       txt += " cfop in (" + cfop + ") ";
     } else {
-      txt += " cfop in ('" + cfop + "') ";
+      txt += " cfop ilike '" + cfop + "' ";
     }
   }
   if (cfop_1d) {
@@ -338,7 +338,7 @@ function buscar(
     if (Array.isArray(cfop)) {
       txt += " cfop_1d in (" + cfop_1d + ") ";
     } else {
-      txt += " cfop_1d in ('" + cfop_1d + "') ";
+      txt += " cfop_1d ilike '" + cfop_1d + "' ";
     }
   }
   if (cfop_2d) {
@@ -358,7 +358,7 @@ function buscar(
     if (Array.isArray(cfop)) {
       txt += " cfop_2d in (" + cfop_2d + ") ";
     } else {
-      txt += " cfop_2d in ('" + cfop_2d + "') ";
+      txt += " cfop_2d ilike '" + cfop_2d + "' ";
     }
   }
   if (cfop_3d) {
@@ -379,7 +379,7 @@ function buscar(
     if (Array.isArray(cfop)) {
       txt += " cfop_3d in (" + cfop_3d + ") ";
     } else {
-      txt += " cfop_3d in ('" + cfop_3d + "') ";
+      txt += " cfop_3d ilike '" + cfop_3d + "' ";
     }
   }
   if (ncm_produto) {
@@ -401,7 +401,7 @@ function buscar(
     if (Array.isArray(cfop)) {
       txt += " ncm_produto in (" + ncm_produto + ") ";
     } else {
-      txt += " ncm_produto in ('" + ncm_produto + "') ";
+      txt += " ncm_produto ilike '" + ncm_produto + "' ";
     }
   }
   if (cnae) {
@@ -424,7 +424,7 @@ function buscar(
     if (Array.isArray(cfop)) {
       txt += " cnae in (" + cnae + ") ";
     } else {
-      txt += " cnae in ('" + cnae + "') ";
+      txt += " cnae ilike '" + cnae + "' ";
     }
   }
   if (cnae_divisao) {
@@ -448,7 +448,7 @@ function buscar(
     if (Array.isArray(cfop)) {
       txt += " cnae_divisao in (" + cnae_divisao + ") ";
     } else {
-      txt += " cnae_divisao in ('" + cnae_divisao + "') ";
+      txt += " cnae_divisao ilike '" + cnae_divisao + "' ";
     }
   }
   if (cnae_grupo) {
@@ -473,7 +473,7 @@ function buscar(
     if (Array.isArray(cfop)) {
       txt += " cnae_grupo in (" + cnae_grupo + ") ";
     } else {
-      txt += " cnae_grupo in ('" + cnae_grupo + "') ";
+      txt += " cnae_grupo ilike '" + cnae_grupo + "' ";
     }
   }
   if (cnae_classe_4d) {
@@ -499,7 +499,7 @@ function buscar(
     if (Array.isArray(cfop)) {
       txt += " cnae_classe_4d in (" + cnae_classe_4d + ") ";
     } else {
-      txt += " cnae_classe_4d in ('" + cnae_classe_4d + "') ";
+      txt += " cnae_classe_4d ilike '" + cnae_classe_4d + "' ";
     }
   }
   if (cnae_classe_5d) {
@@ -526,7 +526,7 @@ function buscar(
     if (Array.isArray(cfop)) {
       txt += " cnae_classe_5d in (" + cnae_classe_5d + ") ";
     } else {
-      txt += " cnae_classe_5d in ('" + cnae_classe_5d + "') ";
+      txt += " cnae_classe_5d ilike '" + cnae_classe_5d + "' ";
     }
   }
   if (scr_2010_trabalho) {
@@ -554,7 +554,7 @@ function buscar(
     if (Array.isArray(cfop)) {
       txt += " scr_2010_trabalho in (" + scr_2010_trabalho + ") ";
     } else {
-      txt += " scr_2010_trabalho in ('" + scr_2010_trabalho + "') ";
+      txt += " scr_2010_trabalho ilike '" + scr_2010_trabalho + "' ";
     }
   }
   if (scr_2010_divulga) {
@@ -583,7 +583,7 @@ function buscar(
     if (Array.isArray(scr_2010_divulga)) {
       txt += " scr_2010_divulga in (" + scr_2010_divulga + ") ";
     } else {
-      txt += " scr_2010_divulga in ('" + scr_2010_divulga + "') ";
+      txt += " scr_2010_divulga ilike '" + scr_2010_divulga + "' ";
     }
   }
 
