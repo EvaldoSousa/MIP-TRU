@@ -324,16 +324,20 @@ app.get("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-app.post("/index", (req, res) => {
+app.post("/", (req, res) => {
   let {
+    ano,
+    municipio_emissor_codigo,
     municipio_emissor,
     uf_emissor,
+    municipio_destinatario_codigo,
     municipio_destinatario,
     uf_destinatario,
     cfop,
     cfop_1d,
     cfop_2d,
     cfop_3d,
+    ncm_produto,
     cnae,
     cnae_divisao,
     cnae_grupo,
@@ -341,23 +345,44 @@ app.post("/index", (req, res) => {
     cnae_classe_5d,
     scr_2010_trabalho,
     scr_2010_divulga,
-    ncm_produto,
     agrupar,
   } = req.body;
 
+  f.aspas(ano, ano);
+  f.aspas(municipio_emissor_codigo, municipio_emissor_codigo);
+  f.aspas(municipio_emissor, municipio_emissor);
+  f.aspas(uf_emissor, uf_emissor);
+  f.aspas(municipio_destinatario_codigo, municipio_destinatario_codigo);
   f.aspas(municipio_destinatario, municipio_destinatario);
-
+  f.aspas(uf_destinatario, uf_destinatario);
+  f.aspas(cfop, cfop);
+  f.aspas(cfop_1d, cfop_1d);
+  f.aspas(cfop_2d, cfop_2d);
+  f.aspas(cfop_3d, cfop_3d);
+  f.aspas(ncm_produto, ncm_produto);
+  f.aspas(cnae, cnae);
+  f.aspas(cnae_divisao, cnae_divisao);
+  f.aspas(cnae_grupo, cnae_grupo);
+  f.aspas(cnae_classe_4d, cnae_classe_4d);
+  f.aspas(cnae_classe_5d, cnae_classe_5d);
+  f.aspas(scr_2010_trabalho, scr_2010_trabalho);
+  f.aspas(scr_2010_divulga, scr_2010_divulga);
+  
   let errors = [];
 
   let sql = f.buscar(
+    ano,
+    municipio_emissor_codigo,
     municipio_emissor,
     uf_emissor,
+    municipio_destinatario_codigo,
     municipio_destinatario,
     uf_destinatario,
     cfop,
     cfop_1d,
     cfop_2d,
     cfop_3d,
+    ncm_produto,
     cnae,
     cnae_divisao,
     cnae_grupo,
@@ -365,9 +390,10 @@ app.post("/index", (req, res) => {
     cnae_classe_5d,
     scr_2010_trabalho,
     scr_2010_divulga,
-    ncm_produto,
     agrupar
   );
+
+  console.log(sql);
 
   pool.query(sql, (err, results) => {
     if (err) {
@@ -381,7 +407,7 @@ app.post("/index", (req, res) => {
     }
 
     const options = {
-      fieldSeparator: ",",
+      fieldSeparator: ";",
       filename: "tabela",
       quoteStrings: '"',
       decimalSeparator: ".",
@@ -391,8 +417,11 @@ app.post("/index", (req, res) => {
       useBom: true,
       useKeysAsHeaders: false,
       headers: [
+        "Ano",
+        "Código Município Emissor",
         "Município Emissor",
         "UF Emissor",
+        "Código Município Destinatário",
         "Município Destinatário",
         "UF Destinatário",
         "CFOP",
@@ -400,6 +429,7 @@ app.post("/index", (req, res) => {
         "CFOP (1D)",
         "CFOP (2D)",
         "CFOP (3D)",
+        "NCM Produto",
         "CNAE (C)",
         "Descrição do CNAE",
         "CNAE (Divisão)",
@@ -414,7 +444,6 @@ app.post("/index", (req, res) => {
         "SCR 2010 Trabalho Desc",
         "SCR 2010 Divulga",
         "SCR 2010 Divulga Desc",
-        "NCM Produto",
         "Total Bruto Produtos",
       ],
     };
@@ -436,6 +465,7 @@ app.post("/index", (req, res) => {
     }
     if (agrupar == "emissor") {
       options.headers = [
+        "Código Município Emissor",
         "Município Emissor",
         "UF Emissor",
         "Soma Total Bruto Produtos",
@@ -443,6 +473,7 @@ app.post("/index", (req, res) => {
     }
     if (agrupar == "destinatario") {
       options.headers = [
+        "Código Município Destinatário",
         "Município Destinatário",
         "UF Destinatário",
         "Soma Total Bruto Produtos",
@@ -784,7 +815,7 @@ app.post("/cadastro", async (req, res) => {
 
                   req.flash(
                     "success_msg",
-                    "Você registrou um novo usúario. Um novo login já pode ser feito."
+                    "Você registrou um novo usuário. Um novo login já pode ser feito."
                   );
                   res.redirect("/login");
                 }

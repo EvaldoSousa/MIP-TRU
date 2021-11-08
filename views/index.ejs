@@ -65,7 +65,7 @@
   </header>
 
   <!-- Alerta -->
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
+  <!-- <div class="alert alert-success alert-dismissible fade show" role="alert">
     <h4 class="alert-heading">Seja Bem-Vindo!</h4>
   <p>Olá, <Strong><%= user %></Strong>. Esse é o Filtro NFE, uma ferramenta para download de notas fiscais eletrônicas do estado do Pará.</p>
   <hr>
@@ -73,7 +73,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-  </div>
+  </div> -->
 
   <!-- Cria uma lista com as mensagens ao ser redirecionado após um cadastro -->
   <% if(messages.success_msg) {%>
@@ -83,18 +83,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <% } %>
+  <% } %>
 
-      <% if(messages.error) {%>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <%= messages.error %>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <% } %>
+  <% if(messages.error) {%>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= messages.error %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+  <% } %>
 
-          <div class="container mt-5">
+          <div class="container mt-5 grande">
             <div class="">
               <form method="POST" id="form">
                 <div class="row mb-3">
@@ -211,6 +211,16 @@
                     </select>
                   </div>
                   <div class="col-md-6 mb-2">
+                    <select name="ncm_produto" id="ncm_produto" class="selectpicker form-control"
+                    data-style="btn-default border" multiple data-live-index="true" title="Selecionar NCM Produto">
+                      <% ncm_produto.forEach(ncm_produto=> {%>
+                        <option value="<%=ncm_produto.ncm_produto %>">
+                          <%= ncm_produto.ncm_produto %>
+                        </option>
+                        <%}); %>
+                    </select>
+                  </div>
+                  <div class="col-md-6 mb-2">
                     <select name="cnae" id="cnae" class="selectpicker form-control"
                     data-style="btn-default border" multiple data-live-index="true" title="Selecionar CNAE">
                       <% cnae.forEach(cnae=> {%>
@@ -280,16 +290,6 @@
                         <%}); %>
                     </select>
                   </div>
-                  <div class="col-md-6 mb-2">
-                    <select name="ncm_produto" id="ncm_produto" class="selectpicker form-control"
-                    data-style="btn-default border" multiple data-live-index="true" title="Selecionar NCM Produto">
-                      <% ncm_produto.forEach(ncm_produto=> {%>
-                        <option value="<%=ncm_produto.ncm_produto %>">
-                          <%= ncm_produto.ncm_produto %>
-                        </option>
-                        <%}); %>
-                    </select>
-                  </div>
                   <div class="col-md-12 mb-2 form-row mt-3">
                     <div class="form-check form-check-inline col-md-3">
                       <input class="form-check-input" type="radio" name="agrupar" id="agrupar" value="null" checked>
@@ -332,7 +332,7 @@
                 </div>
                 <div class="form-row">
                   <div class="mx-auto mb-2">
-                    <button id="csv" type="submit" formaction="/index" class="btn btn-success btn-lg">
+                    <button id="csv" type="submit" formaction="/" class="btn btn-success btn-lg">
                       <span class="button__text">Baixar em csv</span>
                     </button>
                   </div>
@@ -350,6 +350,7 @@
             <div class="footer-copyright bg bg-success">
               <p>LCC - UNIFESSPA   2021 </p>
             </div>
+          </footer>
 
 
             <!--Jquey-->
