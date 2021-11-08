@@ -348,9 +348,26 @@ app.post("/", (req, res) => {
     agrupar,
   } = req.body;
 
+  f.aspas(ano, ano);
+  f.aspas(municipio_emissor_codigo, municipio_emissor_codigo);
   f.aspas(municipio_emissor, municipio_emissor);
+  f.aspas(uf_emissor, uf_emissor);
+  f.aspas(municipio_destinatario_codigo, municipio_destinatario_codigo);
   f.aspas(municipio_destinatario, municipio_destinatario);
-
+  f.aspas(uf_destinatario, uf_destinatario);
+  f.aspas(cfop, cfop);
+  f.aspas(cfop_1d, cfop_1d);
+  f.aspas(cfop_2d, cfop_2d);
+  f.aspas(cfop_3d, cfop_3d);
+  f.aspas(ncm_produto, ncm_produto);
+  f.aspas(cnae, cnae);
+  f.aspas(cnae_divisao, cnae_divisao);
+  f.aspas(cnae_grupo, cnae_grupo);
+  f.aspas(cnae_classe_4d, cnae_classe_4d);
+  f.aspas(cnae_classe_5d, cnae_classe_5d);
+  f.aspas(scr_2010_trabalho, scr_2010_trabalho);
+  f.aspas(scr_2010_divulga, scr_2010_divulga);
+  
   let errors = [];
 
   let sql = f.buscar(
@@ -375,6 +392,8 @@ app.post("/", (req, res) => {
     scr_2010_divulga,
     agrupar
   );
+
+  console.log(sql);
 
   pool.query(sql, (err, results) => {
     if (err) {
