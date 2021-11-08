@@ -66,27 +66,27 @@ function buscar(
   let txt = `SELECT ano, municipio_emissor_codigo, municipio_emissor, uf_emissor, municipio_destinatario_codigo, municipio_destinatario, uf_destinatario, 
     cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d, ncm_produto, cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
     cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, scr_2010_trabalho, 
-    scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc, total_bruto_produtos FROM entradas2`;
+    scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc, total_bruto_produtos FROM entradas`;
 
   if (agrupar == "cnae") {
     if (cnae) {
       if (Array.isArray(cnae)) {
         txt = `SELECT cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
               cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, 
-              SUM(total_bruto_produtos) FROM entradas2 WHERE cnae in (${cnae.join(
+              SUM(total_bruto_produtos) FROM entradas WHERE cnae in (${cnae.join(
                 ", "
               )}) group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
               cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc`;
       } else {
         txt = `SELECT cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
               cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, 
-              SUM(total_bruto_produtos) FROM entradas2 WHERE cnae ilike \'${cnae}\' group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
+              SUM(total_bruto_produtos) FROM entradas WHERE cnae ilike \'${cnae}\' group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
               cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc`;
       }
     } else {
       txt = `SELECT cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
             cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc,  SUM(total_bruto_produtos) 
-            FROM entradas2 group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
+            FROM entradas group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
             cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc order by cnae asc`;
     }
     return txt;
@@ -96,18 +96,18 @@ function buscar(
     if (municipio_emissor) {
       if (Array.isArray(municipio_emissor)) {
         txt = `SELECT municipio_emissor_codigo, municipio_emissor, uf_emissor,
-          SUM(total_bruto_produtos) FROM entradas2
+          SUM(total_bruto_produtos) FROM entradas
           WHERE municipio_emissor in (${municipio_emissor.join(", ")})
          group by municipio_emissor_codigo, municipio_emissor, uf_emissor`;
       } else {
         txt = `SELECT municipio_emissor_codigo, municipio_emissor, uf_emissor,
-          SUM(total_bruto_produtos) FROM entradas2
+          SUM(total_bruto_produtos) FROM entradas
           WHERE municipio_emissor ilike \'${municipio_emissor}\'
          group by municipio_emissor_codigo, municipio_emissor, uf_emissor`;
       }
     } else {
       txt = `SELECT municipio_emissor_codigo, municipio_emissor, uf_emissor,
-            SUM(total_bruto_produtos) FROM entradas2
+            SUM(total_bruto_produtos) FROM entradas
            group by municipio_emissor_codigo, municipio_emissor, uf_emissor
           order by municipio_emissor asc`;
     }
@@ -119,18 +119,18 @@ function buscar(
     if (municipio_destinatario) {
       if (Array.isArray(municipio_destinatario)) {
         txt = `SELECT municipio_destinatario_codigo, municipio_destinatario, uf_destinatario,
-          SUM(total_bruto_produtos) FROM entradas2
+          SUM(total_bruto_produtos) FROM entradas
           WHERE municipio_destinatario in (${municipio_destinatario.join(", ")})
          group by municipio_destinatario_codigo, municipio_destinatario, uf_destinatario`;
       } else {
         txt = `SELECT municipio_destinatario_codigo, municipio_destinatario, uf_destinatario,
-          SUM(total_bruto_produtos) FROM entradas2
+          SUM(total_bruto_produtos) FROM entradas
           WHERE municipio_destinatario ilike \'${municipio_destinatario}\'
          group by municipio_destinatario_codigo, municipio_destinatario, uf_destinatario`;
       }
     } else {
       txt = `SELECT municipio_destinatario_codigo, municipio_destinatario, uf_destinatario,
-            SUM(total_bruto_produtos) FROM entradas2
+            SUM(total_bruto_produtos) FROM entradas
            group by municipio_destinatario_codigo, municipio_destinatario, uf_destinatario
           order by municipio_destinatario asc`;
     }
@@ -141,18 +141,18 @@ function buscar(
     if (cfop) {
       if (Array.isArray(cfop)) {
         txt = `SELECT cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d,
-          SUM(total_bruto_produtos) FROM entradas2
+          SUM(total_bruto_produtos) FROM entradas
           WHERE cfop in (${cfop.join(", ")})
          group by cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d`;
       } else {
         txt = `SELECT cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d,
-            SUM(total_bruto_produtos) FROM entradas2
+            SUM(total_bruto_produtos) FROM entradas
             WHERE cfop ilike \'${cfop}\'
            group by cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d`;
       }
     } else {
       txt = `SELECT cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d,
-            SUM(total_bruto_produtos) FROM entradas2
+            SUM(total_bruto_produtos) FROM entradas
            group by cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d
           order by cfop asc`;
     }
@@ -164,14 +164,14 @@ function buscar(
       if (Array.isArray(scr_2010_trabalho)) {
         txt = `SELECT scr_2010_trabalho, 
               scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc,
-              SUM(total_bruto_produtos) FROM entradas2
+              SUM(total_bruto_produtos) FROM entradas
               WHERE scr_2010_trabalho in (${scr_2010_trabalho.join(", ")})
               group by scr_2010_trabalho, 
               scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc`;
       } else {
         txt = `SELECT scr_2010_trabalho, 
               scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc,
-              SUM(total_bruto_produtos) FROM entradas2
+              SUM(total_bruto_produtos) FROM entradas
               WHERE scr_2010_trabalho ilike ${scr_2010_trabalho.join(", ")}
               group by scr_2010_trabalho, 
               scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc`;
@@ -179,7 +179,7 @@ function buscar(
     } else {
       txt = `SELECT scr_2010_trabalho, 
             scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc,
-            SUM(total_bruto_produtos) FROM entradas2
+            SUM(total_bruto_produtos) FROM entradas
             group by scr_2010_trabalho, 
             scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc
             order by scr_2010_trabalho asc`;
