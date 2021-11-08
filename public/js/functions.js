@@ -335,7 +335,7 @@ function buscar(
     ) {
       txt += "and";
     }
-    if (Array.isArray(cfop)) {
+    if (Array.isArray(cfop_1d)) {
       txt += " cfop_1d in (" + cfop_1d + ") ";
     } else {
       txt += " cfop_1d ilike '" + cfop_1d + "' ";
@@ -355,7 +355,7 @@ function buscar(
     ) {
       txt += "and";
     }
-    if (Array.isArray(cfop)) {
+    if (Array.isArray(cfop_2d)) {
       txt += " cfop_2d in (" + cfop_2d + ") ";
     } else {
       txt += " cfop_2d ilike '" + cfop_2d + "' ";
@@ -376,7 +376,7 @@ function buscar(
     ) {
       txt += "and";
     }
-    if (Array.isArray(cfop)) {
+    if (Array.isArray(cfop_3d)) {
       txt += " cfop_3d in (" + cfop_3d + ") ";
     } else {
       txt += " cfop_3d ilike '" + cfop_3d + "' ";
@@ -398,7 +398,7 @@ function buscar(
     ) {
       txt += "and";
     }
-    if (Array.isArray(cfop)) {
+    if (Array.isArray(ncm_produto)) {
       txt += " ncm_produto in (" + ncm_produto + ") ";
     } else {
       txt += " ncm_produto ilike '" + ncm_produto + "' ";
@@ -421,7 +421,7 @@ function buscar(
     ) {
       txt += "and";
     }
-    if (Array.isArray(cfop)) {
+    if (Array.isArray(cnae)) {
       txt += " cnae in (" + cnae + ") ";
     } else {
       txt += " cnae ilike '" + cnae + "' ";
@@ -445,7 +445,7 @@ function buscar(
     ) {
       txt += "and";
     }
-    if (Array.isArray(cfop)) {
+    if (Array.isArray(cnae_divisao)) {
       txt += " cnae_divisao in (" + cnae_divisao + ") ";
     } else {
       txt += " cnae_divisao ilike '" + cnae_divisao + "' ";
@@ -470,7 +470,7 @@ function buscar(
     ) {
       txt += "and";
     }
-    if (Array.isArray(cfop)) {
+    if (Array.isArray(cnae_grupo)) {
       txt += " cnae_grupo in (" + cnae_grupo + ") ";
     } else {
       txt += " cnae_grupo ilike '" + cnae_grupo + "' ";
@@ -496,7 +496,7 @@ function buscar(
     ) {
       txt += "and";
     }
-    if (Array.isArray(cfop)) {
+    if (Array.isArray(cnae_classe_4d)) {
       txt += " cnae_classe_4d in (" + cnae_classe_4d + ") ";
     } else {
       txt += " cnae_classe_4d ilike '" + cnae_classe_4d + "' ";
@@ -523,7 +523,7 @@ function buscar(
     ) {
       txt += "and";
     }
-    if (Array.isArray(cfop)) {
+    if (Array.isArray(cnae_classe_5d)) {
       txt += " cnae_classe_5d in (" + cnae_classe_5d + ") ";
     } else {
       txt += " cnae_classe_5d ilike '" + cnae_classe_5d + "' ";
@@ -551,7 +551,7 @@ function buscar(
     ) {
       txt += "and";
     }
-    if (Array.isArray(cfop)) {
+    if (Array.isArray(scr_2010_trabalho)) {
       txt += " scr_2010_trabalho in (" + scr_2010_trabalho + ") ";
     } else {
       txt += " scr_2010_trabalho ilike '" + scr_2010_trabalho + "' ";
