@@ -95,20 +95,20 @@ function buscar(
   if (agrupar == "emissor") {
     if (municipio_emissor) {
       if (Array.isArray(municipio_emissor)) {
-        txt = `SELECT municipio_emissor, uf_emissor,
+        txt = `SELECT municipio_emissor_codigo, municipio_emissor, uf_emissor,
           SUM(total_bruto_produtos) FROM entradas2
           WHERE municipio_emissor in (${municipio_emissor.join(", ")})
-         group by municipio_emissor, uf_emissor`;
+         group by municipio_emissor_codigo, municipio_emissor, uf_emissor`;
       } else {
-        txt = `SELECT municipio_emissor, uf_emissor,
+        txt = `SELECT municipio_emissor_codigo, municipio_emissor, uf_emissor,
           SUM(total_bruto_produtos) FROM entradas2
           WHERE municipio_emissor ilike \'${municipio_emissor}\'
-         group by municipio_emissor, uf_emissor`;
+         group by municipio_emissor_codigo, municipio_emissor, uf_emissor`;
       }
     } else {
-      txt = `SELECT municipio_emissor, uf_emissor,
+      txt = `SELECT municipio_emissor_codigo, municipio_emissor, uf_emissor,
             SUM(total_bruto_produtos) FROM entradas2
-           group by municipio_emissor, uf_emissor
+           group by municipio_emissor_codigo, municipio_emissor, uf_emissor
           order by municipio_emissor asc`;
     }
     // console.log(txt);
@@ -118,20 +118,20 @@ function buscar(
   if (agrupar == "destinatario") {
     if (municipio_destinatario) {
       if (Array.isArray(municipio_destinatario)) {
-        txt = `SELECT municipio_destinatario, uf_destinatario,
+        txt = `SELECT municipio_destinatario_codigo, municipio_destinatario, uf_destinatario,
           SUM(total_bruto_produtos) FROM entradas2
           WHERE municipio_destinatario in (${municipio_destinatario.join(", ")})
-         group by municipio_destinatario, uf_destinatario`;
+         group by municipio_destinatario_codigo, municipio_destinatario, uf_destinatario`;
       } else {
-        txt = `SELECT municipio_destinatario, uf_destinatario,
+        txt = `SELECT municipio_destinatario_codigo, municipio_destinatario, uf_destinatario,
           SUM(total_bruto_produtos) FROM entradas2
           WHERE municipio_destinatario ilike \'${municipio_destinatario}\'
-         group by municipio_destinatario, uf_destinatario`;
+         group by municipio_destinatario_codigo, municipio_destinatario, uf_destinatario`;
       }
     } else {
-      txt = `SELECT municipio_destinatario, uf_destinatario,
+      txt = `SELECT municipio_destinatario_codigo, municipio_destinatario, uf_destinatario,
             SUM(total_bruto_produtos) FROM entradas2
-           group by municipio_destinatario, uf_destinatario
+           group by municipio_destinatario_codigo, municipio_destinatario, uf_destinatario
           order by municipio_destinatario asc`;
     }
     return txt;

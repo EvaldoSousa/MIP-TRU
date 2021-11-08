@@ -393,7 +393,7 @@ app.post("/", (req, res) => {
     agrupar
   );
 
-  // console.log(sql);
+  console.log(sql);
 
   pool.query(sql, (err, results) => {
     if (err) {
@@ -465,6 +465,7 @@ app.post("/", (req, res) => {
     }
     if (agrupar == "emissor") {
       options.headers = [
+        "Código Município Emissor",
         "Município Emissor",
         "UF Emissor",
         "Soma Total Bruto Produtos",
@@ -472,6 +473,7 @@ app.post("/", (req, res) => {
     }
     if (agrupar == "destinatario") {
       options.headers = [
+        "Código Município Destinatário",
         "Município Destinatário",
         "UF Destinatário",
         "Soma Total Bruto Produtos",
