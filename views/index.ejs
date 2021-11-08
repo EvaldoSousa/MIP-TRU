@@ -93,8 +93,12 @@
         </button>
     </div>
   <% } %>
+          <!-- Ícone de carregamento -->
+          <div class="carregamento" id="carregamento">
+            <div class="icone"></div>
+          </div>
 
-          <div class="container mt-5 grande">
+          <div class="container mt-5 d-none" id="conteudo">
             <div class="">
               <form method="POST" id="form">
                 <div class="row mb-3">
@@ -344,7 +348,7 @@
           <!-- Rodapé -->
           <div class="content">
           </div>
-          <footer id="myFooter">
+          <footer id="myFooter" class="fixed-bottom">
             <div class="container">
             </div>
             <div class="footer-copyright bg bg-success">

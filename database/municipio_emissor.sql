@@ -1,3 +1,8 @@
+create table ano (
+    id serial primary key not null,
+    ano integer not null
+);
+
 create table municipio_emissor (
     id serial primary key not null,
     municipio_emissor varchar(100) not null
@@ -87,4 +92,3 @@ create table ncm_produto (
     id serial primary key not null,
     ncm_produto VARCHAR(20) NOT NULL
 );
-

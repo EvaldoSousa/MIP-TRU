@@ -1,11 +1,9 @@
-let btn_csv = document.getElementById('csv');
-let form = document.getElementById('form');
+let conteudo = document.getElementById("conteudo");
+let rodape = document.getElementById("myFooter");
+let carregamento = document.getElementById("carregamento");
 
-function startCsv () {
-    btn_csv.classList.add("button--loading");
-}
-
-function finishCsv () {
-    btn_csv.classList.remove("button--loading");
-}
-
+conteudo.classList.toggle("d-none");
+setTimeout(function() {
+    rodape.classList.toggle("fixed-bottom");
+    carregamento.style.display = "none";
+}, 3000);
