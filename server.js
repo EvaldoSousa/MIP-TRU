@@ -301,7 +301,16 @@ app.get("/", checkNotAuthenticated, (req, res) => {
 
 // rota para página de cadastro
 app.get("/cadastro", checkNotAuthenticated, (req, res) => {
-  res.render("cadastro");
+  res.render("cadastro", 
+  {
+    user: req
+      .user
+      .nome,
+    profile:
+      req
+        .user
+        .perfil,
+    });
 });
 
 // rota para página de edição de perfil

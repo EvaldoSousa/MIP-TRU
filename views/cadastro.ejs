@@ -15,6 +15,9 @@
   <!--Bootstrap-->
   <link rel="stylesheet" href="/css/bootstrap.min.css">
 
+  <!--Link Axios.js-->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
   <!-- Fonts -->
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
@@ -38,6 +41,13 @@
           </button>
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <img src="/img/user2.png" alt="" class="img-perfil text-center img-fluid">
+            <strong>
+              <p class="text-center">
+                <%= user %>
+              </p>
+            </strong>
+            <hr>
             <a class="dropdown-item" href="/editar">Meu Perfil</a>
             <a class="dropdown-item" href="/logout">Sair</a>
           </div>
