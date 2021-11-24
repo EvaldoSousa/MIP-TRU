@@ -2,7 +2,7 @@
   "development": {
     "username": "mip_adm",
     "password": "mip_tru",
-    "database": "mip_tru",
+    "database": "teste_mip_tru",
     "host": "localhost",
     "dialect": "postgres"
   },

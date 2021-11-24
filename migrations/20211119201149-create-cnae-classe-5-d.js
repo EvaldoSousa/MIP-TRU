@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('cnae_classe_5ds', {
+    await queryInterface.createTable('cnae_classe_5d', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -22,6 +22,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('cnae_classe_5ds');
+    await queryInterface.dropTable('cnae_classe_5d');
   }
 };
