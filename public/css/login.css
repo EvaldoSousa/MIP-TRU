@@ -21,6 +21,34 @@ body {
     top: calc(50% - 200px);
 }
 
+div.footer{
+    display: flex;
+    background-color: #28a745;
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+
+#butaoOk{
+    position: absolute;
+    right: 0;
+    margin-right: 5px;
+    border-radius: 50px;
+    border-color: #ffffff;
+}
+
+#butaoOk:hover {
+    background-color: white !important;
+    color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+p.footer{
+    margin-left: 5px;
+    margin-top: 5px;
+    color: #ffffff;
+}
+
 #logo {
     width: 100%;
     max-width: 500px;
@@ -129,4 +157,8 @@ input:hover {
         box-shadow: none;
         background-color: white;
     }
+    div.footer{
+        display: block;
+    }
+
  }
