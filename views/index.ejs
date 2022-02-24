@@ -24,6 +24,7 @@
   
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
   
   <link rel="stylesheet" href="/css/index.css">
 </head>
@@ -296,47 +297,85 @@
                   </div>
                   <div class="col-md-12 mb-2 form-row mt-3">
                     <div class="form-check form-check-inline col-md-3">
-                      <input class="form-check-input" type="radio" name="agrupar" id="agrupar" value="null" checked>
+                      <input class="form-check-input" type="radio" name="agrupar" id="agrupar" value="null" checked onclick="aparecer()">
                       <label class="form-check-label" for="agrupar">
                         Não agrupar
                       </label>
                     </div>
                     <div class="form-check form-check-inline col-md-4">
-                      <input class="form-check-input" type="radio" name="agrupar" id="agrupar2" value="emissor">
+                      <input class="form-check-input" type="radio" name="agrupar" id="agrupar2" value="emissor" onclick="sumir()">
                       <label class="form-check-label" for="agrupar2">
                         Agrupar por Emissor
                       </label>
                     </div>
                     <div class="form-check form-check-inline col-md-4">
-                      <input class="form-check-input" type="radio" name="agrupar" id="agrupar3" value="destinatario">
+                      <input class="form-check-input" type="radio" name="agrupar" id="agrupar3" value="destinatario" onclick="sumir()">
                       <label class="form-check-label" for="agrupar3">
                         Agrupar por Destinatário
                       </label>
                     </div>
                     <div class="form-check form-check-inline col-md-3">
-                      <input class="form-check-input" type="radio" name="agrupar" id="agrupar4" value="cfop">
+                      <input class="form-check-input" type="radio" name="agrupar" id="agrupar4" value="cfop" onclick="sumir()">
                       <label class="form-check-label" for="agrupar4">
                         Agrupar por CFOP
                       </label>
                     </div>
                     <div class="form-check form-check-inline col-md-4">
-                      <input class="form-check-input" type="radio" name="agrupar" id="agrupar5" value="cnae">
+                      <input class="form-check-input" type="radio" name="agrupar" id="agrupar5" value="cnae" onclick="sumir()">
                       <label class="form-check-label" for="agrupar5">
                         Agrupar por CNAE
                       </label>
                     </div>
                     <div class="form-check form-check-inline col-md-4">
-                      <input class="form-check-input" type="radio" name="agrupar" id="agrupar6" value="scr">
+                      <input class="form-check-input" type="radio" name="agrupar" id="agrupar6" value="scr" onclick="sumir()">
                       <label class="form-check-label" for="agrupar6">
                         Agrupar por SCR
                       </label>
                     </div>
+                    <div class="form-check form-check-inline col-md-4" id="personalizavel">
+                      <p><strong>Selecione as colunas</strong></p>
+                      <div class="col-md-6 mb-2">
+                        <select name="personalizar" id="personalizar" class="selectpicker form-control" data-style="btn-default border"
+                        multiple data-live-index="true" title="Selecione as colunas">
+                            <option value="ano">ano</option>
+                            <option value="municipio_emissor">municipio_emissor</option>
+                            <option value="municipio_emissor_codigo">municipio_emissor_codigo</option>
+                            <option value="uf_emissor">uf_emissor</option>
+                            <option value="municipio_destinatario">municipio_destinatario</option>
+                            <option value="municipio_destinatario_codigo">municipio_destinatario_codigo</option>
+                            <option value="uf_destinatario">uf_destinatario</option>
+                            <option value="cfop">cfop</option>
+                            <option value="desc_cfop">desc_cfop</option>
+                            <option value="cfop_1d">cfop_1d</option>
+                            <option value="cfop_2d">cfop_2d</option>
+                            <option value="cfop_3d">cfop_3d</option>
+                            <option value="ncm_produto">ncm_produto</option>
+                            <option value="cnae">cnae</option>
+                            <option value="desc_cnae">desc_cnae</option>
+                            <option value="cnae_divisao">cnae_divisao</option>
+                            <option value="cnae_divisao_desc">cnae_divisao_desc</option>
+                            <option value="cnae_grupo">cnae_grupo</option>
+                            <option value="cnae_grupo_desc">cnae_grupo_desc</option>
+                            <option value="cnae_classe_4d">cnae_classe_4d</option>
+                            <option value="cnae_classe_4d_desc">cnae_classe_4d_desc</option>
+                            <option value="cnae_classe_5d">cnae_classe_5d</option>
+                            <option value="cnae_classe_5d_desc">cnae_classe_5d_desc</option>
+                            <option value="scr_2010_trabalho">scr_2010_trabalho</option>
+                            <option value="scr_2010_trabalho_desc">scr_2010_trabalho_desc</option>
+                            <option value="scr_2010_divulga">scr_2010_divulga</option>
+                            <option value="scr_2010_divulga_desc">scr_2010_divulga_desc</option>
+                            <option value="total_bruto_produtos">total_bruto_produtos</option>
+                        </select>
+                      </div>
+                      
+                    </div>
+
                   </div>
 
                 </div>
                 <div class="form-row">
                   <div class="mx-auto mb-2">
-                    <button id="csv" type="submit" formaction="/" class="btn btn-success btn-lg">
+                    <button id="csv" type="submit" formaction="/" class="btn btn-success btn-lg" onclick="select()">
                       <span class="button__text">Baixar em csv</span>
                     </button>
                   </div>
@@ -402,8 +441,16 @@
               //   });
 
               $('.selectpicker').selectpicker();
-            </script>
+              
+              var container = document.querySelector('#personalizavel');
+              function sumir(){
+                container.style.display = 'none';
+              }
 
+              function aparecer(){
+                container.style.display = 'flex';
+              }
+            </script>
 </body>
 
 </html>

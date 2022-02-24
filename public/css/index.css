@@ -133,3 +133,7 @@ html {
         transform: rotate(1turn);
     }
 }
+
+#personalizavel {
+    display: flex;
+}

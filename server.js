@@ -355,6 +355,7 @@ app.post("/", (req, res) => {
     scr_2010_trabalho,
     scr_2010_divulga,
     agrupar,
+    personalizar,
   } = req.body;
 
   f.aspas(ano, ano);
@@ -399,7 +400,8 @@ app.post("/", (req, res) => {
     cnae_classe_5d,
     scr_2010_trabalho,
     scr_2010_divulga,
-    agrupar
+    agrupar,
+    personalizar
   );
 
   console.log(sql);
@@ -426,6 +428,13 @@ app.post("/", (req, res) => {
       useBom: true,
       useKeysAsHeaders: false,
       headers: [
+        personalizar,
+      ],
+    };
+
+    //se não for feita nenhuma escolha de variáveis, a variável "personalizar" retornará indefinidae fará um select de todas as colunas
+    if(typeof personalizar === "undefined"){
+      options.headers = [
         "Ano",
         "Código Município Emissor",
         "Município Emissor",
@@ -454,8 +463,8 @@ app.post("/", (req, res) => {
         "SCR 2010 Divulga",
         "SCR 2010 Divulga Desc",
         "Total Bruto Produtos",
-      ],
-    };
+      ];
+    }
 
     if (agrupar == "cnae") {
       options.headers = [

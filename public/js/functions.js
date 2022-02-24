@@ -9,6 +9,7 @@ function formatarTelefone(telefone) {
     .replace(/ /g, "");
 }
 
+
 function reverseFormat(telefone) {
   var tels = [];
   var phormat = "";
@@ -61,503 +62,142 @@ function buscar(
   cnae_classe_5d,
   scr_2010_trabalho,
   scr_2010_divulga,
-  agrupar
+  agrupar,
+  personalizar
 ) {
-  let txt = `SELECT ano, municipio_emissor_codigo, municipio_emissor, uf_emissor, municipio_destinatario_codigo, municipio_destinatario, uf_destinatario, 
+
+  //se não for feita nenhuma escolha de variáveis, a variável "personalizar" retornará indefinidae fará um select de todas as colunas
+  if (typeof personalizar === "undefined"){
+    let txt = `SELECT ano, municipio_emissor_codigo, municipio_emissor, uf_emissor, municipio_destinatario_codigo, municipio_destinatario, uf_destinatario, 
     cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d, ncm_produto, cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
     cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, scr_2010_trabalho, 
     scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc, total_bruto_produtos FROM entradas`;
+    return txt;
+  }
 
-  if (agrupar == "cnae") {
-    if (cnae) {
-      if (Array.isArray(cnae)) {
-        txt = `SELECT cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
-              cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, 
-              SUM(total_bruto_produtos) FROM entradas WHERE cnae in (${cnae.join(
-                ", "
-              )}) group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
-              cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc`;
+    let txt = `SELECT ${personalizar} FROM entradas`;
+
+    if (agrupar == "cnae") {
+      if (cnae) {
+        if (Array.isArray(cnae)) {
+          txt = `SELECT cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
+                cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, 
+                SUM(total_bruto_produtos) FROM entradas WHERE cnae in (${cnae.join(
+                  ", "
+                )}) group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
+                cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc`;
+        } else {
+          txt = `SELECT cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
+                cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, 
+                SUM(total_bruto_produtos) FROM entradas WHERE cnae ilike \'${cnae}\' group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
+                cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc`;
+        }
       } else {
         txt = `SELECT cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
-              cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc, 
-              SUM(total_bruto_produtos) FROM entradas WHERE cnae ilike \'${cnae}\' group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
-              cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc`;
+              cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc,  SUM(total_bruto_produtos) 
+              FROM entradas group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
+              cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc order by cnae asc`;
       }
-    } else {
-      txt = `SELECT cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
-            cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc,  SUM(total_bruto_produtos) 
-            FROM entradas group by cnae, desc_cnae, cnae_divisao, cnae_divisao_desc, cnae_grupo, 
-            cnae_grupo_desc, cnae_classe_4d, cnae_classe_4d_desc, cnae_classe_5d, cnae_classe_5d_desc order by cnae asc`;
+      return txt;
     }
-    return txt;
-  }
 
-  if (agrupar == "emissor") {
-    if (municipio_emissor) {
-      if (Array.isArray(municipio_emissor)) {
-        txt = `SELECT municipio_emissor_codigo, municipio_emissor, uf_emissor,
-          SUM(total_bruto_produtos) FROM entradas
-          WHERE municipio_emissor in (${municipio_emissor.join(", ")})
-         group by municipio_emissor_codigo, municipio_emissor, uf_emissor`;
+    if (agrupar == "emissor") {
+      if (municipio_emissor) {
+        if (Array.isArray(municipio_emissor)) {
+          txt = `SELECT municipio_emissor_codigo, municipio_emissor, uf_emissor,
+            SUM(total_bruto_produtos) FROM entradas
+            WHERE municipio_emissor in (${municipio_emissor.join(", ")})
+          group by municipio_emissor_codigo, municipio_emissor, uf_emissor`;
+        } else {
+          txt = `SELECT municipio_emissor_codigo, municipio_emissor, uf_emissor,
+            SUM(total_bruto_produtos) FROM entradas
+            WHERE municipio_emissor ilike \'${municipio_emissor}\'
+          group by municipio_emissor_codigo, municipio_emissor, uf_emissor`;
+        }
       } else {
         txt = `SELECT municipio_emissor_codigo, municipio_emissor, uf_emissor,
-          SUM(total_bruto_produtos) FROM entradas
-          WHERE municipio_emissor ilike \'${municipio_emissor}\'
-         group by municipio_emissor_codigo, municipio_emissor, uf_emissor`;
+              SUM(total_bruto_produtos) FROM entradas
+            group by municipio_emissor_codigo, municipio_emissor, uf_emissor
+            order by municipio_emissor asc`;
       }
-    } else {
-      txt = `SELECT municipio_emissor_codigo, municipio_emissor, uf_emissor,
-            SUM(total_bruto_produtos) FROM entradas
-           group by municipio_emissor_codigo, municipio_emissor, uf_emissor
-          order by municipio_emissor asc`;
+      // console.log(txt);
+      return txt;
     }
-    // console.log(txt);
-    return txt;
-  }
 
-  if (agrupar == "destinatario") {
-    if (municipio_destinatario) {
-      if (Array.isArray(municipio_destinatario)) {
-        txt = `SELECT municipio_destinatario_codigo, municipio_destinatario, uf_destinatario,
-          SUM(total_bruto_produtos) FROM entradas
-          WHERE municipio_destinatario in (${municipio_destinatario.join(", ")})
-         group by municipio_destinatario_codigo, municipio_destinatario, uf_destinatario`;
+    if (agrupar == "destinatario") {
+      if (municipio_destinatario) {
+        if (Array.isArray(municipio_destinatario)) {
+          txt = `SELECT municipio_destinatario_codigo, municipio_destinatario, uf_destinatario,
+            SUM(total_bruto_produtos) FROM entradas
+            WHERE municipio_destinatario in (${municipio_destinatario.join(", ")})
+          group by municipio_destinatario_codigo, municipio_destinatario, uf_destinatario`;
+        } else {
+          txt = `SELECT municipio_destinatario_codigo, municipio_destinatario, uf_destinatario,
+            SUM(total_bruto_produtos) FROM entradas
+            WHERE municipio_destinatario ilike \'${municipio_destinatario}\'
+          group by municipio_destinatario_codigo, municipio_destinatario, uf_destinatario`;
+        }
       } else {
         txt = `SELECT municipio_destinatario_codigo, municipio_destinatario, uf_destinatario,
-          SUM(total_bruto_produtos) FROM entradas
-          WHERE municipio_destinatario ilike \'${municipio_destinatario}\'
-         group by municipio_destinatario_codigo, municipio_destinatario, uf_destinatario`;
+              SUM(total_bruto_produtos) FROM entradas
+            group by municipio_destinatario_codigo, municipio_destinatario, uf_destinatario
+            order by municipio_destinatario asc`;
       }
-    } else {
-      txt = `SELECT municipio_destinatario_codigo, municipio_destinatario, uf_destinatario,
-            SUM(total_bruto_produtos) FROM entradas
-           group by municipio_destinatario_codigo, municipio_destinatario, uf_destinatario
-          order by municipio_destinatario asc`;
+      return txt;
     }
-    return txt;
-  }
 
-  if (agrupar == "cfop") {
-    if (cfop) {
-      if (Array.isArray(cfop)) {
-        txt = `SELECT cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d,
-          SUM(total_bruto_produtos) FROM entradas
-          WHERE cfop in (${cfop.join(", ")})
-         group by cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d`;
+    if (agrupar == "cfop") {
+      if (cfop) {
+        if (Array.isArray(cfop)) {
+          txt = `SELECT cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d,
+            SUM(total_bruto_produtos) FROM entradas
+            WHERE cfop in (${cfop.join(", ")})
+          group by cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d`;
+        } else {
+          txt = `SELECT cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d,
+              SUM(total_bruto_produtos) FROM entradas
+              WHERE cfop ilike \'${cfop}\'
+            group by cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d`;
+        }
       } else {
         txt = `SELECT cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d,
-            SUM(total_bruto_produtos) FROM entradas
-            WHERE cfop ilike \'${cfop}\'
-           group by cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d`;
+              SUM(total_bruto_produtos) FROM entradas
+            group by cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d
+            order by cfop asc`;
       }
-    } else {
-      txt = `SELECT cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d,
-            SUM(total_bruto_produtos) FROM entradas
-           group by cfop, desc_cfop, cfop_1d, cfop_2d, cfop_3d
-          order by cfop asc`;
+      return txt;
     }
-    return txt;
-  }
 
-  if (agrupar == "scr") {
-    if (scr_2010_trabalho) {
-      if (Array.isArray(scr_2010_trabalho)) {
+    if (agrupar == "scr") {
+      if (scr_2010_trabalho) {
+        if (Array.isArray(scr_2010_trabalho)) {
+          txt = `SELECT scr_2010_trabalho, 
+                scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc,
+                SUM(total_bruto_produtos) FROM entradas
+                WHERE scr_2010_trabalho in (${scr_2010_trabalho.join(", ")})
+                group by scr_2010_trabalho, 
+                scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc`;
+        } else {
+          txt = `SELECT scr_2010_trabalho, 
+                scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc,
+                SUM(total_bruto_produtos) FROM entradas
+                WHERE scr_2010_trabalho ilike ${scr_2010_trabalho.join(", ")}
+                group by scr_2010_trabalho, 
+                scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc`;
+        }
+      } else {
         txt = `SELECT scr_2010_trabalho, 
               scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc,
               SUM(total_bruto_produtos) FROM entradas
-              WHERE scr_2010_trabalho in (${scr_2010_trabalho.join(", ")})
               group by scr_2010_trabalho, 
-              scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc`;
-      } else {
-        txt = `SELECT scr_2010_trabalho, 
-              scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc,
-              SUM(total_bruto_produtos) FROM entradas
-              WHERE scr_2010_trabalho ilike ${scr_2010_trabalho.join(", ")}
-              group by scr_2010_trabalho, 
-              scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc`;
+              scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc
+              order by scr_2010_trabalho asc`;
       }
-    } else {
-      txt = `SELECT scr_2010_trabalho, 
-            scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc,
-            SUM(total_bruto_produtos) FROM entradas
-            group by scr_2010_trabalho, 
-            scr_2010_trabalho_desc, scr_2010_divulga, scr_2010_divulga_desc
-            order by scr_2010_trabalho asc`;
+      return txt;
+      
     }
-    return txt;
-  }
 
-  if (
-    ano ||
-    municipio_emissor_codigo ||
-    municipio_emissor ||
-    uf_emissor ||
-    municipio_destinatario_codigo ||
-    municipio_destinatario ||
-    uf_destinatario ||
-    cfop ||
-    cfop_1d ||
-    cfop_2d ||
-    cfop_3d ||
-    ncm_produto ||
-    cnae ||
-    cnae_divisao ||
-    cnae_grupo ||
-    cnae_classe_4d ||
-    cnae_classe_5d ||
-    scr_2010_trabalho ||
-    scr_2010_divulga
-  ) {
-    txt += " WHERE ";
-  }
 
-  if (ano) {
-    if (Array.isArray(ano)) {
-      txt += " ano in (" + ano + ") ";
-    } else {
-      txt += " ano in ('" + ano + "') ";
-    }
-  }
-
-  if (municipio_emissor_codigo) {
-    if (ano) {
-      txt += "and";
-    }
-    if (Array.isArray(municipio_emissor_codigo)) {
-      txt += " municipio_emissor_codigo in (" + municipio_emissor_codigo + ") ";
-    } else {
-      txt +=
-        " municipio_emissor_codigo ilike '" + municipio_emissor_codigo + "' ";
-    }
-  }
-
-  if (municipio_emissor) {
-    if (ano || municipio_emissor_codigo) {
-      txt += "and";
-    }
-    if (Array.isArray(municipio_emissor)) {
-      txt += " municipio_emissor in (" + municipio_emissor + ") ";
-    } else {
-      txt += " municipio_emissor ilike '" + municipio_emissor + "' ";
-    }
-  }
-
-  if (uf_emissor) {
-    if (ano || municipio_emissor_codigo || municipio_emissor) {
-      txt += "and";
-    }
-    if (Array.isArray(uf_emissor)) {
-      txt += " uf_emissor in (" + uf_emissor + ") ";
-    } else {
-      txt += " uf_emissor ilike '" + uf_emissor + "' ";
-    }
-  }
-
-  if (municipio_destinatario_codigo) {
-    if (ano || municipio_emissor_codigo || municipio_emissor || uf_emissor) {
-      txt += "and";
-    }
-    if (Array.isArray(municipio_destinatario_codigo)) {
-      txt +=
-        " municipio_destinatario_codigo in (" +
-        municipio_destinatario_codigo +
-        ") ";
-    } else {
-      txt +=
-        " municipio_destinatario_codigo ilike '" +
-        municipio_destinatario_codigo +
-        "' ";
-    }
-  }
-
-  if (municipio_destinatario) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(municipio_destinatario)) {
-      txt += " municipio_destinatario in (" + municipio_destinatario + ") ";
-    } else {
-      txt += " municipio_destinatario ilike '" + municipio_destinatario + "' ";
-    }
-  }
-
-  if (uf_destinatario) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo ||
-      municipio_destinatario
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(uf_destinatario)) {
-      txt += " uf_destinatario in (" + uf_destinatario + ") ";
-    } else {
-      txt += " uf_destinatario ilike '" + uf_destinatario + "' ";
-    }
-  }
-  if (cfop) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo ||
-      municipio_destinatario ||
-      uf_destinatario
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(cfop)) {
-      txt += " cfop in (" + cfop + ") ";
-    } else {
-      txt += " cfop ilike '" + cfop + "' ";
-    }
-  }
-  if (cfop_1d) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo ||
-      municipio_destinatario ||
-      uf_destinatario ||
-      cfop
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(cfop_1d)) {
-      txt += " cfop_1d in (" + cfop_1d + ") ";
-    } else {
-      txt += " cfop_1d ilike '" + cfop_1d + "' ";
-    }
-  }
-  if (cfop_2d) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo ||
-      municipio_destinatario ||
-      uf_destinatario ||
-      cfop ||
-      cfop_1d
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(cfop_2d)) {
-      txt += " cfop_2d in (" + cfop_2d + ") ";
-    } else {
-      txt += " cfop_2d ilike '" + cfop_2d + "' ";
-    }
-  }
-  if (cfop_3d) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo ||
-      municipio_destinatario ||
-      uf_destinatario ||
-      cfop ||
-      cfop_1d ||
-      cfop_2d
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(cfop_3d)) {
-      txt += " cfop_3d in (" + cfop_3d + ") ";
-    } else {
-      txt += " cfop_3d ilike '" + cfop_3d + "' ";
-    }
-  }
-  if (ncm_produto) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo ||
-      municipio_destinatario ||
-      uf_destinatario ||
-      cfop ||
-      cfop_1d ||
-      cfop_2d ||
-      cfop_3d
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(ncm_produto)) {
-      txt += " ncm_produto in (" + ncm_produto + ") ";
-    } else {
-      txt += " ncm_produto ilike '" + ncm_produto + "' ";
-    }
-  }
-  if (cnae) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo ||
-      municipio_destinatario ||
-      uf_destinatario ||
-      cfop ||
-      cfop_1d ||
-      cfop_2d ||
-      cfop_3d ||
-      ncm_produto
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(cnae)) {
-      txt += " cnae in (" + cnae + ") ";
-    } else {
-      txt += " cnae ilike '" + cnae + "' ";
-    }
-  }
-  if (cnae_divisao) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo ||
-      municipio_destinatario ||
-      uf_destinatario ||
-      cfop ||
-      cfop_1d ||
-      cfop_2d ||
-      cfop_3d ||
-      ncm_produto ||
-      cnae
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(cnae_divisao)) {
-      txt += " cnae_divisao in (" + cnae_divisao + ") ";
-    } else {
-      txt += " cnae_divisao ilike '" + cnae_divisao + "' ";
-    }
-  }
-  if (cnae_grupo) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo ||
-      municipio_destinatario ||
-      uf_destinatario ||
-      cfop ||
-      cfop_1d ||
-      cfop_2d ||
-      cfop_3d ||
-      ncm_produto ||
-      cnae ||
-      cnae_divisao
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(cnae_grupo)) {
-      txt += " cnae_grupo in (" + cnae_grupo + ") ";
-    } else {
-      txt += " cnae_grupo ilike '" + cnae_grupo + "' ";
-    }
-  }
-  if (cnae_classe_4d) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo ||
-      municipio_destinatario ||
-      uf_destinatario ||
-      cfop ||
-      cfop_1d ||
-      cfop_2d ||
-      cfop_3d ||
-      ncm_produto ||
-      cnae ||
-      cnae_divisao ||
-      cnae_grupo
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(cnae_classe_4d)) {
-      txt += " cnae_classe_4d in (" + cnae_classe_4d + ") ";
-    } else {
-      txt += " cnae_classe_4d ilike '" + cnae_classe_4d + "' ";
-    }
-  }
-  if (cnae_classe_5d) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo ||
-      municipio_destinatario ||
-      uf_destinatario ||
-      cfop ||
-      cfop_1d ||
-      cfop_2d ||
-      cfop_3d ||
-      ncm_produto ||
-      cnae ||
-      cnae_divisao ||
-      cnae_grupo ||
-      cnae_classe_4d
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(cnae_classe_5d)) {
-      txt += " cnae_classe_5d in (" + cnae_classe_5d + ") ";
-    } else {
-      txt += " cnae_classe_5d ilike '" + cnae_classe_5d + "' ";
-    }
-  }
-  if (scr_2010_trabalho) {
-    if (
-      ano ||
-      municipio_emissor_codigo ||
-      municipio_emissor ||
-      uf_emissor ||
-      municipio_destinatario_codigo ||
-      municipio_destinatario ||
-      uf_destinatario ||
-      cfop ||
-      cfop_1d ||
-      cfop_2d ||
-      cfop_3d ||
-      ncm_produto ||
-      cnae ||
-      cnae_divisao ||
-      cnae_grupo ||
-      cnae_classe_4d ||
-      cnae_classe_5d
-    ) {
-      txt += "and";
-    }
-    if (Array.isArray(scr_2010_trabalho)) {
-      txt += " scr_2010_trabalho in (" + scr_2010_trabalho + ") ";
-    } else {
-      txt += " scr_2010_trabalho ilike '" + scr_2010_trabalho + "' ";
-    }
-  }
-  if (scr_2010_divulga) {
     if (
       ano ||
       municipio_emissor_codigo ||
@@ -576,19 +216,391 @@ function buscar(
       cnae_grupo ||
       cnae_classe_4d ||
       cnae_classe_5d ||
-      scr_2010_trabalho
+      scr_2010_trabalho ||
+      scr_2010_divulga
     ) {
-      txt += "and";
+      txt += " WHERE ";
     }
-    if (Array.isArray(scr_2010_divulga)) {
-      txt += " scr_2010_divulga in (" + scr_2010_divulga + ") ";
-    } else {
-      txt += " scr_2010_divulga ilike '" + scr_2010_divulga + "' ";
-    }
-  }
 
-  // console.log(txt + "\n");
-  return txt;
+    if (ano) {
+      if (Array.isArray(ano)) {
+        txt += " ano in (" + ano + ") ";
+      } else {
+        txt += " ano in ('" + ano + "') ";
+      }
+    }
+
+    if (municipio_emissor_codigo) {
+      if (ano) {
+        txt += "and";
+      }
+      if (Array.isArray(municipio_emissor_codigo)) {
+        txt += " municipio_emissor_codigo in (" + municipio_emissor_codigo + ") ";
+      } else {
+        txt +=
+          " municipio_emissor_codigo ilike '" + municipio_emissor_codigo + "' ";
+      }
+    }
+
+    if (municipio_emissor) {
+      if (ano || municipio_emissor_codigo) {
+        txt += "and";
+      }
+      if (Array.isArray(municipio_emissor)) {
+        txt += " municipio_emissor in (" + municipio_emissor + ") ";
+      } else {
+        txt += " municipio_emissor ilike '" + municipio_emissor + "' ";
+      }
+    }
+
+    if (uf_emissor) {
+      if (ano || municipio_emissor_codigo || municipio_emissor) {
+        txt += "and";
+      }
+      if (Array.isArray(uf_emissor)) {
+        txt += " uf_emissor in (" + uf_emissor + ") ";
+      } else {
+        txt += " uf_emissor ilike '" + uf_emissor + "' ";
+      }
+    }
+
+    if (municipio_destinatario_codigo) {
+      if (ano || municipio_emissor_codigo || municipio_emissor || uf_emissor) {
+        txt += "and";
+      }
+      if (Array.isArray(municipio_destinatario_codigo)) {
+        txt +=
+          " municipio_destinatario_codigo in (" +
+          municipio_destinatario_codigo +
+          ") ";
+      } else {
+        txt +=
+          " municipio_destinatario_codigo ilike '" +
+          municipio_destinatario_codigo +
+          "' ";
+      }
+    }
+
+    if (municipio_destinatario) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(municipio_destinatario)) {
+        txt += " municipio_destinatario in (" + municipio_destinatario + ") ";
+      } else {
+        txt += " municipio_destinatario ilike '" + municipio_destinatario + "' ";
+      }
+    }
+
+    if (uf_destinatario) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(uf_destinatario)) {
+        txt += " uf_destinatario in (" + uf_destinatario + ") ";
+      } else {
+        txt += " uf_destinatario ilike '" + uf_destinatario + "' ";
+      }
+    }
+    if (cfop) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario ||
+        uf_destinatario
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(cfop)) {
+        txt += " cfop in (" + cfop + ") ";
+      } else {
+        txt += " cfop ilike '" + cfop + "' ";
+      }
+    }
+    if (cfop_1d) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario ||
+        uf_destinatario ||
+        cfop
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(cfop_1d)) {
+        txt += " cfop_1d in (" + cfop_1d + ") ";
+      } else {
+        txt += " cfop_1d ilike '" + cfop_1d + "' ";
+      }
+    }
+    if (cfop_2d) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario ||
+        uf_destinatario ||
+        cfop ||
+        cfop_1d
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(cfop_2d)) {
+        txt += " cfop_2d in (" + cfop_2d + ") ";
+      } else {
+        txt += " cfop_2d ilike '" + cfop_2d + "' ";
+      }
+    }
+    if (cfop_3d) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario ||
+        uf_destinatario ||
+        cfop ||
+        cfop_1d ||
+        cfop_2d
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(cfop_3d)) {
+        txt += " cfop_3d in (" + cfop_3d + ") ";
+      } else {
+        txt += " cfop_3d ilike '" + cfop_3d + "' ";
+      }
+    }
+    if (ncm_produto) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario ||
+        uf_destinatario ||
+        cfop ||
+        cfop_1d ||
+        cfop_2d ||
+        cfop_3d
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(ncm_produto)) {
+        txt += " ncm_produto in (" + ncm_produto + ") ";
+      } else {
+        txt += " ncm_produto ilike '" + ncm_produto + "' ";
+      }
+    }
+    if (cnae) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario ||
+        uf_destinatario ||
+        cfop ||
+        cfop_1d ||
+        cfop_2d ||
+        cfop_3d ||
+        ncm_produto
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(cnae)) {
+        txt += " cnae in (" + cnae + ") ";
+      } else {
+        txt += " cnae ilike '" + cnae + "' ";
+      }
+    }
+    if (cnae_divisao) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario ||
+        uf_destinatario ||
+        cfop ||
+        cfop_1d ||
+        cfop_2d ||
+        cfop_3d ||
+        ncm_produto ||
+        cnae
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(cnae_divisao)) {
+        txt += " cnae_divisao in (" + cnae_divisao + ") ";
+      } else {
+        txt += " cnae_divisao ilike '" + cnae_divisao + "' ";
+      }
+    }
+    if (cnae_grupo) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario ||
+        uf_destinatario ||
+        cfop ||
+        cfop_1d ||
+        cfop_2d ||
+        cfop_3d ||
+        ncm_produto ||
+        cnae ||
+        cnae_divisao
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(cnae_grupo)) {
+        txt += " cnae_grupo in (" + cnae_grupo + ") ";
+      } else {
+        txt += " cnae_grupo ilike '" + cnae_grupo + "' ";
+      }
+    }
+    if (cnae_classe_4d) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario ||
+        uf_destinatario ||
+        cfop ||
+        cfop_1d ||
+        cfop_2d ||
+        cfop_3d ||
+        ncm_produto ||
+        cnae ||
+        cnae_divisao ||
+        cnae_grupo
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(cnae_classe_4d)) {
+        txt += " cnae_classe_4d in (" + cnae_classe_4d + ") ";
+      } else {
+        txt += " cnae_classe_4d ilike '" + cnae_classe_4d + "' ";
+      }
+    }
+    if (cnae_classe_5d) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario ||
+        uf_destinatario ||
+        cfop ||
+        cfop_1d ||
+        cfop_2d ||
+        cfop_3d ||
+        ncm_produto ||
+        cnae ||
+        cnae_divisao ||
+        cnae_grupo ||
+        cnae_classe_4d
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(cnae_classe_5d)) {
+        txt += " cnae_classe_5d in (" + cnae_classe_5d + ") ";
+      } else {
+        txt += " cnae_classe_5d ilike '" + cnae_classe_5d + "' ";
+      }
+    }
+    if (scr_2010_trabalho) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario ||
+        uf_destinatario ||
+        cfop ||
+        cfop_1d ||
+        cfop_2d ||
+        cfop_3d ||
+        ncm_produto ||
+        cnae ||
+        cnae_divisao ||
+        cnae_grupo ||
+        cnae_classe_4d ||
+        cnae_classe_5d
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(scr_2010_trabalho)) {
+        txt += " scr_2010_trabalho in (" + scr_2010_trabalho + ") ";
+      } else {
+        txt += " scr_2010_trabalho ilike '" + scr_2010_trabalho + "' ";
+      }
+    }
+    if (scr_2010_divulga) {
+      if (
+        ano ||
+        municipio_emissor_codigo ||
+        municipio_emissor ||
+        uf_emissor ||
+        municipio_destinatario_codigo ||
+        municipio_destinatario ||
+        uf_destinatario ||
+        cfop ||
+        cfop_1d ||
+        cfop_2d ||
+        cfop_3d ||
+        ncm_produto ||
+        cnae ||
+        cnae_divisao ||
+        cnae_grupo ||
+        cnae_classe_4d ||
+        cnae_classe_5d ||
+        scr_2010_trabalho
+      ) {
+        txt += "and";
+      }
+      if (Array.isArray(scr_2010_divulga)) {
+        txt += " scr_2010_divulga in (" + scr_2010_divulga + ") ";
+      } else {
+        txt += " scr_2010_divulga ilike '" + scr_2010_divulga + "' ";
+      }
+    }
+
+    // console.log(txt + "\n");
+    return txt;
+  
 }
 
 function buscarSelect(entrada) {
@@ -664,3 +676,4 @@ module.exports = {
   buscarSelect,
   aspas,
 };
+
