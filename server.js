@@ -60,6 +60,14 @@ app.use(passport.session());
 
 app.use(flash());
 
+//Essas duas próximas variáveis irão pegar os dados dos documentos de forma bruta
+let ncmProdutoBruto = fs.readFileSync('/Users/joathan/Documents/programacao/teste/NCM_Produto.txt', 'utf8');
+let ncmProdutoDescBruto = fs.readFileSync('/Users/joathan/Documents/programacao/teste/Descricao_NCM_Produto.txt', 'utf8');
+
+//Essas duas próximas variáveis irão se tornar arrays, tratar os dados tirando o \r\n e adicionando cada elemento em um index do array
+let ncmProdutoFormatado = ncmProdutoBruto.split('\r\n');
+let ncmProdutoDescFormatado = ncmProdutoDescBruto.split('\r\n');
+
 // rota para página de créditos
 app.get("/sobre", checkNotAuthenticated, (req, res) => {
   res.render("sobre", { profile: req.user.perfil });
@@ -228,6 +236,13 @@ app.get("/", checkNotAuthenticated, (req, res) => {
                                                                               }
                                                                               ncm_produto =
                                                                                 resultados.rows;
+                                                                                //irá fazer a verificação de cada index e o seu respectivo código parar adicionar a descrição caso tenha compatibilidade
+                                                                                for(var i= 0; i<ncm_produto.length; i++){
+                                                                                  for(var j = 0; j<ncmProdutoFormatado.length; j++){
+                                                                                    if(ncm_produto[i].ncm_produto == ncmProdutoFormatado[j])
+                                                                                      ncm_produto[i].descricao = ncmProdutoDescFormatado[j];
+                                                                                  }
+                                                                                }
                                                                               res.render(
                                                                                 "index",
                                                                                 {
