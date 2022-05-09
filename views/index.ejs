@@ -220,7 +220,7 @@
                     data-style="btn-default border" multiple data-live-index="true" title="Selecionar NCM Produto">
                       <% ncm_produto.forEach(ncm_produto=> {%>
                         <option value="<%=ncm_produto.ncm_produto %>">
-                          <%= ncm_produto.ncm_produto %>  <%= ncm_produto.descricao %>
+                          <%= ncm_produto.ncm_produto %> <%= ncm_produto.ncm_produto_desc %>
                         </option>
                         <%}); %>
                     </select>
