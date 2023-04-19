@@ -1,0 +1,93 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+/* img infor */
+
+.icon-info {
+    height: 28px;
+}
+
+/* texto sobre */
+
+.txt-info {
+    font-size: 20px;
+    text-decoration: none !important;
+    font-family: Raleway, sans-serif !important;
+    color: black;
+}
+
+.txt-info:hover {
+    color: #198754;
+}
+
+body {
+    background-color: #f5f8fa !important;
+}
+
+.rodape {
+    margin-left: 45%;
+}
+
+.navbar-light.navbar-laravel {
+    background-color: white !important;
+}
+
+.navbar-laravel {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
+    margin-bottom: 10px;
+}
+
+.navbar-brand, .nav-link, .my-form, .login-form {
+    font-family: Raleway, sans-serif;
+}
+
+.alert {
+    margin-bottom: 5px !important;
+}
+
+#botaoCadastrar {
+    border-radius: 50px;
+}
+
+#botaoCadastrar:hover {
+    background-color: white !important;
+    color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+/* footer */
+
+#myFooter .footer-copyright {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+}
+
+#myFooter .footer-copyright p {
+    margin: 10px;
+    color: white
+}
+
+@media screen and (max-width: 767px) {
+    #myFooter {
+        text-align: center;
+    }
+}
+
+html {
+    height: 100%;
+}
+
+.content {
+    flex: 1 0 auto;
+    -webkit-flex: 1 0 auto;
+}
+
+#myFooter {
+    margin-top: 80px;
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+}
+
+.img-perfil{
+    margin-left: 33%;
+    width: 50px;
+}

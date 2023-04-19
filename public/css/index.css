@@ -1,0 +1,139 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+/* img infor */
+.icon-info {
+    height: 28px;
+}
+
+/* texto sobre */
+.txt-info{
+    font-size: 20px;
+    text-decoration: none !important;
+    font-family: Raleway, sans-serif !important;
+    color: black;
+}
+.txt-info:hover{
+    color: #198754;
+}
+
+
+/* img perfil */
+.img-perfil{
+    margin-left: 33%;
+    width: 50px;
+}
+
+
+body{
+    margin: 0;
+    font-size: .9rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #212529;
+    text-align: left;
+    background-color: #f5f8fa !important;
+}
+
+.navbar-light.navbar-laravel{
+    background-color: white !important;
+}
+
+.navbar-laravel
+{
+    box-shadow: 0 2px 4px rgba(0,0,0,.04);
+    z-index: 99999;
+}
+
+.navbar-brand , .nav-link, .my-form, .login-form
+{
+    font-family: Raleway, sans-serif;
+}
+
+.my-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.my-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.login-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.login-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* footer */
+
+#myFooter .footer-copyright {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+}
+
+#myFooter .footer-copyright p {
+    margin: 10px;
+    color: white
+}
+
+@media screen and (max-width: 767px) {
+    #myFooter {
+        text-align: center;
+    }
+}
+
+html {
+    height: 100vh !important; 
+}
+
+.content {
+    flex: 1 0 auto;
+    -webkit-flex: 1 0 auto;
+}
+
+#myFooter {
+    margin-top: 100px;
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+}
+
+.carregamento {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f8fa;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carregamento .icone {
+    animation: rotacao 1s infinite;
+    width: 100px;
+    height: 100px;
+    border: 10px solid #e5e5e5;
+    border-top-color: #28a745;
+    border-radius: 50%;
+}
+
+@keyframes rotacao {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+#personalizavel {
+    display: flex;
+}

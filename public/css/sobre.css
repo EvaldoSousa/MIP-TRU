@@ -1,0 +1,105 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+/* img infor */
+.icon-info {
+    height: 28px;
+}
+
+/* texto sobre */
+.txt-info{
+    font-size: 20px;
+    font-family: Raleway, sans-serif !important;
+    color: black;
+}
+.txt-info:hover{
+    color: #198754;
+}
+
+
+body {
+    
+    font-family: Raleway, sans-serif !important;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    height: 100%;
+}
+
+.rodape {
+    margin-left: 45%;
+}
+
+.logo-lcc {
+    margin-top: 30px;
+}
+
+.navbar-light.navbar-laravel {
+    background-color: white !important;
+}
+
+.navbar-laravel {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
+}
+
+.container {
+    padding-bottom: 10px;
+}
+
+
+
+
+/* footer */
+
+#myFooter .footer-copyright {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+}
+
+#myFooter .footer-copyright p {
+    margin: 10px;
+    color: white
+}
+
+@media screen and (max-width: 767px) {
+    #myFooter {
+        text-align: center;
+    }
+}
+
+html {
+    height: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box !important;
+}
+
+.content {
+    flex: 1 0 auto;
+    -webkit-flex: 1 0 auto;
+}
+
+#myFooter {
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+}
+
+/* img com links */
+.imagemI{
+    margin-top: 8px;
+    margin-bottom: 5px;
+    margin-right: 80px !important;
+    margin-left: -50px;
+    padding-left: 15px;
+    width: 45px !important;
+
+}
+
+a{
+    text-decoration: none !important;
+    color: black !important;
+}
+
+h1{
+    color: black !important;
+}
