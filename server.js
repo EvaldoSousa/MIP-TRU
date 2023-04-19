@@ -18,16 +18,6 @@ const fs = require("fs");
 // parse JSON (application/json content-type)
 app.use(express.json());
 
-// // END-POINT mostrar entrada
-// app.get("/entrada", checkAuthenticated,  (req, res, next) => {
-//   db.query("SELECT * FROM entradas;", [], (err, res2) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     res.json(res2.rows);
-//   });
-// });
-
 // Inicializa o Passport
 const initializePassport = require("./database/passportConfig");
 initializePassport(passport);
